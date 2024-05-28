@@ -1,30 +1,115 @@
 plugins {
-    id 'java'
-    id 'com.github.johnrengelman.shadow' version '2.0.4'
+	id 'idea'
+	id 'eclipse'
+	id 'java-library'
+	id 'maven-publish'
+	id 'org.ajoberstar.grgit' version '5.2.1'
 }
 
-version '1.0-SNAPSHOT'
+group = "${project_group}"
+version = "${project_version}"
 
-sourceCompatibility = 1.8
+eclipse {
+	classpath {
+		downloadSources = true
+	}
+}
+
+idea {
+	module {
+		downloadSources = true
+	}
+}
+
+compileJava {
+	options.encoding = "${compile_charset}"
+}
+
+java {
+	toolchain.languageVersion.set(JavaLanguageVersion.of(compile_target))
+}
 
 repositories {
-    mavenCentral()
-    jcenter()
+	mavenCentral()
 }
 
 dependencies {
-    compile 'com.squareup.okhttp3:okhttp:3.11.0'
-    compile group: 'org.json', name: 'json', version: '20160810'
-}
-jar {
-    manifest {
-        attributes 'Main-Class': 'com.mattmalec.pterodactyl4j'
-    }
-}
-compileJava.options.encoding = 'UTF-8'
+	implementation "com.squareup.okhttp3:okhttp:${okhttp_version}"
+	implementation "org.json:json:${json_version}"
+	implementation "org.slf4j:slf4j-api:${slf4j_version}"
 
-tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
+	api "org.jetbrains:annotations:${annotation_version}"
 }
 
+javadoc {
+	failOnError = false
+	options {
+		memberLevel = JavadocMemberLevel.PUBLIC
+		encoding = "${compile_charset}"
+	}
 
+	exclude("be/raft/pelican/utils/Checks.java",
+			"be/raft/pelican/utils/ExceptionUtils.java",
+			"be/raft/pelican/utils/LockUtils.java",
+			"be/raft/pelican/utils/NamedThreadFactory.java",
+
+			"be/raft/pelican/entities/impl",
+			"be/raft/pelican/application/entities/impl",
+			"be/raft/pelican/client/entities/impl",
+
+			"be/raft/pelican/client/ws/handle",
+			"be/raft/pelican/client/ws/WebSocketClient.java",
+			"be/raft/pelican/client/ws/WebSocketAction.java")
+}
+
+publishing {
+	boolean isSnapshot = System.getenv("RELEASE") != 'true';
+
+	repositories {
+		maven {
+			name 'AtlasWorld-Repo'
+
+			def release = "https://repository.atlasworld.fr/repository/maven-release/"
+			def snapshot = "https://repository.atlasworld.fr/repository/maven-snapshot/"
+			url = isSnapshot ? snapshot : release
+
+			credentials {
+				username = System.getenv("AW_REPO_USERNAME")
+				password = System.getenv("AW_REPO_PASSWORD")
+			}
+
+			metadataSources {
+				gradleMetadata()
+			}
+		}
+	}
+	publications {
+		Pelican4J(MavenPublication) {
+			from components.java
+
+			def snapshot = "${project_version}-${grgit.head().id.subSequence(0, 5)}"
+
+			try {
+				version = isSnapshot ? snapshot : grgit.tag.list().get(0).getName();
+			} catch (IndexOutOfBoundsException e) {
+				version = "undefined"
+			}
+
+			pom {
+				name = 'Pelican4J'
+				description = "Pelican Panel API wrapper for java, based of Matt Malec's Pterodactyl4J library"
+				licenses {
+					license {
+						name = 'Apache 2.0'
+						url = 'https://github.com/Raft08/Pelican4J/blob/master/LICENSE'
+					}
+				}
+			}
+		}
+	}
+}
+
+java {
+	withJavadocJar()
+	withSourcesJar()
+}
