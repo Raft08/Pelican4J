@@ -16,12 +16,12 @@
 
 package be.raft.pelican.client.entities.impl;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.entities.ClientServer;
 import be.raft.pelican.client.entities.Schedule;
 import be.raft.pelican.client.managers.ScheduleAction;
 import be.raft.pelican.client.managers.ScheduleManager;
-import be.raft.pelican.requests.PteroActionImpl;
+import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
 
 public class ScheduleManagerImpl implements ScheduleManager {
@@ -45,8 +45,8 @@ public class ScheduleManagerImpl implements ScheduleManager {
 	}
 
 	@Override
-	public PteroAction<Void> delete(Schedule schedule) {
-		return PteroActionImpl.onRequestExecute(
+	public RequestAction<Void> delete(Schedule schedule) {
+		return RequestActionImpl.onRequestExecute(
 				impl.getP4J(),
 				Route.Schedules.DELETE_SCHEDULE.compile(server.getUUID().toString(), schedule.getId()));
 	}

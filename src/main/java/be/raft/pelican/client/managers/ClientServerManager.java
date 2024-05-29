@@ -16,10 +16,10 @@
 
 package be.raft.pelican.client.managers;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.entities.ClientServer;
 import be.raft.pelican.client.entities.impl.PteroClientImpl;
-import be.raft.pelican.requests.PteroActionImpl;
+import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
 import org.json.JSONObject;
 
@@ -33,16 +33,16 @@ public class ClientServerManager {
 		this.impl = impl;
 	}
 
-	public PteroAction<Void> setName(String name) {
+	public RequestAction<Void> setName(String name) {
 		JSONObject obj = new JSONObject().put("name", name);
-		return PteroActionImpl.onRequestExecute(
+		return RequestActionImpl.onRequestExecute(
 				impl.getP4J(),
 				Route.Client.RENAME_SERVER.compile(server.getIdentifier()),
-				PteroActionImpl.getRequestBody(obj));
+				RequestActionImpl.getRequestBody(obj));
 	}
 
-	public PteroAction<Void> reinstall() {
-		return PteroActionImpl.onRequestExecute(
+	public RequestAction<Void> reinstall() {
+		return RequestActionImpl.onRequestExecute(
 				impl.getP4J(), Route.Client.REINSTALL_SERVER.compile(server.getIdentifier()));
 	}
 }

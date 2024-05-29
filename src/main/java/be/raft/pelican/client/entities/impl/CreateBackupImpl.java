@@ -19,13 +19,13 @@ package be.raft.pelican.client.entities.impl;
 import be.raft.pelican.client.entities.Backup;
 import be.raft.pelican.client.entities.ClientServer;
 import be.raft.pelican.client.managers.BackupAction;
-import be.raft.pelican.requests.PteroActionImpl;
+import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
 import java.util.List;
 import okhttp3.RequestBody;
 import org.json.JSONObject;
 
-public class CreateBackupImpl extends PteroActionImpl<Backup> implements BackupAction {
+public class CreateBackupImpl extends RequestActionImpl<Backup> implements BackupAction {
 
 	private String name;
 	private List<String> files;

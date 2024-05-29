@@ -16,7 +16,7 @@
 
 package be.raft.pelican.application.entities;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.application.managers.LocationAction;
 import java.util.List;
 
@@ -30,11 +30,11 @@ public interface Location extends ISnowflake {
 
 	String getDescription();
 
-	PteroAction<List<Node>> getNodes();
+	RequestAction<List<Node>> getNodes();
 
-	PteroAction<List<ApplicationServer>> getServers();
+	RequestAction<List<ApplicationServer>> getServers();
 
 	LocationAction edit();
 
-	PteroAction<Void> delete();
+	RequestAction<Void> delete();
 }

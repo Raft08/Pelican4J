@@ -18,11 +18,11 @@ package be.raft.pelican.application.managers;
 
 import be.raft.pelican.DataType;
 import be.raft.pelican.EnvironmentValue;
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.application.entities.*;
 import java.util.*;
 
-public interface ServerCreationAction extends PteroAction<ApplicationServer> {
+public interface ServerCreationAction extends RequestAction<ApplicationServer> {
 
 	ServerCreationAction setName(String name);
 

@@ -19,7 +19,7 @@ package be.raft.pelican.client.entities.impl;
 import be.raft.pelican.client.entities.ClientServer;
 import be.raft.pelican.client.entities.GenericFile;
 import be.raft.pelican.client.managers.RenameAction;
-import be.raft.pelican.requests.PteroActionImpl;
+import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,7 +28,7 @@ import okhttp3.RequestBody;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class RenameActionImpl extends PteroActionImpl<Void> implements RenameAction {
+public class RenameActionImpl extends RequestActionImpl<Void> implements RenameAction {
 
 	private final Map<GenericFile, String> files;
 

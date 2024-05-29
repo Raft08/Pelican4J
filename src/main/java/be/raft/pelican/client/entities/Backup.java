@@ -17,7 +17,7 @@
 package be.raft.pelican.client.entities;
 
 import be.raft.pelican.DataType;
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -42,15 +42,15 @@ public interface Backup {
 
 	List<String> getIgnoredFiles();
 
-	PteroAction<String> retrieveDownloadUrl();
+	RequestAction<String> retrieveDownloadUrl();
 
 	OffsetDateTime getTimeCompleted();
 
 	OffsetDateTime getTimeCreated();
 
-	PteroAction<Backup> toggleLock();
+	RequestAction<Backup> toggleLock();
 
-	PteroAction<Void> restore();
+	RequestAction<Void> restore();
 
-	PteroAction<Void> delete();
+	RequestAction<Void> delete();
 }

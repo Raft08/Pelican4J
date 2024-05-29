@@ -16,11 +16,11 @@
 
 package be.raft.pelican.client.entities.impl;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.entities.ClientDatabase;
 import be.raft.pelican.client.entities.ClientServer;
 import be.raft.pelican.entities.impl.DatabasePasswordImpl;
-import be.raft.pelican.requests.CompletedPteroAction;
+import be.raft.pelican.requests.CompletedRequestAction;
 import java.util.Optional;
 import org.json.JSONObject;
 
@@ -70,20 +70,20 @@ public class ClientDatabaseImpl implements ClientDatabase {
 	}
 
 	@Override
-	public PteroAction<String> retrievePassword() {
+	public RequestAction<String> retrievePassword() {
 		if (!json.has("relationships"))
 			return server.retrieveDatabaseById(getId()).map(Optional::get).flatMap(ClientDatabase::retrievePassword);
-		return new CompletedPteroAction<>(
+		return new CompletedRequestAction<>(
 				impl.getP4J(), new DatabasePasswordImpl(relationships.getJSONObject("password")).getPassword());
 	}
 
 	@Override
-	public PteroAction<ClientDatabase> resetPassword() {
+	public RequestAction<ClientDatabase> resetPassword() {
 		return server.getDatabaseManager().resetPassword(this);
 	}
 
 	@Override
-	public PteroAction<Void> delete() {
+	public RequestAction<Void> delete() {
 		return server.getDatabaseManager().deleteDatabase(this);
 	}
 

@@ -16,9 +16,9 @@
 
 package be.raft.pelican.client.entities.impl;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.entities.APIKey;
-import be.raft.pelican.requests.PteroActionImpl;
+import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
 import java.time.OffsetDateTime;
 import java.util.Collections;
@@ -76,8 +76,8 @@ public class APIKeyImpl implements APIKey {
 	}
 
 	@Override
-	public PteroAction<Void> delete() {
-		return PteroActionImpl.onRequestExecute(impl.getP4J(), Route.Accounts.DELETE_API_KEY.compile(getIdentifier()));
+	public RequestAction<Void> delete() {
+		return RequestActionImpl.onRequestExecute(impl.getP4J(), Route.Accounts.DELETE_API_KEY.compile(getIdentifier()));
 	}
 
 	@Override

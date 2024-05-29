@@ -18,14 +18,14 @@ package be.raft.pelican.client.entities.impl;
 
 import be.raft.pelican.ClientType;
 import be.raft.pelican.PowerAction;
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.entities.Account;
 import be.raft.pelican.client.entities.ClientServer;
 import be.raft.pelican.client.entities.PteroClient;
 import be.raft.pelican.client.entities.Utilization;
 import be.raft.pelican.entities.P4J;
 import be.raft.pelican.requests.PaginationAction;
-import be.raft.pelican.requests.PteroActionImpl;
+import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
 import be.raft.pelican.requests.action.impl.PaginationResponseImpl;
 import be.raft.pelican.utils.StreamUtils;
@@ -46,30 +46,30 @@ public class PteroClientImpl implements PteroClient {
 	}
 
 	@Override
-	public PteroAction<Account> retrieveAccount() {
-		return PteroActionImpl.onRequestExecute(
+	public RequestAction<Account> retrieveAccount() {
+		return RequestActionImpl.onRequestExecute(
 				api,
 				Route.Accounts.GET_ACCOUNT.compile(),
 				(response, request) -> new AccountImpl(response.getObject(), this));
 	}
 
 	@Override
-	public PteroAction<Void> setPower(ClientServer server, PowerAction powerAction) {
+	public RequestAction<Void> setPower(ClientServer server, PowerAction powerAction) {
 		JSONObject obj = new JSONObject().put("signal", powerAction.name().toLowerCase());
-		return PteroActionImpl.onRequestExecute(
-				api, Route.Client.SET_POWER.compile(server.getIdentifier()), PteroActionImpl.getRequestBody(obj));
+		return RequestActionImpl.onRequestExecute(
+				api, Route.Client.SET_POWER.compile(server.getIdentifier()), RequestActionImpl.getRequestBody(obj));
 	}
 
 	@Override
-	public PteroAction<Void> sendCommand(ClientServer server, String command) {
+	public RequestAction<Void> sendCommand(ClientServer server, String command) {
 		JSONObject obj = new JSONObject().put("command", command);
-		return PteroActionImpl.onRequestExecute(
-				api, Route.Client.SEND_COMMAND.compile(server.getIdentifier()), PteroActionImpl.getRequestBody(obj));
+		return RequestActionImpl.onRequestExecute(
+				api, Route.Client.SEND_COMMAND.compile(server.getIdentifier()), RequestActionImpl.getRequestBody(obj));
 	}
 
 	@Override
-	public PteroAction<Utilization> retrieveUtilization(ClientServer server) {
-		return PteroActionImpl.onRequestExecute(
+	public RequestAction<Utilization> retrieveUtilization(ClientServer server) {
+		return RequestActionImpl.onRequestExecute(
 				api,
 				Route.Client.GET_UTILIZATION.compile(server.getIdentifier()),
 				(response, request) -> new UtilizationImpl(response.getObject()));
@@ -85,16 +85,16 @@ public class PteroClientImpl implements PteroClient {
 	}
 
 	@Override
-	public PteroAction<ClientServer> retrieveServerByIdentifier(String identifier) {
-		return PteroActionImpl.onRequestExecute(
+	public RequestAction<ClientServer> retrieveServerByIdentifier(String identifier) {
+		return RequestActionImpl.onRequestExecute(
 				api,
 				Route.Client.GET_SERVER.compile(identifier),
 				(response, request) -> new ClientServerImpl(response.getObject(), this));
 	}
 
 	@Override
-	public PteroAction<List<ClientServer>> retrieveServersByName(String name, boolean caseSensitive) {
-		return PteroActionImpl.onExecute(api, () -> {
+	public RequestAction<List<ClientServer>> retrieveServersByName(String name, boolean caseSensitive) {
+		return RequestActionImpl.onExecute(api, () -> {
 			Stream<ClientServer> servers = retrieveServers().stream();
 
 			if (caseSensitive) {

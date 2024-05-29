@@ -17,7 +17,7 @@
 package be.raft.pelican.client.entities;
 
 import be.raft.pelican.PowerAction;
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.managers.*;
 import be.raft.pelican.entities.Server;
 import be.raft.pelican.requests.PaginationAction;
@@ -54,35 +54,35 @@ public interface ClientServer extends Server {
 
 	ClientServerManager getManager();
 
-	PteroAction<Utilization> retrieveUtilization();
+	RequestAction<Utilization> retrieveUtilization();
 
-	PteroAction<Void> setPower(PowerAction powerAction);
+	RequestAction<Void> setPower(PowerAction powerAction);
 
-	default PteroAction<Void> start() {
+	default RequestAction<Void> start() {
 		return setPower(PowerAction.START);
 	}
 
-	default PteroAction<Void> stop() {
+	default RequestAction<Void> stop() {
 		return setPower(PowerAction.STOP);
 	}
 
-	default PteroAction<Void> restart() {
+	default RequestAction<Void> restart() {
 		return setPower(PowerAction.RESTART);
 	}
 
-	default PteroAction<Void> kill() {
+	default RequestAction<Void> kill() {
 		return setPower(PowerAction.KILL);
 	}
 
-	PteroAction<Void> sendCommand(String command);
+	RequestAction<Void> sendCommand(String command);
 
 	WebSocketBuilder getWebSocketBuilder();
 
 	List<ClientSubuser> getSubusers();
 
-	PteroAction<ClientSubuser> retrieveSubuser(UUID uuid);
+	RequestAction<ClientSubuser> retrieveSubuser(UUID uuid);
 
-	default PteroAction<ClientSubuser> retrieveSubuser(String uuid) {
+	default RequestAction<ClientSubuser> retrieveSubuser(String uuid) {
 		return retrieveSubuser(UUID.fromString(uuid));
 	}
 
@@ -90,43 +90,43 @@ public interface ClientServer extends Server {
 
 	PaginationAction<Backup> retrieveBackups();
 
-	PteroAction<Backup> retrieveBackup(UUID uuid);
+	RequestAction<Backup> retrieveBackup(UUID uuid);
 
-	default PteroAction<Backup> retrieveBackup(String uuid) {
+	default RequestAction<Backup> retrieveBackup(String uuid) {
 		return retrieveBackup(UUID.fromString(uuid));
 	}
 
 	BackupManager getBackupManager();
 
-	PteroAction<List<Schedule>> retrieveSchedules();
+	RequestAction<List<Schedule>> retrieveSchedules();
 
-	default PteroAction<Schedule> retrieveSchedule(long id) {
+	default RequestAction<Schedule> retrieveSchedule(long id) {
 		return retrieveSchedule(Long.toUnsignedString(id));
 	}
 
-	PteroAction<Schedule> retrieveSchedule(String id);
+	RequestAction<Schedule> retrieveSchedule(String id);
 
 	ScheduleManager getScheduleManager();
 
 	FileManager getFileManager();
 
-	default PteroAction<Directory> retrieveDirectory() {
+	default RequestAction<Directory> retrieveDirectory() {
 		return retrieveDirectory("/");
 	}
 
-	PteroAction<Directory> retrieveDirectory(Directory previousDirectory, Directory directory);
+	RequestAction<Directory> retrieveDirectory(Directory previousDirectory, Directory directory);
 
-	PteroAction<Directory> retrieveDirectory(String path);
+	RequestAction<Directory> retrieveDirectory(String path);
 
-	PteroAction<List<ClientDatabase>> retrieveDatabases();
+	RequestAction<List<ClientDatabase>> retrieveDatabases();
 
-	default PteroAction<Optional<ClientDatabase>> retrieveDatabaseById(String id) {
+	default RequestAction<Optional<ClientDatabase>> retrieveDatabaseById(String id) {
 		return retrieveDatabases()
 				.map(List::stream)
 				.map(stream -> stream.filter(db -> db.getId().equals(id)).findFirst());
 	}
 
-	default PteroAction<Optional<ClientDatabase>> retrieveDatabaseByName(String name, boolean caseSensitive) {
+	default RequestAction<Optional<ClientDatabase>> retrieveDatabaseByName(String name, boolean caseSensitive) {
 		return retrieveDatabases().map(List::stream).map(stream -> stream.filter(db -> caseSensitive
 						? db.getName().contains(name)
 						: db.getName().toLowerCase().contains(name.toLowerCase()))

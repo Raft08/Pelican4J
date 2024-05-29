@@ -16,12 +16,12 @@
 
 package be.raft.pelican.application.entities.impl;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.application.entities.ApplicationServer;
 import be.raft.pelican.application.entities.ApplicationUser;
 import be.raft.pelican.application.managers.UserAction;
-import be.raft.pelican.requests.CompletedPteroAction;
-import be.raft.pelican.requests.PteroActionImpl;
+import be.raft.pelican.requests.CompletedRequestAction;
+import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -93,7 +93,7 @@ public class ApplicationUserImpl implements ApplicationUser {
 	}
 
 	@Override
-	public PteroAction<List<ApplicationServer>> retrieveServers() {
+	public RequestAction<List<ApplicationServer>> retrieveServers() {
 		if (!json.has("relationships")) return impl.retrieveServersByOwner(this);
 
 		List<ApplicationServer> servers = new ArrayList<>();
@@ -102,7 +102,7 @@ public class ApplicationUserImpl implements ApplicationUser {
 			JSONObject server = new JSONObject(o.toString());
 			servers.add(new ApplicationServerImpl(impl, server));
 		}
-		return new CompletedPteroAction<>(impl.getP4J(), Collections.unmodifiableList(servers));
+		return new CompletedRequestAction<>(impl.getP4J(), Collections.unmodifiableList(servers));
 	}
 
 	@Override
@@ -121,8 +121,8 @@ public class ApplicationUserImpl implements ApplicationUser {
 	}
 
 	@Override
-	public PteroAction<Void> delete() {
-		return PteroActionImpl.onRequestExecute(impl.getP4J(), Route.Users.DELETE_USER.compile(getId()));
+	public RequestAction<Void> delete() {
+		return RequestActionImpl.onRequestExecute(impl.getP4J(), Route.Users.DELETE_USER.compile(getId()));
 	}
 
 	@Override

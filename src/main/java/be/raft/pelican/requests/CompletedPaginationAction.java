@@ -16,7 +16,7 @@
 
 package be.raft.pelican.requests;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.entities.P4J;
 import be.raft.pelican.exceptions.RateLimitedException;
 import be.raft.pelican.requests.action.impl.PaginationActionImpl;
@@ -59,10 +59,10 @@ public class CompletedPaginationAction<T> extends PaginationActionImpl<T> {
 	@Override
 	public void executeAsync(Consumer<? super List<T>> success, Consumer<? super Throwable> failure) {
 		if (error == null) {
-			if (success == null) PteroAction.getDefaultSuccess().accept(value);
+			if (success == null) RequestAction.getDefaultSuccess().accept(value);
 			else success.accept(value);
 		} else {
-			if (failure == null) PteroAction.getDefaultFailure().accept(error);
+			if (failure == null) RequestAction.getDefaultFailure().accept(error);
 			else failure.accept(error);
 		}
 	}

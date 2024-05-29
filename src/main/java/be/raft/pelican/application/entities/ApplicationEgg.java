@@ -17,7 +17,7 @@
 package be.raft.pelican.application.entities;
 
 import be.raft.pelican.EnvironmentValue;
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.application.managers.ServerController;
 import be.raft.pelican.client.entities.ClientServer;
 import be.raft.pelican.client.managers.ClientServerManager;
@@ -35,9 +35,9 @@ public interface ApplicationEgg extends Egg, ISnowflake {
 	/**
 	 * The Nest the ApplicationEgg is associated with
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link be.raft.pelican.application.entities.Nest Nest}
+	 * @return {@link RequestAction PteroAction} - Type {@link be.raft.pelican.application.entities.Nest Nest}
 	 */
-	PteroAction<Nest> retrieveNest();
+	RequestAction<Nest> retrieveNest();
 
 	/**
 	 * The egg variables assigned to the ApplicationEgg

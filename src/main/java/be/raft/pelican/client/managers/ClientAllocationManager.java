@@ -16,16 +16,16 @@
 
 package be.raft.pelican.client.managers;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.entities.ClientAllocation;
 
 public interface ClientAllocationManager {
 
-	PteroAction<ClientAllocation> setNote(ClientAllocation allocation, String note);
+	RequestAction<ClientAllocation> setNote(ClientAllocation allocation, String note);
 
-	PteroAction<Void> unassignAllocation(ClientAllocation allocation);
+	RequestAction<Void> unassignAllocation(ClientAllocation allocation);
 
-	PteroAction<ClientAllocation> assignAllocation();
+	RequestAction<ClientAllocation> assignAllocation();
 
-	PteroAction<ClientAllocation> setPrimary(ClientAllocation allocation);
+	RequestAction<ClientAllocation> setPrimary(ClientAllocation allocation);
 }

@@ -16,7 +16,7 @@
 
 package be.raft.pelican.application.managers;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.application.entities.Node;
 
 public interface NodeManager {
@@ -25,5 +25,5 @@ public interface NodeManager {
 
 	NodeAction editNode(Node node);
 
-	PteroAction<Void> deleteNode(Node node);
+	RequestAction<Void> deleteNode(Node node);
 }

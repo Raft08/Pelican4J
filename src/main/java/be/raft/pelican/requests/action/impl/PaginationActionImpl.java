@@ -18,7 +18,7 @@ package be.raft.pelican.requests.action.impl;
 
 import be.raft.pelican.entities.P4J;
 import be.raft.pelican.requests.PaginationAction;
-import be.raft.pelican.requests.PteroActionImpl;
+import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
 import be.raft.pelican.utils.Checks;
 import be.raft.pelican.utils.P4JLogger;
@@ -32,7 +32,7 @@ import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import org.slf4j.Logger;
 
-public abstract class PaginationActionImpl<T> extends PteroActionImpl<List<T>> implements PaginationAction<T> {
+public abstract class PaginationActionImpl<T> extends RequestActionImpl<List<T>> implements PaginationAction<T> {
 
 	protected static final Logger PAGINATION_LOG = P4JLogger.getLogger(PaginationAction.class);
 

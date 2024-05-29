@@ -16,10 +16,10 @@
 
 package be.raft.pelican.client.managers;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.entities.Directory;
 
-public interface CreateDirectoryAction extends PteroAction<Void> {
+public interface CreateDirectoryAction extends RequestAction<Void> {
 
 	CreateDirectoryAction setName(String name);
 

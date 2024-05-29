@@ -16,22 +16,22 @@
 
 package be.raft.pelican.requests.action.operator;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
 // big thanks to JDA for this tremendous code
 
-public class FlatMapPteroAction<I, O> extends PteroActionOperator<I, O> {
+public class FlatMapRequestAction<I, O> extends RequestActionOperator<I, O> {
 
-	private final Function<? super I, ? extends PteroAction<O>> function;
+	private final Function<? super I, ? extends RequestAction<O>> function;
 	private final Predicate<? super I> condition;
 
-	public FlatMapPteroAction(
-			PteroAction<I> action,
+	public FlatMapRequestAction(
+			RequestAction<I> action,
 			Predicate<? super I> condition,
-			Function<? super I, ? extends PteroAction<O>> function) {
+			Function<? super I, ? extends RequestAction<O>> function) {
 		super(action);
 		this.function = function;
 		this.condition = condition;
@@ -42,7 +42,7 @@ public class FlatMapPteroAction<I, O> extends PteroActionOperator<I, O> {
 		action.executeAsync(
 				(result) -> {
 					if (condition != null && !condition.test(result)) return;
-					PteroAction<O> then = function.apply(result);
+					RequestAction<O> then = function.apply(result);
 					if (then == null) doFailure(failure, new IllegalStateException("FlatMap operand is null"));
 					else then.executeAsync(success, failure);
 				},

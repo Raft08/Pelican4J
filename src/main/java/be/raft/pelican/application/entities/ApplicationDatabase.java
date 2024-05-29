@@ -16,7 +16,7 @@
 
 package be.raft.pelican.application.entities;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.entities.Database;
 import org.jetbrains.annotations.NotNull;
 
@@ -30,7 +30,7 @@ public interface ApplicationDatabase extends Database, ISnowflake {
 	 *
 	 * @return Server the database is from
 	 */
-	PteroAction<ApplicationServer> retrieveServer();
+	RequestAction<ApplicationServer> retrieveServer();
 
 	/**
 	 * Retrieve the server id as a long.
@@ -54,7 +54,7 @@ public interface ApplicationDatabase extends Database, ISnowflake {
 	 *
 	 * @return Host
 	 */
-	PteroAction<DatabaseHost> retrieveHost();
+	RequestAction<DatabaseHost> retrieveHost();
 
 	/**
 	 * Retrieve the host id as a long.
@@ -78,7 +78,7 @@ public interface ApplicationDatabase extends Database, ISnowflake {
 	 *
 	 * @return Void
 	 */
-	PteroAction<Void> resetPassword();
+	RequestAction<Void> resetPassword();
 
 	/**
 	 * Represents a {@link DatabaseHost} for a {@link ApplicationServer}.
@@ -120,6 +120,6 @@ public interface ApplicationDatabase extends Database, ISnowflake {
 		 *
 		 * @return Node
 		 */
-		PteroAction<Node> retrieveNode();
+		RequestAction<Node> retrieveNode();
 	}
 }

@@ -16,10 +16,10 @@
 
 package be.raft.pelican.client.managers;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.entities.GenericFile;
 
-public interface RenameAction extends PteroAction<Void> {
+public interface RenameAction extends RequestAction<Void> {
 
 	RenameAction addFile(GenericFile file, String newName);
 

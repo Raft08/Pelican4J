@@ -24,7 +24,7 @@ public class RequestFuture<T> extends CompletableFuture<T> {
 	private final Request<T> request;
 
 	public RequestFuture(
-			PteroActionImpl<T> action,
+			RequestActionImpl<T> action,
 			Route.CompiledRoute route,
 			RequestBody requestBody,
 			boolean shouldQueue,

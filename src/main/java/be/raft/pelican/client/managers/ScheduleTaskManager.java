@@ -16,7 +16,7 @@
 
 package be.raft.pelican.client.managers;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.entities.Schedule;
 
 public interface ScheduleTaskManager {
@@ -25,5 +25,5 @@ public interface ScheduleTaskManager {
 
 	ScheduleTaskAction editTask(Schedule.ScheduleTask task);
 
-	PteroAction<Void> deleteTask(Schedule.ScheduleTask task);
+	RequestAction<Void> deleteTask(Schedule.ScheduleTask task);
 }

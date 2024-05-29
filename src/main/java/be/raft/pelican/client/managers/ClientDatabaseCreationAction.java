@@ -16,16 +16,16 @@
 
 package be.raft.pelican.client.managers;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.entities.ClientDatabase;
 
 /**
- * {@link be.raft.pelican.PteroAction PteroAction} extension designed for the creation of
+ * {@link RequestAction PteroAction} extension designed for the creation of
  * {@link be.raft.pelican.client.entities.ClientDatabase ClientDatabases}
  *
  * @see ClientDatabaseManager#createDatabase
  */
-public interface ClientDatabaseCreationAction extends PteroAction<ClientDatabase> {
+public interface ClientDatabaseCreationAction extends RequestAction<ClientDatabase> {
 
 	/**
 	 * Sets the name for this {@link be.raft.pelican.client.entities.ClientDatabase ClientDatabase}.

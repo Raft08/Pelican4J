@@ -16,7 +16,7 @@
 
 package be.raft.pelican.requests.action.operator;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.exceptions.PteroException;
 import be.raft.pelican.utils.ExceptionUtils;
 import java.util.function.Consumer;
@@ -25,13 +25,13 @@ import java.util.function.Predicate;
 
 // big thanks to JDA for this tremendous code
 
-public class MapErrorPteroAction<T> extends PteroActionOperator<T, T> {
+public class MapErrorRequestAction<T> extends RequestActionOperator<T, T> {
 
 	private final Predicate<? super Throwable> check;
 	private final Function<? super Throwable, ? extends T> map;
 
-	public MapErrorPteroAction(
-			PteroAction<T> action, Predicate<? super Throwable> check, Function<? super Throwable, ? extends T> map) {
+	public MapErrorRequestAction(
+			RequestAction<T> action, Predicate<? super Throwable> check, Function<? super Throwable, ? extends T> map) {
 		super(action);
 		this.check = check;
 		this.map = map;

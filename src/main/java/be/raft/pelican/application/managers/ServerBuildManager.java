@@ -17,7 +17,7 @@
 package be.raft.pelican.application.managers;
 
 import be.raft.pelican.DataType;
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.application.entities.ApplicationAllocation;
 import be.raft.pelican.application.entities.ApplicationServer;
 
@@ -34,7 +34,7 @@ import be.raft.pelican.application.entities.ApplicationServer;
  *
  * @see ApplicationServer#getBuildManager()
  */
-public interface ServerBuildManager extends PteroAction<ApplicationServer> {
+public interface ServerBuildManager extends RequestAction<ApplicationServer> {
 
 	// The following bits are used internally, but are here in case something user-facing is added in the future
 

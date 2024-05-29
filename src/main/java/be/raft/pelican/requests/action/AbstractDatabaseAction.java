@@ -17,13 +17,13 @@
 package be.raft.pelican.requests.action;
 
 import be.raft.pelican.entities.P4J;
-import be.raft.pelican.requests.PteroActionImpl;
+import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Request;
 import be.raft.pelican.requests.Response;
 import be.raft.pelican.requests.Route;
 import java.util.function.BiFunction;
 
-public abstract class AbstractDatabaseAction<T> extends PteroActionImpl<T> {
+public abstract class AbstractDatabaseAction<T> extends RequestActionImpl<T> {
 
 	protected String name;
 	protected String remote;

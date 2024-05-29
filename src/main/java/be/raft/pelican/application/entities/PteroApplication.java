@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2022 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2021-2024 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -12,23 +12,36 @@
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
+ * 
+ *    ============================================================================== 
+ * 
+ *    Copyright $YEAR RaftDev, and the Pelican4J contributors
+ * 
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
  */
 
 package be.raft.pelican.application.entities;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.PelicanBuilder;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.application.managers.LocationManager;
 import be.raft.pelican.application.managers.NodeManager;
 import be.raft.pelican.application.managers.ServerCreationAction;
 import be.raft.pelican.application.managers.UserManager;
 import be.raft.pelican.requests.PaginationAction;
 import be.raft.pelican.utils.StreamUtils;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 /**
  * The core of PteroApplication. All parts of the the PteroApplication API can be accessed starting from this class.
  *
- * @see be.raft.pelican.PteroBuilder PteroBuilder
+ * @see PelicanBuilder PteroBuilder
  */
 public interface PteroApplication {
 
@@ -36,7 +49,7 @@ public interface PteroApplication {
 	 * Retrieves all of the ApplicationUsers from the Pterodactyl instance
 	 * <br>This requires an <b>Application API key</b> with the <b>Users</b> permission with <b>Read</b> access.
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.ApplicationUser ApplicationUsers}
+	 * @return {@link RequestAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.ApplicationUser ApplicationUsers}
 	 */
 	PaginationAction<ApplicationUser> retrieveUsers();
 
@@ -53,9 +66,9 @@ public interface PteroApplication {
 	 * @throws be.raft.pelican.exceptions.NotFoundException
 	 * 		   If the user cannot be found
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link be.raft.pelican.application.entities.ApplicationUser ApplicationUsers}
+	 * @return {@link RequestAction PteroAction} - Type {@link be.raft.pelican.application.entities.ApplicationUser ApplicationUsers}
 	 */
-	PteroAction<ApplicationUser> retrieveUserById(String id);
+	RequestAction<ApplicationUser> retrieveUserById(String id);
 
 	/**
 	 * Retrieves an individual ApplicationUser represented by the provided id from Pterodactyl instance
@@ -70,9 +83,9 @@ public interface PteroApplication {
 	 * @throws be.raft.pelican.exceptions.NotFoundException
 	 * 		   If the user cannot be found
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link be.raft.pelican.application.entities.ApplicationUser ApplicationUsers}
+	 * @return {@link RequestAction PteroAction} - Type {@link be.raft.pelican.application.entities.ApplicationUser ApplicationUsers}
 	 */
-	default PteroAction<ApplicationUser> retrieveUserById(long id) {
+	default RequestAction<ApplicationUser> retrieveUserById(long id) {
 		return retrieveUserById(Long.toUnsignedString(id));
 	}
 
@@ -91,9 +104,9 @@ public interface PteroApplication {
 	 * @throws be.raft.pelican.exceptions.NotFoundException
 	 * 		   If the user cannot be found
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.ApplicationUser ApplicationUsers}
+	 * @return {@link RequestAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.ApplicationUser ApplicationUsers}
 	 */
-	PteroAction<List<ApplicationUser>> retrieveUsersByUsername(String name, boolean caseSensitive);
+	RequestAction<List<ApplicationUser>> retrieveUsersByUsername(String name, boolean caseSensitive);
 
 	/**
 	 * Retrieves ApplicationUsers matching the provided email from Pterodactyl instance
@@ -110,9 +123,9 @@ public interface PteroApplication {
 	 * @throws be.raft.pelican.exceptions.NotFoundException
 	 * 		   If the user cannot be found
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.ApplicationUser ApplicationUsers}
+	 * @return {@link RequestAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.ApplicationUser ApplicationUsers}
 	 */
-	PteroAction<List<ApplicationUser>> retrieveUsersByEmail(String email, boolean caseSensitive);
+	RequestAction<List<ApplicationUser>> retrieveUsersByEmail(String email, boolean caseSensitive);
 
 	/**
 	 * Returns the {@link be.raft.pelican.application.managers.UserManager UserManager}, used to create, edit, and delete ApplicationUsers from the Pterodactyl instance
@@ -129,7 +142,7 @@ public interface PteroApplication {
 	 * @throws be.raft.pelican.exceptions.LoginException
 	 *         If the API key is incorrect or doesn't have the required permissions
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.Node Nodes}
+	 * @return {@link RequestAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.Node Nodes}
 	 */
 	PaginationAction<Node> retrieveNodes();
 
@@ -146,9 +159,9 @@ public interface PteroApplication {
 	 * @throws be.raft.pelican.exceptions.NotFoundException
 	 * 		   If the node cannot be found
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link be.raft.pelican.application.entities.Node Node}
+	 * @return {@link RequestAction PteroAction} - Type {@link be.raft.pelican.application.entities.Node Node}
 	 */
-	PteroAction<Node> retrieveNodeById(String id);
+	RequestAction<Node> retrieveNodeById(String id);
 
 	/**
 	 * Retrieves an individual Node represented by the provided id from Pterodactyl instance
@@ -163,9 +176,9 @@ public interface PteroApplication {
 	 * @throws be.raft.pelican.exceptions.NotFoundException
 	 * 		   If the node cannot be found
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link be.raft.pelican.application.entities.Node Node}
+	 * @return {@link RequestAction PteroAction} - Type {@link be.raft.pelican.application.entities.Node Node}
 	 */
-	default PteroAction<Node> retrieveNodeById(long id) {
+	default RequestAction<Node> retrieveNodeById(long id) {
 		return retrieveNodeById(Long.toUnsignedString(id));
 	}
 
@@ -181,9 +194,9 @@ public interface PteroApplication {
 	 * @throws be.raft.pelican.exceptions.LoginException
 	 *         If the API key is incorrect or doesn't have the required permissions
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.Node Nodes}
+	 * @return {@link RequestAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.Node Nodes}
 	 */
-	PteroAction<List<Node>> retrieveNodesByName(String name, boolean caseSensitive);
+	RequestAction<List<Node>> retrieveNodesByName(String name, boolean caseSensitive);
 
 	/**
 	 * Retrieves Nodes matching the provided {@link be.raft.pelican.application.entities.Location Location} from Pterodactyl instance
@@ -198,9 +211,9 @@ public interface PteroApplication {
 	 * @throws be.raft.pelican.exceptions.NotFoundException
 	 * 		   If the user cannot be found
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.Node Nodes}
+	 * @return {@link RequestAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.Node Nodes}
 	 */
-	PteroAction<List<Node>> retrieveNodesByLocation(Location location);
+	RequestAction<List<Node>> retrieveNodesByLocation(Location location);
 
 	/**
 	 * Returns the {@link be.raft.pelican.application.managers.NodeManager NodeManager}, used to create, edit, and delete Nodes from the Pterodactyl instance
@@ -223,9 +236,9 @@ public interface PteroApplication {
 	 * @throws be.raft.pelican.exceptions.NotFoundException
 	 * 		   If the allocation cannot be found
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link ApplicationAllocation Allocation}
+	 * @return {@link RequestAction PteroAction} - Type {@link ApplicationAllocation Allocation}
 	 */
-	PteroAction<ApplicationAllocation> retrieveAllocationById(String id);
+	RequestAction<ApplicationAllocation> retrieveAllocationById(String id);
 
 	/**
 	 * Retrieves an individual Allocation represented by the provided id from Pterodactyl instance
@@ -240,9 +253,9 @@ public interface PteroApplication {
 	 * @throws be.raft.pelican.exceptions.NotFoundException
 	 * 		   If the allocation cannot be found
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link ApplicationAllocation Allocation}
+	 * @return {@link RequestAction PteroAction} - Type {@link ApplicationAllocation Allocation}
 	 */
-	default PteroAction<ApplicationAllocation> retrieveAllocationById(long id) {
+	default RequestAction<ApplicationAllocation> retrieveAllocationById(long id) {
 		return retrieveAllocationById(Long.toUnsignedString(id));
 	}
 
@@ -256,7 +269,7 @@ public interface PteroApplication {
 	 * @throws be.raft.pelican.exceptions.LoginException
 	 *         If the API key is incorrect or doesn't have the required permissions
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link java.util.List List} of {@link ApplicationAllocation Allocations}
+	 * @return {@link RequestAction PteroAction} - Type {@link java.util.List List} of {@link ApplicationAllocation Allocations}
 	 */
 	PaginationAction<ApplicationAllocation> retrieveAllocationsByNode(Node node);
 
@@ -267,95 +280,9 @@ public interface PteroApplication {
 	 * @throws be.raft.pelican.exceptions.LoginException
 	 *         If the API key is incorrect or doesn't have the required permissions
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link java.util.List List} of {@link ApplicationAllocation Allocations}
+	 * @return {@link RequestAction PteroAction} - Type {@link java.util.List List} of {@link ApplicationAllocation Allocations}
 	 */
-	PteroAction<List<ApplicationAllocation>> retrieveAllocations();
-
-	/**
-	 * Retrieves all of the Locations from the Pterodactyl instance
-	 * <br>This requires an <b>Application API key</b> with the <b>Locations</b> permission with <b>Read</b> access.
-	 *
-	 * @throws be.raft.pelican.exceptions.LoginException
-	 *         If the API key is incorrect or doesn't have the required permissions
-	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.Location Locations}
-	 */
-	PaginationAction<Location> retrieveLocations();
-
-	/**
-	 * Retrieves an individual Location represented by the provided id from Pterodactyl instance
-	 * <br>This requires an <b>Application API key</b> with the <b>Locations</b> permission with <b>Read</b> access.
-	 *
-	 * @param  id
-	 *         The location id
-	 *
-	 * @throws be.raft.pelican.exceptions.LoginException
-	 *         If the API key is incorrect or doesn't have the required permissions
-	 *
-	 * @throws be.raft.pelican.exceptions.NotFoundException
-	 * 		   If the location cannot be found
-	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link be.raft.pelican.application.entities.Location Location}
-	 */
-	PteroAction<Location> retrieveLocationById(String id);
-
-	/**
-	 * Retrieves an individual Location represented by the provided id from Pterodactyl instance
-	 * <br>This requires an <b>Application API key</b> with the <b>Locations</b> permission with <b>Read</b> access.
-	 *
-	 * @param  id
-	 *         The location id
-	 *
-	 * @throws be.raft.pelican.exceptions.LoginException
-	 *         If the API key is incorrect or doesn't have the required permissions
-	 *
-	 * @throws be.raft.pelican.exceptions.NotFoundException
-	 * 		   If the location cannot be found
-	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link be.raft.pelican.application.entities.Location Location}
-	 */
-	default PteroAction<Location> retrieveLocationById(long id) {
-		return retrieveLocationById(Long.toUnsignedString(id));
-	}
-
-	/**
-	 * Retrieves Locations matching the provided short code from Pterodactyl instance
-	 * <br>This requires an <b>Application API key</b> with the <b>Locations</b> permission with <b>Read</b> access.
-	 *
-	 * @param  name
-	 *         The short code
-	 *
-	 * @param caseSensitive
-	 * 		   True - If P4J should search using case sensitivity
-	 *
-	 * @throws be.raft.pelican.exceptions.LoginException
-	 *         If the API key is incorrect or doesn't have the required permissions
-	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.Location Locations}
-	 */
-	PteroAction<List<Location>> retrieveLocationsByShortCode(String name, boolean caseSensitive);
-
-	/**
-	 * Returns the {@link be.raft.pelican.application.managers.LocationManager LocationManager}, used to create, edit, and delete Locations from the Pterodactyl instance
-	 * <br>Executing any of the containing methods requires an <b>Application API key</b> with the <b>Locations</b> permission with <b>Read &amp; Write</b> access.
-	 *
-	 * @return The Location Manager
-	 */
-	LocationManager getLocationManager();
-
-	/**
-	 * Retrieves ApplicationEggs from the provided {@link be.raft.pelican.application.entities.Nest Nest} from Pterodactyl instance
-	 * <br>This requires an <b>Application API key</b> with the <b>Nests</b> and <b>Eggs</b> permissions with <b>Read</b> access.
-	 *
-	 * @param  nest
-	 *         The nest
-	 *
-	 * @throws be.raft.pelican.exceptions.LoginException
-	 *         If the API key is incorrect or doesn't have the required permissions
-	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.ApplicationEgg ApplicationEggs}
-	 */
-	PteroAction<List<ApplicationEgg>> retrieveEggsByNest(Nest nest);
+	RequestAction<List<ApplicationAllocation>> retrieveAllocations();
 
 	/**
 	 * Retrieves all of the ApplicationEggs from the Pterodactyl instance
@@ -365,9 +292,28 @@ public interface PteroApplication {
 	 * @throws be.raft.pelican.exceptions.LoginException
 	 *         If the API key is incorrect or doesn't have the required permissions
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.ApplicationEgg ApplicationEggs}
+	 * @return {@link RequestAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.ApplicationEgg ApplicationEggs}
 	 */
-	PteroAction<List<ApplicationEgg>> retrieveEggs();
+	RequestAction<List<ApplicationEgg>> retrieveEggs();
+
+	/**
+	 * Retrieves an individual ApplicationEgg represented by the provided {@link be.raft.pelican.application.entities.Nest Nest} and id from Pterodactyl instance
+	 * <br>This requires an <b>Application API key</b> with the <b>Nests</b> and <b>Eggs</b> permissions with <b>Read</b> access.
+	 *
+	 * @param  nest
+	 *         The nest
+	 *
+	 * @param  id The (integer) identifier of the egg
+	 *
+	 * @throws be.raft.pelican.exceptions.LoginException
+	 *         If the API key is incorrect or doesn't have the required permissions
+	 *
+	 * @throws be.raft.pelican.exceptions.NotFoundException
+	 * 		   If the egg cannot be found
+	 *
+	 * @return {@link RequestAction PteroAction} - Type {@link be.raft.pelican.application.entities.ApplicationEgg ApplicationEgg}
+	 */
+	RequestAction<ApplicationEgg> retrieveEggById(@NotNull String id);
 
 	/**
 	 * Retrieves an individual ApplicationEgg represented by the provided {@link be.raft.pelican.application.entities.Nest Nest} and id from Pterodactyl instance
@@ -385,111 +331,11 @@ public interface PteroApplication {
 	 * @throws be.raft.pelican.exceptions.NotFoundException
 	 * 		   If the egg cannot be found
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link be.raft.pelican.application.entities.ApplicationEgg ApplicationEgg}
+	 * @return {@link RequestAction PteroAction} - Type {@link be.raft.pelican.application.entities.ApplicationEgg ApplicationEgg}
 	 */
-	PteroAction<ApplicationEgg> retrieveEggById(Nest nest, String id);
-
-	/**
-	 * Retrieves an individual ApplicationEgg represented by the provided {@link be.raft.pelican.application.entities.Nest Nest} and id from Pterodactyl instance
-	 * <br>This requires an <b>Application API key</b> with the <b>Nests</b> and <b>Eggs</b> permissions with <b>Read</b> access.
-	 *
-	 * @param  nest
-	 *         The nest
-	 *
-	 * @param  id
-	 * 		   The id of the egg from in nest
-	 *
-	 * @throws be.raft.pelican.exceptions.LoginException
-	 *         If the API key is incorrect or doesn't have the required permissions
-	 *
-	 * @throws be.raft.pelican.exceptions.NotFoundException
-	 * 		   If the egg cannot be found
-	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link be.raft.pelican.application.entities.ApplicationEgg ApplicationEgg}
-	 */
-	default PteroAction<ApplicationEgg> retrieveEggById(Nest nest, long id) {
-		return retrieveEggById(nest, Long.toUnsignedString(id));
+	default RequestAction<ApplicationEgg> retrieveEggById(long id) {
+		return retrieveEggById(Long.toUnsignedString(id));
 	}
-
-	/**
-	 * Retrieves an individual Nest represented by the provided id from Pterodactyl instance
-	 * <br>This requires an <b>Application API key</b> with the <b>Nests</b> permission with <b>Read</b> access.
-	 *
-	 * @param  id
-	 *         The id
-	 *
-	 * @throws be.raft.pelican.exceptions.LoginException
-	 *         If the API key is incorrect or doesn't have the required permissions
-	 *
-	 * @throws be.raft.pelican.exceptions.NotFoundException
-	 * 		   If the egg cannot be found
-	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link be.raft.pelican.application.entities.Nest Nest}
-	 */
-	PteroAction<Nest> retrieveNestById(String id);
-
-	/**
-	 * Retrieves an individual Nest represented by the provided id from Pterodactyl instance
-	 * <br>This requires an <b>Application API key</b> with the <b>Nests</b> permission with <b>Read</b> access.
-	 *
-	 * @param  id
-	 *         The id
-	 *
-	 * @throws be.raft.pelican.exceptions.LoginException
-	 *         If the API key is incorrect or doesn't have the required permissions
-	 *
-	 * @throws be.raft.pelican.exceptions.NotFoundException
-	 * 		   If the egg cannot be found
-	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link be.raft.pelican.application.entities.Nest Nest}
-	 */
-	default PteroAction<Nest> retrieveNestById(long id) {
-		return retrieveNestById(Long.toUnsignedString(id));
-	}
-
-	/**
-	 * Retrieves all of the Nests from the Pterodactyl instance
-	 * <br>This requires an <b>Application API key</b> with the <b>Nests</b> permissions with <b>Read</b> access.
-	 *
-	 *
-	 * @throws be.raft.pelican.exceptions.LoginException
-	 *         If the API key is incorrect or doesn't have the required permissions
-	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.ApplicationEgg ApplicationEggs}
-	 */
-	PaginationAction<Nest> retrieveNests();
-
-	/**
-	 * Retrieves Nests matching the provided author from Pterodactyl instance
-	 * <br>This requires an <b>Application API key</b> with the <b>Nests</b> permission with <b>Read</b> access.
-	 *
-	 * @param  author
-	 *         The email address of the author
-	 * @param caseSensitive
-	 * 		   True - If P4J should search using case sensitivity
-	 *
-	 * @throws be.raft.pelican.exceptions.LoginException
-	 *         If the API key is incorrect or doesn't have the required permissions
-	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.Nest Nests}
-	 */
-	PteroAction<List<Nest>> retrieveNestsByAuthor(String author, boolean caseSensitive);
-
-	/**
-	 * Retrieves Nests matching the provided name from Pterodactyl instance
-	 * <br>This requires an <b>Application API key</b> with the <b>Nests</b> permission with <b>Read</b> access.
-	 *
-	 * @param  name
-	 *         The name
-	 * @param caseSensitive
-	 * 		   True - If P4J should search using case sensitivity
-	 *
-	 * @throws be.raft.pelican.exceptions.LoginException
-	 *         If the API key is incorrect or doesn't have the required permissions
-	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.Nest Nests}
-	 */
-	PteroAction<List<Nest>> retrieveNestsByName(String name, boolean caseSensitive);
 
 	/**
 	 * Retrieves all of the ApplicationServers from the Pterodactyl instance
@@ -498,7 +344,7 @@ public interface PteroApplication {
 	 * @throws be.raft.pelican.exceptions.LoginException
 	 *         If the API key is incorrect or doesn't have the required permissions
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServers}
+	 * @return {@link RequestAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServers}
 	 */
 	PaginationAction<ApplicationServer> retrieveServers();
 
@@ -515,9 +361,9 @@ public interface PteroApplication {
 	 * @throws be.raft.pelican.exceptions.NotFoundException
 	 * 		   If the server cannot be found
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer}
+	 * @return {@link RequestAction PteroAction} - Type {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer}
 	 */
-	PteroAction<ApplicationServer> retrieveServerById(String id);
+	RequestAction<ApplicationServer> retrieveServerById(String id);
 
 	/**
 	 * Retrieves an individual ApplicationServer represented by the provided id from Pterodactyl instance
@@ -532,9 +378,9 @@ public interface PteroApplication {
 	 * @throws be.raft.pelican.exceptions.NotFoundException
 	 * 		   If the server cannot be found
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer}
+	 * @return {@link RequestAction PteroAction} - Type {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer}
 	 */
-	default PteroAction<ApplicationServer> retrieveServerById(long id) {
+	default RequestAction<ApplicationServer> retrieveServerById(long id) {
 		return retrieveServerById(Long.toUnsignedString(id));
 	}
 
@@ -550,9 +396,9 @@ public interface PteroApplication {
 	 * @throws be.raft.pelican.exceptions.LoginException
 	 *         If the API key is incorrect or doesn't have the required permissions
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServers}
+	 * @return {@link RequestAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServers}
 	 */
-	PteroAction<List<ApplicationServer>> retrieveServersByName(String name, boolean caseSensitive);
+	RequestAction<List<ApplicationServer>> retrieveServersByName(String name, boolean caseSensitive);
 
 	/**
 	 * Retrieves ApplicationServers owned by the provided {@link be.raft.pelican.application.entities.ApplicationUser ApplicationUser} from Pterodactyl instance
@@ -564,9 +410,9 @@ public interface PteroApplication {
 	 * @throws be.raft.pelican.exceptions.LoginException
 	 *         If the API key is incorrect or doesn't have the required permissions
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServers}
+	 * @return {@link RequestAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServers}
 	 */
-	PteroAction<List<ApplicationServer>> retrieveServersByOwner(ApplicationUser user);
+	RequestAction<List<ApplicationServer>> retrieveServersByOwner(ApplicationUser user);
 
 	/**
 	 * Retrieves ApplicationServers running on the provided {@link be.raft.pelican.application.entities.Node Node} from Pterodactyl instance
@@ -578,9 +424,9 @@ public interface PteroApplication {
 	 * @throws be.raft.pelican.exceptions.LoginException
 	 *         If the API key is incorrect or doesn't have the required permissions
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServers}
+	 * @return {@link RequestAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServers}
 	 */
-	default PteroAction<List<ApplicationServer>> retrieveServersByNode(Node node) {
+	default RequestAction<List<ApplicationServer>> retrieveServersByNode(Node node) {
 		return retrieveServers().map(List::stream).map(stream -> stream.filter(
 						s -> s.retrieveNode().map(ISnowflake::getIdLong).execute() == node.getIdLong())
 				.collect(StreamUtils.toUnmodifiableList()));
@@ -596,9 +442,9 @@ public interface PteroApplication {
 	 * @throws be.raft.pelican.exceptions.LoginException
 	 *         If the API key is incorrect or doesn't have the required permissions
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServers}
+	 * @return {@link RequestAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServers}
 	 */
-	default PteroAction<List<ApplicationServer>> retrieveServersByLocation(Location location) {
+	default RequestAction<List<ApplicationServer>> retrieveServersByLocation(Location location) {
 		return retrieveServers().map(List::stream).map(stream -> stream.filter(s -> s.retrieveNode()
 								.flatMap(Node::retrieveLocation)
 								.map(ISnowflake::getIdLong)

@@ -18,7 +18,7 @@ package be.raft.pelican;
 
 import be.raft.pelican.entities.P4J;
 import be.raft.pelican.exceptions.RateLimitedException;
-import be.raft.pelican.requests.PteroActionImpl;
+import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.action.operator.*;
 import be.raft.pelican.utils.Checks;
 import java.time.Duration;
@@ -56,7 +56,7 @@ import java.util.function.Predicate;
  * @param <T>
  *        The generic response type for this PteroAction
  */
-public interface PteroAction<T> {
+public interface RequestAction<T> {
 
 	/**
 	 * The current Pterodactyl instance
@@ -71,7 +71,7 @@ public interface PteroAction<T> {
 	 * @return The fallback failure consumer
 	 */
 	static Consumer<? super Throwable> getDefaultFailure() {
-		return PteroActionImpl.DEFAULT_FAILURE;
+		return RequestActionImpl.DEFAULT_FAILURE;
 	}
 
 	/**
@@ -80,7 +80,7 @@ public interface PteroAction<T> {
 	 * @return The fallback success consumer
 	 */
 	static Consumer<Object> getDefaultSuccess() {
-		return PteroActionImpl.DEFAULT_SUCCESS;
+		return RequestActionImpl.DEFAULT_SUCCESS;
 	}
 
 	/**
@@ -179,7 +179,7 @@ public interface PteroAction<T> {
 	 *
 	 * @return The same PteroAction instance with the applied timeout
 	 */
-	default PteroAction<T> timeout(long timeout, TimeUnit unit) {
+	default RequestAction<T> timeout(long timeout, TimeUnit unit) {
 		Checks.notNull(unit, "TimeUnit");
 		return deadline(timeout <= 0 ? 0 : System.currentTimeMillis() + unit.toMillis(timeout));
 	}
@@ -206,7 +206,7 @@ public interface PteroAction<T> {
 	 *
 	 * @see    #timeout(long, TimeUnit)
 	 */
-	PteroAction<T> deadline(long timestamp);
+	RequestAction<T> deadline(long timestamp);
 
 	/**
 	 * Intermediate operator that returns a modified PteroAction.
@@ -231,9 +231,9 @@ public interface PteroAction<T> {
 	 * @return PteroAction for the mapped type
 	 *
 	 */
-	default <O> PteroAction<O> map(Function<? super T, ? extends O> map) {
+	default <O> RequestAction<O> map(Function<? super T, ? extends O> map) {
 		Checks.notNull(map, "Function");
-		return new MapPteroAction<>(this, map);
+		return new MapRequestAction<>(this, map);
 	}
 
 	/**
@@ -259,7 +259,7 @@ public interface PteroAction<T> {
 	 *
 	 * @return PteroAction with fallback handling
 	 */
-	default PteroAction<T> onErrorMap(Function<? super Throwable, ? extends T> map) {
+	default RequestAction<T> onErrorMap(Function<? super Throwable, ? extends T> map) {
 		return onErrorMap(null, map);
 	}
 
@@ -288,10 +288,10 @@ public interface PteroAction<T> {
 	 *
 	 * @return PteroAction with fallback handling
 	 */
-	default PteroAction<T> onErrorMap(
+	default RequestAction<T> onErrorMap(
 			Predicate<? super Throwable> condition, Function<? super Throwable, ? extends T> map) {
 		Checks.notNull(map, "Function");
-		return new MapErrorPteroAction<>(this, condition == null ? (x) -> true : condition, map);
+		return new MapErrorRequestAction<>(this, condition == null ? (x) -> true : condition, map);
 	}
 
 	/**
@@ -321,7 +321,7 @@ public interface PteroAction<T> {
 	 * @see    #flatMap(Function)
 	 * @see    #map(Function)
 	 */
-	default <O> PteroAction<O> flatMap(Function<? super T, ? extends PteroAction<O>> flatMap) {
+	default <O> RequestAction<O> flatMap(Function<? super T, ? extends RequestAction<O>> flatMap) {
 		return flatMap(null, flatMap);
 	}
 
@@ -354,10 +354,10 @@ public interface PteroAction<T> {
 	 * @see    #flatMap(Function)
 	 * @see    #map(Function)
 	 */
-	default <O> PteroAction<O> flatMap(
-			Predicate<? super T> condition, Function<? super T, ? extends PteroAction<O>> flatMap) {
+	default <O> RequestAction<O> flatMap(
+			Predicate<? super T> condition, Function<? super T, ? extends RequestAction<O>> flatMap) {
 		Checks.notNull(flatMap, "Function");
-		return new FlatMapPteroAction<>(this, condition, flatMap);
+		return new FlatMapRequestAction<>(this, condition, flatMap);
 	}
 
 	/**
@@ -388,7 +388,7 @@ public interface PteroAction<T> {
 	 *
 	 * @return PteroAction with fallback handling
 	 */
-	default PteroAction<T> onErrorFlatMap(Function<? super Throwable, ? extends PteroAction<? extends T>> map) {
+	default RequestAction<T> onErrorFlatMap(Function<? super Throwable, ? extends RequestAction<? extends T>> map) {
 		return onErrorFlatMap(null, map);
 	}
 
@@ -422,11 +422,11 @@ public interface PteroAction<T> {
 	 *
 	 * @return PteroAction with fallback handling
 	 */
-	default PteroAction<T> onErrorFlatMap(
+	default RequestAction<T> onErrorFlatMap(
 			Predicate<? super Throwable> condition,
-			Function<? super Throwable, ? extends PteroAction<? extends T>> map) {
+			Function<? super Throwable, ? extends RequestAction<? extends T>> map) {
 		Checks.notNull(map, "Function");
-		return new FlatMapErrorPteroAction<>(this, condition == null ? (x) -> true : condition, map);
+		return new FlatMapErrorRequestAction<>(this, condition == null ? (x) -> true : condition, map);
 	}
 
 	/**
@@ -454,7 +454,7 @@ public interface PteroAction<T> {
 	 *
 	 * @return PteroAction with delay
 	 */
-	default PteroAction<T> delay(Duration duration) {
+	default RequestAction<T> delay(Duration duration) {
 		return delay(duration, null);
 	}
 
@@ -479,9 +479,9 @@ public interface PteroAction<T> {
 	 *
 	 * @return PteroAction with delay
 	 */
-	default PteroAction<T> delay(Duration duration, ScheduledExecutorService scheduler) {
+	default RequestAction<T> delay(Duration duration, ScheduledExecutorService scheduler) {
 		Checks.notNull(duration, "Duration");
-		return new DelayPteroAction<>(this, TimeUnit.MILLISECONDS, duration.toMillis(), scheduler);
+		return new DelayRequestAction<>(this, TimeUnit.MILLISECONDS, duration.toMillis(), scheduler);
 	}
 
 	/**
@@ -505,7 +505,7 @@ public interface PteroAction<T> {
 	 *
 	 * @return PteroAction with delay
 	 */
-	default PteroAction<T> delay(long delay, TimeUnit unit) {
+	default RequestAction<T> delay(long delay, TimeUnit unit) {
 		return delay(delay, unit, null);
 	}
 
@@ -532,8 +532,8 @@ public interface PteroAction<T> {
 	 *
 	 * @return PteroAction with delay
 	 */
-	default PteroAction<T> delay(long delay, TimeUnit unit, ScheduledExecutorService scheduler) {
+	default RequestAction<T> delay(long delay, TimeUnit unit, ScheduledExecutorService scheduler) {
 		Checks.notNull(unit, "TimeUnit");
-		return new DelayPteroAction<>(this, unit, delay, scheduler);
+		return new DelayRequestAction<>(this, unit, delay, scheduler);
 	}
 }

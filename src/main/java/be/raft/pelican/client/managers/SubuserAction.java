@@ -17,10 +17,10 @@
 package be.raft.pelican.client.managers;
 
 import be.raft.pelican.Permission;
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.entities.ClientSubuser;
 
-public interface SubuserAction extends PteroAction<ClientSubuser> {
+public interface SubuserAction extends RequestAction<ClientSubuser> {
 
 	SubuserAction setPermissions(Permission... permissions);
 }

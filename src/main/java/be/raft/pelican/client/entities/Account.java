@@ -16,7 +16,7 @@
 
 package be.raft.pelican.client.entities;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.managers.APIKeyAction;
 import be.raft.pelican.client.managers.AccountManager;
 import be.raft.pelican.entities.User;
@@ -45,9 +45,9 @@ public interface Account extends User {
 		return Locale.forLanguageTag(getLanguage());
 	}
 
-	PteroAction<List<APIKey>> retrieveAPIKeys();
+	RequestAction<List<APIKey>> retrieveAPIKeys();
 
-	default PteroAction<Optional<APIKey>> retrieveAPIKeyByIdentifier(String identifier) {
+	default RequestAction<Optional<APIKey>> retrieveAPIKeyByIdentifier(String identifier) {
 		return retrieveAPIKeys()
 				.map(List::stream)
 				.map(stream -> stream.filter(key -> key.getIdentifier().equals(identifier)))

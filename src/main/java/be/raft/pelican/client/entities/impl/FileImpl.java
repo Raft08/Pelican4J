@@ -16,7 +16,7 @@
 
 package be.raft.pelican.client.entities.impl;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.entities.ClientServer;
 import be.raft.pelican.client.entities.DownloadableFile;
 import be.raft.pelican.client.entities.File;
@@ -33,27 +33,27 @@ public class FileImpl extends GenericFileImpl implements File {
 	}
 
 	@Override
-	public PteroAction<String> retrieveContent() {
+	public RequestAction<String> retrieveContent() {
 		return fileManager.retrieveContent(this);
 	}
 
 	@Override
-	public PteroAction<DownloadableFile> retrieveDownload() {
+	public RequestAction<DownloadableFile> retrieveDownload() {
 		return fileManager.retrieveDownload(this);
 	}
 
 	@Override
-	public PteroAction<Void> write(String content) {
+	public RequestAction<Void> write(String content) {
 		return fileManager.write(this, content);
 	}
 
 	@Override
-	public PteroAction<Void> copy() {
+	public RequestAction<Void> copy() {
 		return fileManager.copy(this);
 	}
 
 	@Override
-	public PteroAction<Void> decompress() {
+	public RequestAction<Void> decompress() {
 		return fileManager.decompress(this);
 	}
 }

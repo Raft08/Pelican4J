@@ -16,10 +16,10 @@
 
 package be.raft.pelican.client.entities.impl;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.entities.*;
 import be.raft.pelican.client.managers.*;
-import be.raft.pelican.requests.PteroActionImpl;
+import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Requester;
 import be.raft.pelican.requests.Route;
 import okhttp3.RequestBody;
@@ -41,8 +41,8 @@ public class FileManagerImpl implements FileManager {
 	}
 
 	@Override
-	public PteroAction<Void> createFile(Directory directory, String name, String content) {
-		return PteroActionImpl.onRequestExecute(
+	public RequestAction<Void> createFile(Directory directory, String name, String content) {
+		return RequestActionImpl.onRequestExecute(
 				impl.getP4J(),
 				Route.Files.WRITE_FILE.compile(server.getIdentifier(), directory.getPath() + "/" + name),
 				RequestBody.create(Requester.MEDIA_TYPE_PLAIN, content));
@@ -64,7 +64,7 @@ public class FileManagerImpl implements FileManager {
 	}
 
 	@Override
-	public PteroAction<Void> decompress(File compressedFile) {
+	public RequestAction<Void> decompress(File compressedFile) {
 		return new DecompressActionImpl(server, compressedFile, impl);
 	}
 
@@ -74,16 +74,16 @@ public class FileManagerImpl implements FileManager {
 	}
 
 	@Override
-	public PteroAction<String> retrieveContent(File file) {
-		return PteroActionImpl.onRequestExecute(
+	public RequestAction<String> retrieveContent(File file) {
+		return RequestActionImpl.onRequestExecute(
 				impl.getP4J(),
 				Route.Files.GET_CONTENTS.compile(server.getIdentifier(), file.getPath()),
 				(response, request) -> response.getRawObject());
 	}
 
 	@Override
-	public PteroAction<DownloadableFile> retrieveDownload(File file) {
-		return PteroActionImpl.onRequestExecute(
+	public RequestAction<DownloadableFile> retrieveDownload(File file) {
+		return RequestActionImpl.onRequestExecute(
 				impl.getP4J(),
 				Route.Files.DOWNLOAD_FILE.compile(server.getIdentifier(), file.getPath()),
 				(response, request) -> new DownloadableFile(
@@ -93,18 +93,18 @@ public class FileManagerImpl implements FileManager {
 	}
 
 	@Override
-	public PteroAction<Void> write(File file, String content) {
-		return PteroActionImpl.onRequestExecute(
+	public RequestAction<Void> write(File file, String content) {
+		return RequestActionImpl.onRequestExecute(
 				impl.getP4J(),
 				Route.Files.WRITE_FILE.compile(server.getIdentifier(), file.getPath()),
 				RequestBody.create(Requester.MEDIA_TYPE_PLAIN, content));
 	}
 
 	@Override
-	public PteroAction<Void> copy(File file) {
-		return PteroActionImpl.onRequestExecute(
+	public RequestAction<Void> copy(File file) {
+		return RequestActionImpl.onRequestExecute(
 				impl.getP4J(),
 				Route.Files.COPY_FILE.compile(server.getIdentifier()),
-				PteroActionImpl.getRequestBody(new JSONObject().put("location", file.getPath())));
+				RequestActionImpl.getRequestBody(new JSONObject().put("location", file.getPath())));
 	}
 }

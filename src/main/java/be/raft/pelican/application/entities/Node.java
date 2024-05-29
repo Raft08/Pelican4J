@@ -16,7 +16,7 @@
 
 package be.raft.pelican.application.entities;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.application.managers.ApplicationAllocationManager;
 import be.raft.pelican.application.managers.NodeAction;
 import be.raft.pelican.requests.PaginationAction;
@@ -32,7 +32,7 @@ public interface Node extends ISnowflake {
 
 	String getDescription();
 
-	PteroAction<Location> retrieveLocation();
+	RequestAction<Location> retrieveLocation();
 
 	ApplicationAllocationManager getAllocationManager();
 
@@ -92,24 +92,24 @@ public interface Node extends ISnowflake {
 
 	String getDaemonBase();
 
-	PteroAction<List<ApplicationServer>> retrieveServers();
+	RequestAction<List<ApplicationServer>> retrieveServers();
 
 	PaginationAction<ApplicationAllocation> retrieveAllocations();
 
-	default PteroAction<List<ApplicationAllocation>> retrieveAllocationsByPort(int port) {
+	default RequestAction<List<ApplicationAllocation>> retrieveAllocationsByPort(int port) {
 		return retrieveAllocations().all().map(List::stream).map(stream -> stream.filter(a -> a.getPortInt() == port)
 				.collect(StreamUtils.toUnmodifiableList()));
 	}
 
-	default PteroAction<List<ApplicationAllocation>> retrieveAllocationsByPort(String port) {
+	default RequestAction<List<ApplicationAllocation>> retrieveAllocationsByPort(String port) {
 		return retrieveAllocationsByPort(Integer.parseUnsignedInt(port));
 	}
 
-	PteroAction<Node.Configuration> retrieveConfiguration();
+	RequestAction<Configuration> retrieveConfiguration();
 
 	NodeAction edit();
 
-	PteroAction<Void> delete();
+	RequestAction<Void> delete();
 
 	interface Configuration {
 		boolean isDebug();

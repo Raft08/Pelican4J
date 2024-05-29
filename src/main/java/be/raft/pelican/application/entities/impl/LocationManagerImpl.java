@@ -16,11 +16,11 @@
 
 package be.raft.pelican.application.entities.impl;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.application.entities.Location;
 import be.raft.pelican.application.managers.LocationAction;
 import be.raft.pelican.application.managers.LocationManager;
-import be.raft.pelican.requests.PteroActionImpl;
+import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
 
 public class LocationManagerImpl implements LocationManager {
@@ -42,8 +42,8 @@ public class LocationManagerImpl implements LocationManager {
 	}
 
 	@Override
-	public PteroAction<Void> deleteLocation(Location location) {
-		return PteroActionImpl.onRequestExecute(
+	public RequestAction<Void> deleteLocation(Location location) {
+		return RequestActionImpl.onRequestExecute(
 				impl.getP4J(), Route.Locations.DELETE_LOCATION.compile(location.getId()));
 	}
 }

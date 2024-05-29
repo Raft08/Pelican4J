@@ -16,7 +16,7 @@
 
 package be.raft.pelican.requests.action.operator;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.exceptions.PteroException;
 import be.raft.pelican.utils.ExceptionUtils;
 import java.util.function.Consumer;
@@ -25,15 +25,15 @@ import java.util.function.Predicate;
 
 // big thanks to JDA for this tremendous code
 
-public class FlatMapErrorPteroAction<T> extends PteroActionOperator<T, T> {
+public class FlatMapErrorRequestAction<T> extends RequestActionOperator<T, T> {
 
 	private final Predicate<? super Throwable> check;
-	private final Function<? super Throwable, ? extends PteroAction<? extends T>> map;
+	private final Function<? super Throwable, ? extends RequestAction<? extends T>> map;
 
-	public FlatMapErrorPteroAction(
-			PteroAction<T> action,
+	public FlatMapErrorRequestAction(
+			RequestAction<T> action,
 			Predicate<? super Throwable> check,
-			Function<? super Throwable, ? extends PteroAction<? extends T>> map) {
+			Function<? super Throwable, ? extends RequestAction<? extends T>> map) {
 		super(action);
 		this.check = check;
 		this.map = map;
@@ -44,7 +44,7 @@ public class FlatMapErrorPteroAction<T> extends PteroActionOperator<T, T> {
 		action.executeAsync(success, (error) -> {
 			try {
 				if (check.test(error)) {
-					PteroAction<? extends T> then = map.apply(error);
+					RequestAction<? extends T> then = map.apply(error);
 					if (then == null)
 						doFailure(failure, new IllegalStateException("FlatMapError operand is null", error));
 					else then.executeAsync(success, failure);
@@ -62,7 +62,7 @@ public class FlatMapErrorPteroAction<T> extends PteroActionOperator<T, T> {
 		} catch (Throwable error) {
 			try {
 				if (check.test(error)) {
-					PteroAction<? extends T> then = map.apply(error);
+					RequestAction<? extends T> then = map.apply(error);
 					if (then == null) throw new IllegalStateException("FlatMapError operand is null", error);
 					return then.execute(shouldQueue);
 				}

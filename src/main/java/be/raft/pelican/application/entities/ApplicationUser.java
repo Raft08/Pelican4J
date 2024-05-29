@@ -16,7 +16,7 @@
 
 package be.raft.pelican.application.entities;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.application.managers.UserAction;
 import be.raft.pelican.entities.User;
 import java.util.List;
@@ -47,11 +47,11 @@ public interface ApplicationUser extends User, ISnowflake {
 
 	boolean isRootAdmin();
 
-	PteroAction<List<ApplicationServer>> retrieveServers();
+	RequestAction<List<ApplicationServer>> retrieveServers();
 
 	UserAction edit();
 
-	PteroAction<Void> delete();
+	RequestAction<Void> delete();
 
 	@Override
 	String toString();

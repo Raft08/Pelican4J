@@ -16,19 +16,19 @@
 
 package be.raft.pelican.requests;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.entities.P4J;
 import be.raft.pelican.exceptions.RateLimitedException;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class DeferredPteroAction<T> implements PteroAction<T> {
+public class DeferredRequestAction<T> implements RequestAction<T> {
 
 	private final P4J api;
 	private final Supplier<? extends T> value;
 
-	public DeferredPteroAction(P4J api, Supplier<? extends T> value) {
+	public DeferredRequestAction(P4J api, Supplier<? extends T> value) {
 		this.api = api;
 		this.value = value;
 	}
@@ -46,11 +46,11 @@ public class DeferredPteroAction<T> implements PteroAction<T> {
 	@Override
 	public void executeAsync(Consumer<? super T> success, Consumer<? super Throwable> failure) {
 		CompletableFuture.supplyAsync(value, api.getSupplierPool())
-				.thenAcceptAsync(success == null ? PteroAction.getDefaultSuccess() : success);
+				.thenAcceptAsync(success == null ? RequestAction.getDefaultSuccess() : success);
 	}
 
 	@Override
-	public PteroAction<T> deadline(long timestamp) {
+	public RequestAction<T> deadline(long timestamp) {
 		return this;
 	}
 }

@@ -16,7 +16,7 @@
 
 package be.raft.pelican.client.managers;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.entities.ClientSubuser;
 
 public interface SubuserManager {
@@ -25,5 +25,5 @@ public interface SubuserManager {
 
 	SubuserAction editUser(ClientSubuser subuser);
 
-	PteroAction<Void> deleteUser(ClientSubuser subuser);
+	RequestAction<Void> deleteUser(ClientSubuser subuser);
 }

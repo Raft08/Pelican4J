@@ -16,11 +16,11 @@
 
 package be.raft.pelican.application.managers;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.application.entities.Location;
 import be.raft.pelican.application.entities.Node;
 
-public interface NodeAction extends PteroAction<Node> {
+public interface NodeAction extends RequestAction<Node> {
 
 	NodeAction setName(String name);
 

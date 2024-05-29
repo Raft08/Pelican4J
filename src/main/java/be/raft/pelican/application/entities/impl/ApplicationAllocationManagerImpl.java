@@ -16,12 +16,12 @@
 
 package be.raft.pelican.application.entities.impl;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.application.entities.ApplicationAllocation;
 import be.raft.pelican.application.entities.Node;
 import be.raft.pelican.application.managers.AllocationAction;
 import be.raft.pelican.application.managers.ApplicationAllocationManager;
-import be.raft.pelican.requests.PteroActionImpl;
+import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
 
 public class ApplicationAllocationManagerImpl implements ApplicationAllocationManager {
@@ -42,8 +42,8 @@ public class ApplicationAllocationManagerImpl implements ApplicationAllocationMa
 		return new EditAllocationImpl(impl, node, allocation);
 	}
 
-	public PteroAction<Void> deleteAllocation(ApplicationAllocation allocation) {
-		return PteroActionImpl.onRequestExecute(
+	public RequestAction<Void> deleteAllocation(ApplicationAllocation allocation) {
+		return RequestActionImpl.onRequestExecute(
 				impl.getP4J(), Route.Nodes.DELETE_ALLOCATION.compile(node.getId(), allocation.getId()));
 	}
 }

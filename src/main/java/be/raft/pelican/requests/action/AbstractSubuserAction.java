@@ -21,12 +21,12 @@ import be.raft.pelican.client.entities.ClientSubuser;
 import be.raft.pelican.client.entities.impl.ClientSubuserImpl;
 import be.raft.pelican.client.entities.impl.PteroClientImpl;
 import be.raft.pelican.client.managers.SubuserAction;
-import be.raft.pelican.requests.PteroActionImpl;
+import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
 import java.util.Arrays;
 import java.util.EnumSet;
 
-public abstract class AbstractSubuserAction extends PteroActionImpl<ClientSubuser> implements SubuserAction {
+public abstract class AbstractSubuserAction extends RequestActionImpl<ClientSubuser> implements SubuserAction {
 
 	protected EnumSet<Permission> permissions;
 

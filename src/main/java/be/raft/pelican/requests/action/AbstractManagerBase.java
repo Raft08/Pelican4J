@@ -19,10 +19,10 @@ package be.raft.pelican.requests.action;
 import be.raft.pelican.application.entities.ApplicationServer;
 import be.raft.pelican.application.entities.impl.ApplicationServerImpl;
 import be.raft.pelican.application.entities.impl.PteroApplicationImpl;
-import be.raft.pelican.requests.PteroActionImpl;
+import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
 
-public abstract class AbstractManagerBase extends PteroActionImpl<ApplicationServer> {
+public abstract class AbstractManagerBase extends RequestActionImpl<ApplicationServer> {
 
 	protected long set = 0;
 

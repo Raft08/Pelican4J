@@ -16,16 +16,16 @@
 
 package be.raft.pelican.application.managers;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.application.entities.ApplicationDatabase;
 
 /**
- * {@link be.raft.pelican.PteroAction PteroAction} extension designed for the creation of
+ * {@link RequestAction PteroAction} extension designed for the creation of
  * {@link be.raft.pelican.application.entities.ApplicationDatabase ApplicationDatabases}
  *
  * @see ApplicationDatabaseManager#createDatabase
  */
-public interface ApplicationDatabaseCreationAction extends PteroAction<ApplicationDatabase> {
+public interface ApplicationDatabaseCreationAction extends RequestAction<ApplicationDatabase> {
 
 	/**
 	 * Sets the name for this {@link be.raft.pelican.application.entities.ApplicationDatabase ApplicationDatabase}.

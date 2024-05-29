@@ -22,11 +22,11 @@ import be.raft.pelican.client.entities.Schedule;
 import be.raft.pelican.client.entities.impl.PteroClientImpl;
 import be.raft.pelican.client.entities.impl.ScheduleImpl;
 import be.raft.pelican.client.managers.ScheduleAction;
-import be.raft.pelican.requests.PteroActionImpl;
+import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
 import be.raft.pelican.utils.CronUtils;
 
-public abstract class AbstractScheduleAction extends PteroActionImpl<Schedule> implements ScheduleAction {
+public abstract class AbstractScheduleAction extends RequestActionImpl<Schedule> implements ScheduleAction {
 
 	protected String name;
 	protected Boolean active;

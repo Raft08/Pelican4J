@@ -16,17 +16,17 @@
 
 package be.raft.pelican.client.entities;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 
 public interface File extends GenericFile {
 
-	PteroAction<String> retrieveContent();
+	RequestAction<String> retrieveContent();
 
-	PteroAction<DownloadableFile> retrieveDownload();
+	RequestAction<DownloadableFile> retrieveDownload();
 
-	PteroAction<Void> write(String content);
+	RequestAction<Void> write(String content);
 
-	PteroAction<Void> copy();
+	RequestAction<Void> copy();
 
-	PteroAction<Void> decompress();
+	RequestAction<Void> decompress();
 }

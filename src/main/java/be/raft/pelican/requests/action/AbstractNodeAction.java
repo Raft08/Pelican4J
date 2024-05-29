@@ -21,10 +21,10 @@ import be.raft.pelican.application.entities.Node;
 import be.raft.pelican.application.entities.impl.NodeImpl;
 import be.raft.pelican.application.entities.impl.PteroApplicationImpl;
 import be.raft.pelican.application.managers.NodeAction;
-import be.raft.pelican.requests.PteroActionImpl;
+import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
 
-public abstract class AbstractNodeAction extends PteroActionImpl<Node> implements NodeAction {
+public abstract class AbstractNodeAction extends RequestActionImpl<Node> implements NodeAction {
 
 	protected String name;
 	protected Location location;

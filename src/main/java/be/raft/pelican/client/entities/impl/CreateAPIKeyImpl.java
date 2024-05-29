@@ -18,7 +18,7 @@ package be.raft.pelican.client.entities.impl;
 
 import be.raft.pelican.client.entities.APIKey;
 import be.raft.pelican.client.managers.APIKeyAction;
-import be.raft.pelican.requests.PteroActionImpl;
+import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
 import be.raft.pelican.utils.Checks;
 import java.util.Arrays;
@@ -27,7 +27,7 @@ import java.util.Set;
 import okhttp3.RequestBody;
 import org.json.JSONObject;
 
-public class CreateAPIKeyImpl extends PteroActionImpl<APIKey> implements APIKeyAction {
+public class CreateAPIKeyImpl extends RequestActionImpl<APIKey> implements APIKeyAction {
 
 	private String description;
 	private final Set<String> allowedIps;

@@ -16,12 +16,12 @@
 
 package be.raft.pelican.client.entities.impl;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.entities.ClientDatabase;
 import be.raft.pelican.client.entities.ClientServer;
 import be.raft.pelican.client.managers.ClientDatabaseCreationAction;
 import be.raft.pelican.client.managers.ClientDatabaseManager;
-import be.raft.pelican.requests.PteroActionImpl;
+import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
 
 public class ClientDatabaseManagerImpl implements ClientDatabaseManager {
@@ -40,16 +40,16 @@ public class ClientDatabaseManagerImpl implements ClientDatabaseManager {
 	}
 
 	@Override
-	public PteroAction<ClientDatabase> resetPassword(ClientDatabase database) {
-		return PteroActionImpl.onRequestExecute(
+	public RequestAction<ClientDatabase> resetPassword(ClientDatabase database) {
+		return RequestActionImpl.onRequestExecute(
 				impl.getP4J(),
 				Route.ClientDatabases.ROTATE_PASSWORD.compile(server.getIdentifier(), database.getId()),
 				(response, request) -> new ClientDatabaseImpl(response.getObject(), impl, server));
 	}
 
 	@Override
-	public PteroAction<Void> deleteDatabase(ClientDatabase database) {
-		return PteroActionImpl.onRequestExecute(
+	public RequestAction<Void> deleteDatabase(ClientDatabase database) {
+		return RequestActionImpl.onRequestExecute(
 				impl.getP4J(), Route.ClientDatabases.DELETE_DATABASE.compile(server.getIdentifier(), database.getId()));
 	}
 }

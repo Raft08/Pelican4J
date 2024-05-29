@@ -24,7 +24,7 @@ import okhttp3.RequestBody;
 
 public class Request<T> {
 
-	private final PteroActionImpl<T> action;
+	private final RequestActionImpl<T> action;
 	private final Consumer<? super T> onSuccess;
 	private final Consumer<? super Throwable> onFailure;
 	private final Route.CompiledRoute route;
@@ -36,7 +36,7 @@ public class Request<T> {
 	private boolean isCancelled = false;
 
 	public Request(
-			PteroActionImpl<T> action,
+			RequestActionImpl<T> action,
 			Consumer<? super T> onSuccess,
 			Consumer<? super Throwable> onFailure,
 			Route.CompiledRoute route,

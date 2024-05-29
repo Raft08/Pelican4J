@@ -19,13 +19,13 @@ package be.raft.pelican.client.entities.impl;
 import be.raft.pelican.client.entities.ClientServer;
 import be.raft.pelican.client.entities.Directory;
 import be.raft.pelican.client.managers.CreateDirectoryAction;
-import be.raft.pelican.requests.PteroActionImpl;
+import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
 import be.raft.pelican.utils.Checks;
 import okhttp3.RequestBody;
 import org.json.JSONObject;
 
-public class CreateDirectoryActionImpl extends PteroActionImpl<Void> implements CreateDirectoryAction {
+public class CreateDirectoryActionImpl extends RequestActionImpl<Void> implements CreateDirectoryAction {
 
 	private String name;
 	private Directory rootDirectory;

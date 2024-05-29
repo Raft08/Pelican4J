@@ -16,7 +16,7 @@
 
 package be.raft.pelican.application.managers;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.application.entities.ApplicationUser;
 import be.raft.pelican.application.entities.PteroApplication;
 
@@ -76,7 +76,7 @@ public interface UserManager {
 	 * @throws be.raft.pelican.exceptions.LoginException
 	 *         If the API key is incorrect or doesn't have the required permissions upon PteroAction execution
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction}
+	 * @return {@link RequestAction PteroAction}
 	 */
-	PteroAction<Void> deleteUser(ApplicationUser user);
+	RequestAction<Void> deleteUser(ApplicationUser user);
 }

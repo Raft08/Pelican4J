@@ -16,18 +16,18 @@
 
 package be.raft.pelican.client.managers;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.entities.Backup;
 
 public interface BackupManager {
 
 	BackupAction createBackup();
 
-	PteroAction<String> retrieveDownloadUrl(Backup backup);
+	RequestAction<String> retrieveDownloadUrl(Backup backup);
 
-	PteroAction<Void> restoreBackup(Backup backup);
+	RequestAction<Void> restoreBackup(Backup backup);
 
-	PteroAction<Backup> toggleLock(Backup backup);
+	RequestAction<Backup> toggleLock(Backup backup);
 
-	PteroAction<Void> deleteBackup(Backup backup);
+	RequestAction<Void> deleteBackup(Backup backup);
 }

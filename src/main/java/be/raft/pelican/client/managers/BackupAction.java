@@ -16,11 +16,11 @@
 
 package be.raft.pelican.client.managers;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.entities.Backup;
 import java.util.List;
 
-public interface BackupAction extends PteroAction<Backup> {
+public interface BackupAction extends RequestAction<Backup> {
 
 	BackupAction setName(String name);
 

@@ -18,7 +18,7 @@ package be.raft.pelican.client.entities;
 
 import be.raft.pelican.ClientType;
 import be.raft.pelican.PowerAction;
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.requests.PaginationAction;
 import java.util.List;
 
@@ -31,9 +31,9 @@ public interface PteroClient {
 	 * @throws be.raft.pelican.exceptions.LoginException
 	 *         If the API key is incorrect
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link be.raft.pelican.client.entities.Account Account}
+	 * @return {@link RequestAction PteroAction} - Type {@link be.raft.pelican.client.entities.Account Account}
 	 */
-	PteroAction<Account> retrieveAccount();
+	RequestAction<Account> retrieveAccount();
 
 	/**
 	 * Sets the power of a {@link be.raft.pelican.client.entities.ClientServer ClientServer}
@@ -41,12 +41,12 @@ public interface PteroClient {
 	 * @throws be.raft.pelican.exceptions.LoginException
 	 *         If the API key is incorrect
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link Void}
+	 * @return {@link RequestAction PteroAction} - Type {@link Void}
 	 *
 	 * @deprecated Use {@link ClientServer#setPower(PowerAction)} instead
 	 */
 	@Deprecated
-	PteroAction<Void> setPower(ClientServer server, PowerAction powerAction);
+    RequestAction<Void> setPower(ClientServer server, PowerAction powerAction);
 
 	/**
 	 * Sends a command to a {@link be.raft.pelican.client.entities.ClientServer ClientServer}
@@ -54,12 +54,12 @@ public interface PteroClient {
 	 * @throws be.raft.pelican.exceptions.LoginException
 	 *         If the API key is incorrect
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link Void}
+	 * @return {@link RequestAction PteroAction} - Type {@link Void}
 	 *
 	 * @deprecated Use {@link ClientServer#sendCommand(String)} instead
 	 */
 	@Deprecated
-	PteroAction<Void> sendCommand(ClientServer server, String command);
+    RequestAction<Void> sendCommand(ClientServer server, String command);
 
 	/**
 	 * Retrieves the utilization of a {@link be.raft.pelican.client.entities.ClientServer ClientServer}
@@ -67,12 +67,12 @@ public interface PteroClient {
 	 * @throws be.raft.pelican.exceptions.LoginException
 	 *         If the API key is incorrect
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link be.raft.pelican.client.entities.Utilization Utilization}
+	 * @return {@link RequestAction PteroAction} - Type {@link be.raft.pelican.client.entities.Utilization Utilization}
 	 *
 	 * @deprecated Use {@link ClientServer#retrieveUtilization()} instead
 	 */
 	@Deprecated
-	PteroAction<Utilization> retrieveUtilization(ClientServer server);
+    RequestAction<Utilization> retrieveUtilization(ClientServer server);
 
 	/**
 	 * Retrieves all the ClientServers from the Pterodactyl instance
@@ -83,7 +83,7 @@ public interface PteroClient {
 	 * @throws be.raft.pelican.exceptions.LoginException
 	 *         If the API key is incorrect
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.client.entities.ClientServer ClientServers}
+	 * @return {@link RequestAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.client.entities.ClientServer ClientServers}
 	 */
 	PaginationAction<ClientServer> retrieveServers(ClientType type);
 
@@ -103,9 +103,9 @@ public interface PteroClient {
 	 * @throws be.raft.pelican.exceptions.NotFoundException
 	 * 		   If the server cannot be found
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link be.raft.pelican.client.entities.ClientServer ClientServer}
+	 * @return {@link RequestAction PteroAction} - Type {@link be.raft.pelican.client.entities.ClientServer ClientServer}
 	 */
-	PteroAction<ClientServer> retrieveServerByIdentifier(String identifier);
+	RequestAction<ClientServer> retrieveServerByIdentifier(String identifier);
 
 	/**
 	 * Retrieves ClientServers matching the provided name from Pterodactyl instance
@@ -118,7 +118,7 @@ public interface PteroClient {
 	 * @throws be.raft.pelican.exceptions.LoginException
 	 *         If the API key is incorrect
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.client.entities.ClientServer ClientServers}
+	 * @return {@link RequestAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.client.entities.ClientServer ClientServers}
 	 */
-	PteroAction<List<ClientServer>> retrieveServersByName(String name, boolean caseSensitive);
+	RequestAction<List<ClientServer>> retrieveServersByName(String name, boolean caseSensitive);
 }

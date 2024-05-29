@@ -17,10 +17,10 @@
 package be.raft.pelican.client.managers;
 
 import be.raft.pelican.PowerAction;
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.entities.Schedule;
 
-public interface ScheduleTaskAction extends PteroAction<Schedule.ScheduleTask> {
+public interface ScheduleTaskAction extends RequestAction<Schedule.ScheduleTask> {
 
 	ScheduleTaskAction setAction(Schedule.ScheduleTask.ScheduleAction action);
 

@@ -20,10 +20,10 @@ import be.raft.pelican.application.entities.ApplicationUser;
 import be.raft.pelican.application.entities.impl.ApplicationUserImpl;
 import be.raft.pelican.application.entities.impl.PteroApplicationImpl;
 import be.raft.pelican.application.managers.UserAction;
-import be.raft.pelican.requests.PteroActionImpl;
+import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
 
-public abstract class AbstractUserAction extends PteroActionImpl<ApplicationUser> implements UserAction {
+public abstract class AbstractUserAction extends RequestActionImpl<ApplicationUser> implements UserAction {
 
 	protected String userName;
 	protected String email;

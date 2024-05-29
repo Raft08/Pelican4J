@@ -16,17 +16,17 @@
 
 package be.raft.pelican.requests.action.operator;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
 // big thanks to JDA for this tremendous code
 
-public class MapPteroAction<I, O> extends PteroActionOperator<I, O> {
+public class MapRequestAction<I, O> extends RequestActionOperator<I, O> {
 
 	private final Function<? super I, ? extends O> function;
 
-	public MapPteroAction(PteroAction<I> action, Function<? super I, ? extends O> function) {
+	public MapRequestAction(RequestAction<I> action, Function<? super I, ? extends O> function) {
 		super(action);
 		this.function = function;
 	}

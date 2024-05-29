@@ -16,10 +16,10 @@
 
 package be.raft.pelican.application.managers;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.application.entities.ApplicationServer;
 import be.raft.pelican.application.entities.impl.PteroApplicationImpl;
-import be.raft.pelican.requests.PteroActionImpl;
+import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
 
 public class ServerController {
@@ -32,20 +32,20 @@ public class ServerController {
 		this.impl = impl;
 	}
 
-	public PteroAction<Void> suspend() {
-		return PteroActionImpl.onRequestExecute(impl.getP4J(), Route.Servers.SUSPEND_SERVER.compile(server.getId()));
+	public RequestAction<Void> suspend() {
+		return RequestActionImpl.onRequestExecute(impl.getP4J(), Route.Servers.SUSPEND_SERVER.compile(server.getId()));
 	}
 
-	public PteroAction<Void> unsuspend() {
-		return PteroActionImpl.onRequestExecute(impl.getP4J(), Route.Servers.UNSUSPEND_SERVER.compile(server.getId()));
+	public RequestAction<Void> unsuspend() {
+		return RequestActionImpl.onRequestExecute(impl.getP4J(), Route.Servers.UNSUSPEND_SERVER.compile(server.getId()));
 	}
 
-	public PteroAction<Void> reinstall() {
-		return PteroActionImpl.onRequestExecute(impl.getP4J(), Route.Servers.REINSTALL_SERVER.compile(server.getId()));
+	public RequestAction<Void> reinstall() {
+		return RequestActionImpl.onRequestExecute(impl.getP4J(), Route.Servers.REINSTALL_SERVER.compile(server.getId()));
 	}
 
-	public PteroAction<Void> delete(boolean withForce) {
-		return PteroActionImpl.onRequestExecute(
+	public RequestAction<Void> delete(boolean withForce) {
+		return RequestActionImpl.onRequestExecute(
 				impl.getP4J(),
 				withForce
 						? Route.Servers.FORCE_DELETE_SERVER.compile(server.getId())

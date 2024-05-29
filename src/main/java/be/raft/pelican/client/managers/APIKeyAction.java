@@ -16,10 +16,10 @@
 
 package be.raft.pelican.client.managers;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.entities.APIKey;
 
-public interface APIKeyAction extends PteroAction<APIKey> {
+public interface APIKeyAction extends RequestAction<APIKey> {
 
 	APIKeyAction setDescription(String description);
 

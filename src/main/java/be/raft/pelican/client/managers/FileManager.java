@@ -16,7 +16,7 @@
 
 package be.raft.pelican.client.managers;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.entities.Directory;
 import be.raft.pelican.client.entities.DownloadableFile;
 import be.raft.pelican.client.entities.File;
@@ -25,7 +25,7 @@ public interface FileManager {
 
 	CreateDirectoryAction createDirectory();
 
-	PteroAction<Void> createFile(Directory directory, String name, String content);
+	RequestAction<Void> createFile(Directory directory, String name, String content);
 
 	UploadFileAction upload(Directory directory);
 
@@ -33,15 +33,15 @@ public interface FileManager {
 
 	CompressAction compress();
 
-	PteroAction<Void> decompress(File compressedFile);
+	RequestAction<Void> decompress(File compressedFile);
 
 	DeleteAction delete();
 
-	PteroAction<String> retrieveContent(File file);
+	RequestAction<String> retrieveContent(File file);
 
-	PteroAction<DownloadableFile> retrieveDownload(File file);
+	RequestAction<DownloadableFile> retrieveDownload(File file);
 
-	PteroAction<Void> write(File file, String content);
+	RequestAction<Void> write(File file, String content);
 
-	PteroAction<Void> copy(File file);
+	RequestAction<Void> copy(File file);
 }

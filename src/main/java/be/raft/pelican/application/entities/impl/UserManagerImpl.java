@@ -16,11 +16,11 @@
 
 package be.raft.pelican.application.entities.impl;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.application.entities.ApplicationUser;
 import be.raft.pelican.application.managers.UserAction;
 import be.raft.pelican.application.managers.UserManager;
-import be.raft.pelican.requests.PteroActionImpl;
+import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
 
 public class UserManagerImpl implements UserManager {
@@ -42,7 +42,7 @@ public class UserManagerImpl implements UserManager {
 	}
 
 	@Override
-	public PteroAction<Void> deleteUser(ApplicationUser user) {
-		return PteroActionImpl.onRequestExecute(impl.getP4J(), Route.Users.DELETE_USER.compile(user.getId()));
+	public RequestAction<Void> deleteUser(ApplicationUser user) {
+		return RequestActionImpl.onRequestExecute(impl.getP4J(), Route.Users.DELETE_USER.compile(user.getId()));
 	}
 }

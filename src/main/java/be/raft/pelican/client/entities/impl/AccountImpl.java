@@ -16,12 +16,12 @@
 
 package be.raft.pelican.client.entities.impl;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.entities.APIKey;
 import be.raft.pelican.client.entities.Account;
 import be.raft.pelican.client.managers.APIKeyAction;
 import be.raft.pelican.client.managers.AccountManager;
-import be.raft.pelican.requests.PteroActionImpl;
+import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -79,8 +79,8 @@ public class AccountImpl implements Account {
 	}
 
 	@Override
-	public PteroAction<List<APIKey>> retrieveAPIKeys() {
-		return new PteroActionImpl<>(impl.getP4J(), Route.Accounts.GET_API_KEYS.compile(), (response, request) -> {
+	public RequestAction<List<APIKey>> retrieveAPIKeys() {
+		return new RequestActionImpl<>(impl.getP4J(), Route.Accounts.GET_API_KEYS.compile(), (response, request) -> {
 			JSONObject json = response.getObject();
 			List<APIKey> keys = new ArrayList<>();
 			for (Object o : json.getJSONArray("data")) {

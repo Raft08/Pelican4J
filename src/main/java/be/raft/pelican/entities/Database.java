@@ -16,7 +16,7 @@
 
 package be.raft.pelican.entities;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 
 /**
  * Represents a Pterodactyl {@link be.raft.pelican.entities.Database Database}.
@@ -55,16 +55,16 @@ public interface Database {
 	/**
 	 * Retrieves the password used to connect to the Database.
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link java.lang.String String}
+	 * @return {@link RequestAction PteroAction} - Type {@link java.lang.String String}
 	 */
-	PteroAction<String> retrievePassword();
+	RequestAction<String> retrievePassword();
 
 	/**
 	 * Delete this Database.
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction}
+	 * @return {@link RequestAction PteroAction}
 	 */
-	PteroAction<Void> delete();
+	RequestAction<Void> delete();
 
 	/**
 	 * Represents the {@link be.raft.pelican.entities.Database.DatabaseHost DatabaseHost} associated

@@ -16,7 +16,7 @@
 
 package be.raft.pelican.requests;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.entities.P4J;
 import be.raft.pelican.exceptions.PteroException;
 import be.raft.pelican.utils.P4JLogger;
@@ -29,9 +29,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 
-public class PteroActionImpl<T> implements PteroAction<T> {
+public class RequestActionImpl<T> implements RequestAction<T> {
 
-	public static final Logger LOGGER = P4JLogger.getLogger(PteroAction.class);
+	public static final Logger LOGGER = P4JLogger.getLogger(RequestAction.class);
 
 	private final P4J api;
 	private final Route.CompiledRoute route;
@@ -39,45 +39,45 @@ public class PteroActionImpl<T> implements PteroAction<T> {
 	private long deadline = 0;
 	private final BiFunction<Response, Request<T>, T> handler;
 
-	public static <T> DeferredPteroAction<T> onExecute(P4J api, Supplier<? extends T> supplier) {
-		return new DeferredPteroAction<>(api, supplier);
+	public static <T> DeferredRequestAction<T> onExecute(P4J api, Supplier<? extends T> supplier) {
+		return new DeferredRequestAction<>(api, supplier);
 	}
 
-	public static <T> PteroActionImpl<T> onRequestExecute(P4J api, Route.CompiledRoute route) {
-		return new PteroActionImpl<>(api, route);
+	public static <T> RequestActionImpl<T> onRequestExecute(P4J api, Route.CompiledRoute route) {
+		return new RequestActionImpl<>(api, route);
 	}
 
-	public static <T> PteroActionImpl<T> onRequestExecute(P4J api, Route.CompiledRoute route, RequestBody data) {
-		return new PteroActionImpl<>(api, route, data);
+	public static <T> RequestActionImpl<T> onRequestExecute(P4J api, Route.CompiledRoute route, RequestBody data) {
+		return new RequestActionImpl<>(api, route, data);
 	}
 
-	public static <T> PteroActionImpl<T> onRequestExecute(
+	public static <T> RequestActionImpl<T> onRequestExecute(
 			P4J api, Route.CompiledRoute route, BiFunction<Response, Request<T>, T> handler) {
-		return new PteroActionImpl<>(api, route, handler);
+		return new RequestActionImpl<>(api, route, handler);
 	}
 
-	public static <T> PteroActionImpl<T> onRequestExecute(
+	public static <T> RequestActionImpl<T> onRequestExecute(
 			P4J api, Route.CompiledRoute route, RequestBody data, BiFunction<Response, Request<T>, T> handler) {
-		return new PteroActionImpl<>(api, route, data, handler);
+		return new RequestActionImpl<>(api, route, data, handler);
 	}
 
-	public PteroActionImpl(P4J api) {
+	public RequestActionImpl(P4J api) {
 		this(api, null);
 	}
 
-	public PteroActionImpl(P4J api, Route.CompiledRoute route) {
+	public RequestActionImpl(P4J api, Route.CompiledRoute route) {
 		this(api, route, null, null);
 	}
 
-	public PteroActionImpl(P4J api, Route.CompiledRoute route, RequestBody data) {
+	public RequestActionImpl(P4J api, Route.CompiledRoute route, RequestBody data) {
 		this(api, route, data, null);
 	}
 
-	public PteroActionImpl(P4J api, Route.CompiledRoute route, BiFunction<Response, Request<T>, T> handler) {
+	public RequestActionImpl(P4J api, Route.CompiledRoute route, BiFunction<Response, Request<T>, T> handler) {
 		this(api, route, null, handler);
 	}
 
-	public PteroActionImpl(
+	public RequestActionImpl(
 			P4J api, Route.CompiledRoute route, RequestBody data, BiFunction<Response, Request<T>, T> handler) {
 		this.api = api;
 		this.route = route;
@@ -121,7 +121,7 @@ public class PteroActionImpl<T> implements PteroAction<T> {
 	}
 
 	@Override
-	public PteroAction<T> deadline(long timestamp) {
+	public RequestAction<T> deadline(long timestamp) {
 		this.deadline = timestamp;
 		return this;
 	}

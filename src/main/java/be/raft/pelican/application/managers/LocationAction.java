@@ -16,10 +16,10 @@
 
 package be.raft.pelican.application.managers;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.application.entities.Location;
 
-public interface LocationAction extends PteroAction<Location> {
+public interface LocationAction extends RequestAction<Location> {
 
 	LocationAction setShortCode(String shortCode);
 

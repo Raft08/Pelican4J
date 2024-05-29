@@ -16,7 +16,7 @@
 
 package be.raft.pelican.application.entities.impl;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.application.entities.ApplicationAllocation;
 import be.raft.pelican.application.entities.ApplicationServer;
 import be.raft.pelican.application.entities.Location;
@@ -24,9 +24,9 @@ import be.raft.pelican.application.entities.Node;
 import be.raft.pelican.application.managers.ApplicationAllocationManager;
 import be.raft.pelican.application.managers.NodeAction;
 import be.raft.pelican.requests.CompletedPaginationAction;
-import be.raft.pelican.requests.CompletedPteroAction;
+import be.raft.pelican.requests.CompletedRequestAction;
 import be.raft.pelican.requests.PaginationAction;
-import be.raft.pelican.requests.PteroActionImpl;
+import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -67,9 +67,9 @@ public class NodeImpl implements Node {
 	}
 
 	@Override
-	public PteroAction<Location> retrieveLocation() {
+	public RequestAction<Location> retrieveLocation() {
 		if (!json.has("relationships")) return impl.retrieveLocationById(json.getLong("location_id"));
-		return new CompletedPteroAction<>(
+		return new CompletedRequestAction<>(
 				impl.getP4J(), new LocationImpl(relationships.getJSONObject("location"), impl));
 	}
 
@@ -144,7 +144,7 @@ public class NodeImpl implements Node {
 	}
 
 	@Override
-	public PteroAction<List<ApplicationServer>> retrieveServers() {
+	public RequestAction<List<ApplicationServer>> retrieveServers() {
 		if (!json.has("relationships")) return impl.retrieveServersByNode(this);
 
 		List<ApplicationServer> servers = new ArrayList<>();
@@ -153,7 +153,7 @@ public class NodeImpl implements Node {
 			JSONObject server = new JSONObject(o.toString());
 			servers.add(new ApplicationServerImpl(impl, server));
 		}
-		return new CompletedPteroAction<>(impl.getP4J(), Collections.unmodifiableList(servers));
+		return new CompletedRequestAction<>(impl.getP4J(), Collections.unmodifiableList(servers));
 	}
 
 	@Override
@@ -170,8 +170,8 @@ public class NodeImpl implements Node {
 	}
 
 	@Override
-	public PteroAction<Configuration> retrieveConfiguration() {
-		return PteroActionImpl.onRequestExecute(
+	public RequestAction<Configuration> retrieveConfiguration() {
+		return RequestActionImpl.onRequestExecute(
 				impl.getP4J(),
 				Route.Nodes.GET_CONFIGURATION.compile(getId()),
 				(response, request) -> new NodeConfigurationImpl(response.getObject()));
@@ -203,7 +203,7 @@ public class NodeImpl implements Node {
 	}
 
 	@Override
-	public PteroAction<Void> delete() {
-		return PteroActionImpl.onRequestExecute(impl.getP4J(), Route.Nodes.DELETE_NODE.compile(getId()));
+	public RequestAction<Void> delete() {
+		return RequestActionImpl.onRequestExecute(impl.getP4J(), Route.Nodes.DELETE_NODE.compile(getId()));
 	}
 }

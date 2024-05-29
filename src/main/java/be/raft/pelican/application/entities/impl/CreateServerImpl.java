@@ -20,7 +20,7 @@ import be.raft.pelican.DataType;
 import be.raft.pelican.EnvironmentValue;
 import be.raft.pelican.application.entities.*;
 import be.raft.pelican.application.managers.ServerCreationAction;
-import be.raft.pelican.requests.PteroActionImpl;
+import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
 import be.raft.pelican.utils.Checks;
 import java.util.Collection;
@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 import okhttp3.RequestBody;
 import org.json.JSONObject;
 
-public class CreateServerImpl extends PteroActionImpl<ApplicationServer> implements ServerCreationAction {
+public class CreateServerImpl extends RequestActionImpl<ApplicationServer> implements ServerCreationAction {
 
 	private String name;
 	private String description;

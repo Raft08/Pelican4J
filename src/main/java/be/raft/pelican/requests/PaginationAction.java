@@ -16,7 +16,7 @@
 
 package be.raft.pelican.requests;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.utils.Checks;
 import be.raft.pelican.utils.Procedure;
 import be.raft.pelican.utils.StreamUtils;
@@ -30,7 +30,7 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 /**
- * {@link be.raft.pelican.PteroAction PteroAction} specification used to retrieve entities for paginated endpoints.
+ * {@link RequestAction PteroAction} specification used to retrieve entities for paginated endpoints.
  * <br>Note that this implementation is not considered thread-safe as modifications to the cache are not done
  * with a lock. Calling methods on this class from multiple threads is not recommended.
  *
@@ -82,7 +82,7 @@ import java.util.stream.StreamSupport;
  * @param  <T>
  *         The type of entity to paginate
  */
-public interface PaginationAction<T> extends PteroAction<List<T>>, Iterable<T> {
+public interface PaginationAction<T> extends RequestAction<List<T>>, Iterable<T> {
 
 	/**
 	 * Skips to the specified page for successive requests.
@@ -139,7 +139,7 @@ public interface PaginationAction<T> extends PteroAction<List<T>>, Iterable<T> {
 
 	/**
 	 * The currently cached entities of recent execution tasks.
-	 * <br>Every {@link be.raft.pelican.PteroAction PteroAction} success
+	 * <br>Every {@link RequestAction PteroAction} success
 	 * adds to this List. (Thread-Safe due to {@link java.util.concurrent.CopyOnWriteArrayList CopyOnWriteArrayList})
 	 *
 	 * <p><b>This <u>does not</u> contain all entities for the paginated endpoint unless the pagination has reached an end</b>
@@ -211,7 +211,7 @@ public interface PaginationAction<T> extends PteroAction<List<T>>, Iterable<T> {
 	/**
 	 * Whether retrieved entities are stored within an
 	 * internal cache. If this is {@code false} entities
-	 * retrieved by the iterator or a call to a {@link be.raft.pelican.PteroAction PteroAction}
+	 * retrieved by the iterator or a call to a {@link RequestAction PteroAction}
 	 * terminal operation will not be retrievable from {@link #getCached()}.
 	 * <br>This being disabled allows unused entities to be removed from
 	 * the memory heap by the garbage collector. If this is enabled, this will not
@@ -397,7 +397,7 @@ public interface PaginationAction<T> extends PteroAction<List<T>>, Iterable<T> {
 	 * @return {@link java.util.concurrent.CompletableFuture CompletableFuture} that can be cancelled to stop iteration from outside
 	 */
 	default CompletableFuture<?> forEachAsync(Procedure<? super T> action) {
-		return forEachAsync(action, PteroAction.getDefaultFailure());
+		return forEachAsync(action, RequestAction.getDefaultFailure());
 	}
 
 	/**
@@ -473,7 +473,7 @@ public interface PaginationAction<T> extends PteroAction<List<T>>, Iterable<T> {
 	 * @return {@link java.util.concurrent.Future Future} that can be cancelled to stop iteration from outside
 	 */
 	default CompletableFuture<?> forEachRemainingAsync(Procedure<? super T> action) {
-		return forEachRemainingAsync(action, PteroAction.getDefaultFailure());
+		return forEachRemainingAsync(action, RequestAction.getDefaultFailure());
 	}
 
 	/**
@@ -553,13 +553,13 @@ public interface PaginationAction<T> extends PteroAction<List<T>>, Iterable<T> {
 	 * Returns a completed List of entitites.
 	 *
 	 * <p>To retrieve new entities after reaching the end of the current cache, this method will
-	 * request a List of new entities through internal calls of {@link be.raft.pelican.PteroAction#executeAsync() PteroAction.executeAsync()}.
+	 * request a List of new entities through internal calls of {@link RequestAction#executeAsync() PteroAction.executeAsync()}.
 	 * <p><b>It is recommended to use {@link #forEachAsync(Procedure)} instead</b>, but for the sake of, use the highest possible limit for this task. (see {@link #limit(int)})
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link java.util.List List} of {@link T &lt;T&gt;}
+	 * @return {@link RequestAction PteroAction} - Type {@link java.util.List List} of {@link T &lt;T&gt;}
 	 */
-	default PteroAction<List<T>> all() {
-		return PteroActionImpl.onExecute(getP4J(), () -> stream().collect(StreamUtils.toUnmodifiableList()));
+	default RequestAction<List<T>> all() {
+		return RequestActionImpl.onExecute(getP4J(), () -> stream().collect(StreamUtils.toUnmodifiableList()));
 	}
 
 	/**
@@ -568,7 +568,7 @@ public interface PaginationAction<T> extends PteroAction<List<T>>, Iterable<T> {
 	 * as needed.
 	 *
 	 * <p>To retrieve new entities after reaching the end of the current cache, this iterator will
-	 * request a List of new entities through a call of {@link be.raft.pelican.PteroAction#execute() PteroAction.execute()}.
+	 * request a List of new entities through a call of {@link RequestAction#execute() PteroAction.execute()}.
 	 * <br><b>It is recommended to use the highest possible limit for this task. (see {@link #limit(int)})</b>
 	 */
 	class PaginationIterator<E> implements Iterator<E> {

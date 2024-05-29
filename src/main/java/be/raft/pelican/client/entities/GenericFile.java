@@ -17,7 +17,7 @@
 package be.raft.pelican.client.entities;
 
 import be.raft.pelican.DataType;
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import java.nio.file.attribute.PosixFilePermission;
 import java.time.OffsetDateTime;
 import java.util.EnumSet;
@@ -50,9 +50,9 @@ public interface GenericFile {
 
 	OffsetDateTime getModifedDate();
 
-	PteroAction<Void> rename(String name);
+	RequestAction<Void> rename(String name);
 
-	PteroAction<Void> delete();
+	RequestAction<Void> delete();
 
 	interface Permission {
 		int getBits();

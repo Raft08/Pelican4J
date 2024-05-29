@@ -16,7 +16,7 @@
 
 package be.raft.pelican.client.entities.impl;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.entities.Backup;
 import be.raft.pelican.client.entities.ClientServer;
 import java.time.OffsetDateTime;
@@ -73,7 +73,7 @@ public class BackupImpl implements Backup {
 	}
 
 	@Override
-	public PteroAction<String> retrieveDownloadUrl() {
+	public RequestAction<String> retrieveDownloadUrl() {
 		return server.getBackupManager().retrieveDownloadUrl(this);
 	}
 
@@ -88,17 +88,17 @@ public class BackupImpl implements Backup {
 	}
 
 	@Override
-	public PteroAction<Backup> toggleLock() {
+	public RequestAction<Backup> toggleLock() {
 		return server.getBackupManager().toggleLock(this);
 	}
 
 	@Override
-	public PteroAction<Void> restore() {
+	public RequestAction<Void> restore() {
 		return server.getBackupManager().restoreBackup(this);
 	}
 
 	@Override
-	public PteroAction<Void> delete() {
+	public RequestAction<Void> delete() {
 		return server.getBackupManager().deleteBackup(this);
 	}
 

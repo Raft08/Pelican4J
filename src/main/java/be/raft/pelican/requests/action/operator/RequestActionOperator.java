@@ -16,33 +16,33 @@
 
 package be.raft.pelican.requests.action.operator;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.entities.P4J;
 import java.util.function.Consumer;
 
 // big thanks to JDA for this tremendous code
 
-public abstract class PteroActionOperator<I, O> implements PteroAction<O> {
+public abstract class RequestActionOperator<I, O> implements RequestAction<O> {
 
-	protected final PteroAction<I> action;
+	protected final RequestAction<I> action;
 	protected long deadline = 0;
 
-	public PteroActionOperator(PteroAction<I> action) {
+	public RequestActionOperator(RequestAction<I> action) {
 		this.action = action;
 	}
 
 	protected static <E> void doSuccess(Consumer<? super E> callback, E value) {
-		if (callback == null) PteroAction.getDefaultSuccess().accept(value);
+		if (callback == null) RequestAction.getDefaultSuccess().accept(value);
 		else callback.accept(value);
 	}
 
 	protected static void doFailure(Consumer<? super Throwable> callback, Throwable throwable) {
-		if (callback == null) PteroAction.getDefaultFailure().accept(throwable);
+		if (callback == null) RequestAction.getDefaultFailure().accept(throwable);
 		else callback.accept(throwable);
 	}
 
 	@Override
-	public PteroAction<O> deadline(long timestamp) {
+	public RequestAction<O> deadline(long timestamp) {
 		this.deadline = timestamp;
 		action.deadline(timestamp);
 		return this;

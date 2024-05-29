@@ -37,7 +37,7 @@ import okio.Okio;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
-public class UploadFileActionImpl extends PteroActionImpl<Void> implements UploadFileAction {
+public class UploadFileActionImpl extends RequestActionImpl<Void> implements UploadFileAction {
 
 	private final P4J p4j;
 	private final Directory directory;

@@ -17,7 +17,7 @@
 package be.raft.pelican.application.managers;
 
 import be.raft.pelican.EnvironmentValue;
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.application.entities.ApplicationEgg;
 import be.raft.pelican.application.entities.ApplicationServer;
 import be.raft.pelican.client.entities.ClientServer;
@@ -36,7 +36,7 @@ import java.util.Map;
  *
  * @see ApplicationServer#getStartupManager()
  */
-public interface ServerStartupManager extends PteroAction<ApplicationServer> {
+public interface ServerStartupManager extends RequestAction<ApplicationServer> {
 
 	// The following bits are used internally, but are here in case something user-facing is added in the future
 

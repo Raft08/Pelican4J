@@ -16,10 +16,10 @@
 
 package be.raft.pelican.client.managers;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.entities.GenericFile;
 
-public interface DeleteAction extends PteroAction<Void> {
+public interface DeleteAction extends RequestAction<Void> {
 
 	DeleteAction addFile(GenericFile file);
 

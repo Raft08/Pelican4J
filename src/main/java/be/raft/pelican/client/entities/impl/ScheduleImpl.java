@@ -16,7 +16,7 @@
 
 package be.raft.pelican.client.entities.impl;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.entities.ClientServer;
 import be.raft.pelican.client.entities.Cron;
 import be.raft.pelican.client.entities.Schedule;
@@ -110,7 +110,7 @@ public class ScheduleImpl implements Schedule {
 	}
 
 	@Override
-	public PteroAction<Void> delete() {
+	public RequestAction<Void> delete() {
 		return server.getScheduleManager().delete(this);
 	}
 

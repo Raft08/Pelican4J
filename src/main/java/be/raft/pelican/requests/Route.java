@@ -98,9 +98,17 @@ public class Route {
 		public static final Route GET_NEST =
 				new Route(GET, APPLICATION_PREFIX + "nests/{nest_id}?include=servers,eggs");
 		public static final Route GET_EGGS =
-				new Route(GET, APPLICATION_PREFIX + "nests/{nest_id}/eggs?include=variables,nest,servers");
+				new Route(GET, APPLICATION_PREFIX + "nests/{nest_id}/eggs?include=variables,servers");
 		public static final Route GET_EGG =
 				new Route(GET, APPLICATION_PREFIX + "nests/{nest_id}/eggs/{egg_id}?include=variables,nest,servers");
+	}
+
+	public static class Eggs {
+		public static final Route GET_EGGS =
+				new Route(GET, APPLICATION_PREFIX + "eggs?include=variables,servers");
+
+		public static final Route GET_EGG =
+				new Route(GET, APPLICATION_PREFIX + "eggs/{egg_id}?include=variables,servers");
 	}
 
 	public static class Client {

@@ -16,11 +16,11 @@
 
 package be.raft.pelican.application.entities.impl;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.application.entities.ApplicationEgg;
 import be.raft.pelican.application.entities.ApplicationServer;
 import be.raft.pelican.application.entities.Nest;
-import be.raft.pelican.requests.CompletedPteroAction;
+import be.raft.pelican.requests.CompletedRequestAction;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -61,7 +61,7 @@ public class NestImpl implements Nest {
 	}
 
 	@Override
-	public PteroAction<List<ApplicationEgg>> retrieveEggs() {
+	public RequestAction<List<ApplicationEgg>> retrieveEggs() {
 		if (!json.has("relationships")) return impl.retrieveEggsByNest(this);
 
 		List<ApplicationEgg> eggs = new ArrayList<>();
@@ -74,7 +74,7 @@ public class NestImpl implements Nest {
 
 			eggs.add(new ApplicationEggImpl(egg, impl));
 		}
-		return new CompletedPteroAction<>(impl.getP4J(), Collections.unmodifiableList(eggs));
+		return new CompletedRequestAction<>(impl.getP4J(), Collections.unmodifiableList(eggs));
 	}
 
 	@Override

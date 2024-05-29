@@ -16,9 +16,9 @@
 
 package be.raft.pelican.application.managers;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 
-public interface AllocationAction extends PteroAction<Void> {
+public interface AllocationAction extends RequestAction<Void> {
 
 	AllocationAction setIP(String ip);
 

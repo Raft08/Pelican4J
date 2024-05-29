@@ -18,13 +18,13 @@ package be.raft.pelican.client.entities.impl;
 
 import be.raft.pelican.client.entities.ClientServer;
 import be.raft.pelican.client.entities.File;
-import be.raft.pelican.requests.PteroActionImpl;
+import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
 import be.raft.pelican.utils.Checks;
 import okhttp3.RequestBody;
 import org.json.JSONObject;
 
-public class DecompressActionImpl extends PteroActionImpl<Void> {
+public class DecompressActionImpl extends RequestActionImpl<Void> {
 
 	private final File compressedFile;
 

@@ -20,10 +20,10 @@ import be.raft.pelican.application.entities.Location;
 import be.raft.pelican.application.entities.impl.LocationImpl;
 import be.raft.pelican.application.entities.impl.PteroApplicationImpl;
 import be.raft.pelican.application.managers.LocationAction;
-import be.raft.pelican.requests.PteroActionImpl;
+import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
 
-public abstract class AbstractLocationAction extends PteroActionImpl<Location> implements LocationAction {
+public abstract class AbstractLocationAction extends RequestActionImpl<Location> implements LocationAction {
 
 	protected String shortCode;
 	protected String description;

@@ -16,7 +16,7 @@
 
 package be.raft.pelican.client.entities.impl;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.entities.ClientServer;
 import be.raft.pelican.client.entities.GenericFile;
 import java.nio.file.attribute.PosixFilePermission;
@@ -96,12 +96,12 @@ public class GenericFileImpl implements GenericFile {
 	}
 
 	@Override
-	public PteroAction<Void> rename(String name) {
+	public RequestAction<Void> rename(String name) {
 		return server.getFileManager().rename().addFile(this, name);
 	}
 
 	@Override
-	public PteroAction<Void> delete() {
+	public RequestAction<Void> delete() {
 		return server.getFileManager().delete().addFile(this);
 	}
 

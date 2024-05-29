@@ -16,7 +16,7 @@
 
 package be.raft.pelican.client.entities.impl;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.entities.ClientAllocation;
 import be.raft.pelican.client.entities.ClientServer;
 import be.raft.pelican.client.managers.ClientAllocationManager;
@@ -63,17 +63,17 @@ public class ClientAllocationImpl implements ClientAllocation {
 	}
 
 	@Override
-	public PteroAction<ClientAllocation> setNote(String note) {
+	public RequestAction<ClientAllocation> setNote(String note) {
 		return allocationManager.setNote(this, note);
 	}
 
 	@Override
-	public PteroAction<ClientAllocation> setPrimary() {
+	public RequestAction<ClientAllocation> setPrimary() {
 		return allocationManager.setPrimary(this);
 	}
 
 	@Override
-	public PteroAction<Void> unassign() {
+	public RequestAction<Void> unassign() {
 		return allocationManager.unassignAllocation(this);
 	}
 

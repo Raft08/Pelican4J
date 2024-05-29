@@ -16,7 +16,7 @@
 
 package be.raft.pelican.client.entities;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import java.time.OffsetDateTime;
 import java.util.Set;
 
@@ -34,5 +34,5 @@ public interface APIKey {
 
 	String getToken();
 
-	PteroAction<Void> delete();
+	RequestAction<Void> delete();
 }

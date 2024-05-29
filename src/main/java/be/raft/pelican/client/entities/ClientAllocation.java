@@ -16,7 +16,7 @@
 
 package be.raft.pelican.client.entities;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.entities.Allocation;
 
 /**
@@ -39,19 +39,19 @@ public interface ClientAllocation extends Allocation {
 	 * @param note
 	 *        The note for this Allocation
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} -
+	 * @return {@link RequestAction PteroAction} -
 	 * Type {@link be.raft.pelican.client.entities.ClientAllocation ClientAllocation}
 	 */
-	PteroAction<ClientAllocation> setNote(String note);
+	RequestAction<ClientAllocation> setNote(String note);
 
 	/**
 	 * Set this Allocation as the default/primary Allocation for the
 	 * {@link be.raft.pelican.client.entities.ClientServer ClientServer}
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} -
+	 * @return {@link RequestAction PteroAction} -
 	 * Type {@link be.raft.pelican.client.entities.ClientAllocation ClientAllocation}
 	 */
-	PteroAction<ClientAllocation> setPrimary();
+	RequestAction<ClientAllocation> setPrimary();
 
 	/**
 	 * Unassign this Allocation.
@@ -59,7 +59,7 @@ public interface ClientAllocation extends Allocation {
 	 * @throws IllegalArgumentException
 	 *         If the provided allocation is the default
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction}
+	 * @return {@link RequestAction PteroAction}
 	 */
-	PteroAction<Void> unassign();
+	RequestAction<Void> unassign();
 }

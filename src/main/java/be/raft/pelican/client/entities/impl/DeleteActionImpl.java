@@ -19,7 +19,7 @@ package be.raft.pelican.client.entities.impl;
 import be.raft.pelican.client.entities.ClientServer;
 import be.raft.pelican.client.entities.GenericFile;
 import be.raft.pelican.client.managers.DeleteAction;
-import be.raft.pelican.requests.PteroActionImpl;
+import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 import okhttp3.RequestBody;
 import org.json.JSONObject;
 
-public class DeleteActionImpl extends PteroActionImpl<Void> implements DeleteAction {
+public class DeleteActionImpl extends RequestActionImpl<Void> implements DeleteAction {
 
 	private final List<GenericFile> files;
 

@@ -18,7 +18,7 @@ package be.raft.pelican.application.managers;
 
 import be.raft.pelican.DataType;
 import be.raft.pelican.EnvironmentValue;
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.application.entities.ApplicationAllocation;
 import be.raft.pelican.application.entities.ApplicationEgg;
 import be.raft.pelican.application.entities.ApplicationServer;
@@ -55,13 +55,13 @@ public class ServerManager {
 	 * @throws IllegalArgumentException
 	 *         If the provided name is {@code null} or not between 1-191 characters long
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type
+	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
 	 *
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerDetailManager#setName(String)} instead
 	 */
 	@Deprecated
-	public PteroAction<ApplicationServer> setName(String name) {
+	public RequestAction<ApplicationServer> setName(String name) {
 		return server.getDetailManager().setName(name);
 	}
 
@@ -74,13 +74,13 @@ public class ServerManager {
 	 * @throws IllegalArgumentException
 	 *         If the provided user is {@code null}
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type
+	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
 	 *
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerDetailManager#setOwner(ApplicationUser)} instead
 	 */
 	@Deprecated
-	public PteroAction<ApplicationServer> setOwner(ApplicationUser user) {
+	public RequestAction<ApplicationServer> setOwner(ApplicationUser user) {
 		return server.getDetailManager().setOwner(user);
 	}
 
@@ -90,13 +90,13 @@ public class ServerManager {
 	 * @param  description
 	 *         The new description for the server or {@code null} to remove
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type
+	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
 	 *
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerDetailManager#setDescription(String)} instead
 	 */
 	@Deprecated
-	public PteroAction<ApplicationServer> setDescription(String description) {
+	public RequestAction<ApplicationServer> setDescription(String description) {
 		return server.getDetailManager().setDescription(description);
 	}
 
@@ -109,13 +109,13 @@ public class ServerManager {
 	 * @throws IllegalArgumentException
 	 *         If the provided id is not between 1-191 characters long
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type
+	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
 	 *
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerDetailManager#setExternalId(String)} instead
 	 */
 	@Deprecated
-	public PteroAction<ApplicationServer> setExternalId(String id) {
+	public RequestAction<ApplicationServer> setExternalId(String id) {
 		return server.getDetailManager().setExternalId(id);
 	}
 
@@ -131,13 +131,13 @@ public class ServerManager {
 	 * @throws be.raft.pelican.exceptions.MissingActionException
 	 *         If the provided allocation is already assigned
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type
+	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
 	 *
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerBuildManager#setAllocation(ApplicationAllocation)} instead
 	 */
 	@Deprecated
-	public PteroAction<ApplicationServer> setAllocation(ApplicationAllocation allocation) {
+	public RequestAction<ApplicationServer> setAllocation(ApplicationAllocation allocation) {
 		return server.getBuildManager().setAllocation(allocation);
 	}
 
@@ -159,13 +159,13 @@ public class ServerManager {
 	 * @throws IllegalArgumentException
 	 *         If the provided amount is less than 0 or provided DataType is {@code null}
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type
+	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
 	 *
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerBuildManager#setMemory(long, DataType)} instead
 	 */
 	@Deprecated
-	public PteroAction<ApplicationServer> setMemory(long amount, DataType dataType) {
+	public RequestAction<ApplicationServer> setMemory(long amount, DataType dataType) {
 		return server.getBuildManager().setMemory(amount, dataType);
 	}
 
@@ -187,13 +187,13 @@ public class ServerManager {
 	 * @throws IllegalArgumentException
 	 *         If the provided amount is less than -1 MB or provided DataType is {@code null}
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type
+	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
 	 *
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerBuildManager#setSwap(long, DataType)} instead
 	 */
 	@Deprecated
-	public PteroAction<ApplicationServer> setSwap(long amount, DataType dataType) {
+	public RequestAction<ApplicationServer> setSwap(long amount, DataType dataType) {
 		return server.getBuildManager().setSwap(amount, dataType);
 	}
 
@@ -210,13 +210,13 @@ public class ServerManager {
 	 * @throws IllegalArgumentException
 	 *         If the provided amount is not between 10-1000
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type
+	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
 	 *
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerBuildManager#setIO(long)} instead
 	 */
 	@Deprecated
-	public PteroAction<ApplicationServer> setIO(long amount) {
+	public RequestAction<ApplicationServer> setIO(long amount) {
 		return server.getBuildManager().setIO(amount);
 	}
 
@@ -231,13 +231,13 @@ public class ServerManager {
 	 * @throws IllegalArgumentException
 	 *         If the provided amount is less than 0
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type
+	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
 	 *
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerBuildManager#setCPU(long)} instead
 	 */
 	@Deprecated
-	public PteroAction<ApplicationServer> setCPU(long amount) {
+	public RequestAction<ApplicationServer> setCPU(long amount) {
 		return server.getBuildManager().setCPU(amount);
 	}
 
@@ -258,14 +258,14 @@ public class ServerManager {
 	 * @throws IllegalArgumentException
 	 *         If the provided amount is less than 0
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type
+	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
 	 *
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerBuildManager#setThreads(String)} instead
 	 *
 	 */
 	@Deprecated
-	public PteroAction<ApplicationServer> setThreads(String cores) {
+	public RequestAction<ApplicationServer> setThreads(String cores) {
 		return server.getBuildManager().setThreads(cores);
 	}
 
@@ -287,13 +287,13 @@ public class ServerManager {
 	 * @throws IllegalArgumentException
 	 *         If the provided amount is less than 0 MB or provided DataType is {@code null}
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type
+	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
 	 *
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerBuildManager#setDisk(long, DataType)} instead
 	 */
 	@Deprecated
-	public PteroAction<ApplicationServer> setDisk(long amount, DataType dataType) {
+	public RequestAction<ApplicationServer> setDisk(long amount, DataType dataType) {
 		return server.getBuildManager().setDisk(amount, dataType);
 	}
 
@@ -306,13 +306,13 @@ public class ServerManager {
 	 * @throws IllegalArgumentException
 	 *         If the provided amount is less than 0
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type
+	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
 	 *
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerBuildManager#setAllowedDatabases(int)} instead
 	 */
 	@Deprecated
-	public PteroAction<ApplicationServer> setAllowedDatabases(int amount) {
+	public RequestAction<ApplicationServer> setAllowedDatabases(int amount) {
 		return server.getBuildManager().setAllowedDatabases(amount);
 	}
 
@@ -325,13 +325,13 @@ public class ServerManager {
 	 * @throws IllegalArgumentException
 	 *         If the provided amount is less than 0
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type
+	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
 	 *
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerBuildManager#setAllowedAllocations(int)} instead
 	 */
 	@Deprecated
-	public PteroAction<ApplicationServer> setAllowedAllocations(int amount) {
+	public RequestAction<ApplicationServer> setAllowedAllocations(int amount) {
 		return server.getBuildManager().setAllowedAllocations(amount);
 	}
 
@@ -344,13 +344,13 @@ public class ServerManager {
 	 * @throws IllegalArgumentException
 	 *         If the provided amount is less than 0
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type
+	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
 	 *
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerBuildManager#setAllowedBackups(int)} instead
 	 */
 	@Deprecated
-	public PteroAction<ApplicationServer> setAllowedBackups(int amount) {
+	public RequestAction<ApplicationServer> setAllowedBackups(int amount) {
 		return server.getBuildManager().setAllowedBackups(amount);
 	}
 
@@ -366,13 +366,13 @@ public class ServerManager {
 	 * @param  enable
 	 *         True - enable the oom killer
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type
+	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
 	 *
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerBuildManager#setEnableOOMKiller(boolean)} instead
 	 */
 	@Deprecated
-	public PteroAction<ApplicationServer> setEnableOOMKiller(boolean enable) {
+	public RequestAction<ApplicationServer> setEnableOOMKiller(boolean enable) {
 		return server.getBuildManager().setEnableOOMKiller(enable);
 	}
 
@@ -385,13 +385,13 @@ public class ServerManager {
 	 * @throws IllegalArgumentException
 	 *         If the provided command is {@code null}
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type
+	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
 	 *
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerStartupManager#setStartupCommand(String)} instead
 	 */
 	@Deprecated
-	public PteroAction<ApplicationServer> setStartupCommand(String command) {
+	public RequestAction<ApplicationServer> setStartupCommand(String command) {
 		return server.getStartupManager().setStartupCommand(command);
 	}
 
@@ -405,7 +405,7 @@ public class ServerManager {
 	 * @throws IllegalArgumentException
 	 *         If the provided environment map is {@code null}
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type
+	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
 	 *
 	 * @see EnvironmentValue
@@ -413,7 +413,7 @@ public class ServerManager {
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerStartupManager#setEnvironment(Map)} instead
 	 */
 	@Deprecated
-	public PteroAction<ApplicationServer> setEnvironment(Map<String, EnvironmentValue<?>> environment) {
+	public RequestAction<ApplicationServer> setEnvironment(Map<String, EnvironmentValue<?>> environment) {
 		return server.getStartupManager().setEnvironment(environment);
 	}
 
@@ -428,7 +428,7 @@ public class ServerManager {
 	 * @throws IllegalArgumentException
 	 *         If the provided egg is {@code null}
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type
+	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
 	 *
 	 * @see ClientServer#restart()
@@ -436,7 +436,7 @@ public class ServerManager {
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerStartupManager#setEgg(ApplicationEgg)} instead
 	 */
 	@Deprecated
-	public PteroAction<ApplicationServer> setEgg(ApplicationEgg egg) {
+	public RequestAction<ApplicationServer> setEgg(ApplicationEgg egg) {
 		return server.getStartupManager().setEgg(egg);
 	}
 
@@ -451,7 +451,7 @@ public class ServerManager {
 	 * @throws IllegalArgumentException
 	 *         If the provided image is {@code null} or longer then 191 characters
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type
+	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
 	 *
 	 * @see ClientServer#restart()
@@ -459,7 +459,7 @@ public class ServerManager {
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerStartupManager#setImage(String)} instead
 	 */
 	@Deprecated
-	public PteroAction<ApplicationServer> setImage(String dockerImage) {
+	public RequestAction<ApplicationServer> setImage(String dockerImage) {
 		return server.getStartupManager().setImage(dockerImage);
 	}
 
@@ -472,13 +472,13 @@ public class ServerManager {
 	 * @param  skipScripts
 	 *         True - will not run egg install scripts
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type
+	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
 	 *
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerStartupManager#setSkipScripts(boolean)} instead
 	 */
 	@Deprecated
-	public PteroAction<ApplicationServer> setSkipScripts(boolean skipScripts) {
+	public RequestAction<ApplicationServer> setSkipScripts(boolean skipScripts) {
 		return server.getStartupManager().setSkipScripts(skipScripts);
 	}
 }

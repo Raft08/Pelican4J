@@ -16,17 +16,17 @@
 
 package be.raft.pelican.application.managers;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.application.entities.ApplicationUser;
 
 /**
- * {@link be.raft.pelican.PteroAction PteroAction} extension designed for the creation and modification
+ * {@link RequestAction PteroAction} extension designed for the creation and modification
  * of {@link be.raft.pelican.application.entities.ApplicationUser ApplicationUsers}
  *
  * @see UserManager#createUser()
  * @see UserManager#editUser(ApplicationUser)
  */
-public interface UserAction extends PteroAction<ApplicationUser> {
+public interface UserAction extends RequestAction<ApplicationUser> {
 
 	/**
 	 * Sets the username for this {@link be.raft.pelican.application.entities.ApplicationUser ApplicationUser}.

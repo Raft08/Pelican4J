@@ -16,7 +16,7 @@
 
 package be.raft.pelican.application.entities;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.ServerStatus;
 import be.raft.pelican.application.managers.*;
 import be.raft.pelican.entities.Server;
@@ -65,9 +65,9 @@ public interface ApplicationServer extends Server, ISnowflake {
 	/**
 	 * The owner of the ApplicationServer
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link be.raft.pelican.application.entities.ApplicationUser ApplicationUser}
+	 * @return {@link RequestAction PteroAction} - Type {@link be.raft.pelican.application.entities.ApplicationUser ApplicationUser}
 	 */
-	PteroAction<ApplicationUser> retrieveOwner();
+	RequestAction<ApplicationUser> retrieveOwner();
 
 	/**
 	 * The {@link be.raft.pelican.application.entities.ApplicationUser owner} id of the ApplicationServer
@@ -92,9 +92,9 @@ public interface ApplicationServer extends Server, ISnowflake {
 	/**
 	 * The Node the ApplicationServer is running on
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link be.raft.pelican.application.entities.Node Node}
+	 * @return {@link RequestAction PteroAction} - Type {@link be.raft.pelican.application.entities.Node Node}
 	 */
-	PteroAction<Node> retrieveNode();
+	RequestAction<Node> retrieveNode();
 
 	/**
 	 * The id of the {@link be.raft.pelican.application.entities.Node Node} the ApplicationServer is running on
@@ -128,7 +128,7 @@ public interface ApplicationServer extends Server, ISnowflake {
 	 *
 	 * @return {@link be.raft.pelican.utils.Relationed Relationed} - Type {@link ApplicationAllocation Allocation}
 	 */
-	PteroAction<ApplicationAllocation> retrieveDefaultAllocation();
+	RequestAction<ApplicationAllocation> retrieveDefaultAllocation();
 
 	/**
 	 * The id of the main {@link ApplicationAllocation Allocation} for the ApplicationServer
@@ -153,9 +153,9 @@ public interface ApplicationServer extends Server, ISnowflake {
 	/**
 	 * The Nest the ApplicationServer is using
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link be.raft.pelican.application.entities.Nest Nest}
+	 * @return {@link RequestAction PteroAction} - Type {@link be.raft.pelican.application.entities.Nest Nest}
 	 */
-	PteroAction<Nest> retrieveNest();
+	RequestAction<Nest> retrieveNest();
 
 	/**
 	 * The id of the {@link be.raft.pelican.application.entities.Nest Nest} for the ApplicationServer
@@ -180,9 +180,9 @@ public interface ApplicationServer extends Server, ISnowflake {
 	/**
 	 * The Egg the ApplicationServer is using
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link be.raft.pelican.application.entities.ApplicationEgg ApplicationEgg}
+	 * @return {@link RequestAction PteroAction} - Type {@link be.raft.pelican.application.entities.ApplicationEgg ApplicationEgg}
 	 */
-	PteroAction<ApplicationEgg> retrieveEgg();
+	RequestAction<ApplicationEgg> retrieveEgg();
 
 	/**
 	 * The id of the {@link be.raft.pelican.application.entities.ApplicationEgg ApplicationEgg} for the ApplicationServer
@@ -266,9 +266,9 @@ public interface ApplicationServer extends Server, ISnowflake {
 	 * The Databases belonging to the ApplicationServer
 	 * <br>This requires an <b>Application API key</b> with the <b>Databases</b> permission with <b>Read</b> access.
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.ApplicationDatabase ApplicationDatabases}
+	 * @return {@link RequestAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.ApplicationDatabase ApplicationDatabases}
 	 */
-	PteroAction<List<ApplicationDatabase>> retrieveDatabases();
+	RequestAction<List<ApplicationDatabase>> retrieveDatabases();
 
 	/**
 	 * Retrieves an individual ApplicationDatabase represented by the provided id from Pterodactyl instance
@@ -283,9 +283,9 @@ public interface ApplicationServer extends Server, ISnowflake {
 	 * @throws be.raft.pelican.exceptions.NotFoundException
 	 * 		   If the database cannot be found
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link be.raft.pelican.application.entities.ApplicationDatabase ApplicationDatabase}
+	 * @return {@link RequestAction PteroAction} - Type {@link be.raft.pelican.application.entities.ApplicationDatabase ApplicationDatabase}
 	 */
-	PteroAction<ApplicationDatabase> retrieveDatabaseById(String id);
+	RequestAction<ApplicationDatabase> retrieveDatabaseById(String id);
 
 	/**
 	 * Retrieves an individual ApplicationDatabase represented by the provided id from Pterodactyl instance
@@ -300,9 +300,9 @@ public interface ApplicationServer extends Server, ISnowflake {
 	 * @throws be.raft.pelican.exceptions.NotFoundException
 	 * 		   If the database cannot be found
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type {@link be.raft.pelican.application.entities.ApplicationDatabase ApplicationDatabase}
+	 * @return {@link RequestAction PteroAction} - Type {@link be.raft.pelican.application.entities.ApplicationDatabase ApplicationDatabase}
 	 */
-	default PteroAction<ApplicationDatabase> retrieveDatabaseById(long id) {
+	default RequestAction<ApplicationDatabase> retrieveDatabaseById(long id) {
 		return retrieveDatabaseById(Long.toUnsignedString(id));
 	}
 

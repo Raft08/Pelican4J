@@ -16,11 +16,11 @@
 
 package be.raft.pelican.application.entities.impl;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.application.entities.ApplicationDatabase;
 import be.raft.pelican.application.entities.ApplicationServer;
 import be.raft.pelican.entities.impl.DatabasePasswordImpl;
-import be.raft.pelican.requests.CompletedPteroAction;
+import be.raft.pelican.requests.CompletedRequestAction;
 import java.time.OffsetDateTime;
 import org.json.JSONObject;
 
@@ -39,8 +39,8 @@ public class ApplicationDatabaseImpl implements ApplicationDatabase {
 	}
 
 	@Override
-	public PteroAction<ApplicationServer> retrieveServer() {
-		return new CompletedPteroAction<>(impl.getP4J(), server);
+	public RequestAction<ApplicationServer> retrieveServer() {
+		return new CompletedRequestAction<>(impl.getP4J(), server);
 	}
 
 	@Override
@@ -49,10 +49,10 @@ public class ApplicationDatabaseImpl implements ApplicationDatabase {
 	}
 
 	@Override
-	public PteroAction<DatabaseHost> retrieveHost() {
+	public RequestAction<DatabaseHost> retrieveHost() {
 		if (!json.has("relationships"))
 			return server.retrieveDatabaseById(getIdLong()).flatMap(ApplicationDatabase::retrieveHost);
-		return new CompletedPteroAction<>(
+		return new CompletedRequestAction<>(
 				impl.getP4J(), new ApplicationDatabaseHostImpl(relationships.getJSONObject("host"), impl));
 	}
 
@@ -97,20 +97,20 @@ public class ApplicationDatabaseImpl implements ApplicationDatabase {
 	}
 
 	@Override
-	public PteroAction<String> retrievePassword() {
+	public RequestAction<String> retrievePassword() {
 		if (!json.has("relationships"))
 			return server.retrieveDatabaseById(getIdLong()).flatMap(ApplicationDatabase::retrievePassword);
-		return new CompletedPteroAction<>(
+		return new CompletedRequestAction<>(
 				impl.getP4J(), new DatabasePasswordImpl(relationships.getJSONObject("password")).getPassword());
 	}
 
 	@Override
-	public PteroAction<Void> resetPassword() {
+	public RequestAction<Void> resetPassword() {
 		return server.getDatabaseManager().resetPassword(this);
 	}
 
 	@Override
-	public PteroAction<Void> delete() {
+	public RequestAction<Void> delete() {
 		return server.getDatabaseManager().deleteDatabase(this);
 	}
 

@@ -17,12 +17,12 @@
 package be.raft.pelican.application.entities.impl;
 
 import be.raft.pelican.EnvironmentValue;
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.application.entities.ApplicationEgg;
 import be.raft.pelican.application.entities.DockerImage;
 import be.raft.pelican.application.entities.Nest;
 import be.raft.pelican.application.entities.Script;
-import be.raft.pelican.requests.CompletedPteroAction;
+import be.raft.pelican.requests.CompletedRequestAction;
 import java.time.OffsetDateTime;
 import java.util.*;
 import org.json.JSONObject;
@@ -40,10 +40,10 @@ public class ApplicationEggImpl implements ApplicationEgg {
 	}
 
 	@Override
-	public PteroAction<Nest> retrieveNest() {
+	public RequestAction<Nest> retrieveNest() {
 		if (!json.has("relationships")) return impl.retrieveNestById(json.getLong("nest"));
 
-		return new CompletedPteroAction<>(impl.getP4J(), new NestImpl(relationships.getJSONObject("nest"), impl));
+		return new CompletedRequestAction<>(impl.getP4J(), new NestImpl(relationships.getJSONObject("nest"), impl));
 	}
 
 	@Override

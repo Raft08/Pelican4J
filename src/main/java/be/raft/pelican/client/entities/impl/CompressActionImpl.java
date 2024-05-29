@@ -20,7 +20,7 @@ import be.raft.pelican.client.entities.ClientServer;
 import be.raft.pelican.client.entities.File;
 import be.raft.pelican.client.entities.GenericFile;
 import be.raft.pelican.client.managers.CompressAction;
-import be.raft.pelican.requests.PteroActionImpl;
+import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 import okhttp3.RequestBody;
 import org.json.JSONObject;
 
-public class CompressActionImpl extends PteroActionImpl<File> implements CompressAction {
+public class CompressActionImpl extends RequestActionImpl<File> implements CompressAction {
 
 	private final List<GenericFile> files;
 

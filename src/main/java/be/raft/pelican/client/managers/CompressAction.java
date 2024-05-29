@@ -16,11 +16,11 @@
 
 package be.raft.pelican.client.managers;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.entities.File;
 import be.raft.pelican.client.entities.GenericFile;
 
-public interface CompressAction extends PteroAction<File> {
+public interface CompressAction extends RequestAction<File> {
 
 	CompressAction addFile(GenericFile file);
 

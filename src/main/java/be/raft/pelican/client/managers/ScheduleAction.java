@@ -16,11 +16,11 @@
 
 package be.raft.pelican.client.managers;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.entities.Cron;
 import be.raft.pelican.client.entities.Schedule;
 
-public interface ScheduleAction extends PteroAction<Schedule> {
+public interface ScheduleAction extends RequestAction<Schedule> {
 
 	ScheduleAction setName(String name);
 

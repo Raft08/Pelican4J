@@ -16,7 +16,7 @@
 
 package be.raft.pelican.application.managers;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.application.entities.Location;
 
 public interface LocationManager {
@@ -25,5 +25,5 @@ public interface LocationManager {
 
 	LocationAction editLocation(Location location);
 
-	PteroAction<Void> deleteLocation(Location location);
+	RequestAction<Void> deleteLocation(Location location);
 }

@@ -16,20 +16,20 @@
 
 package be.raft.pelican.requests.action.operator;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
 // big thanks to JDA for this tremendous code
 
-public class DelayPteroAction<T> extends PteroActionOperator<T, T> {
+public class DelayRequestAction<T> extends RequestActionOperator<T, T> {
 
 	private final TimeUnit unit;
 	private final long delay;
 	private final ScheduledExecutorService scheduler;
 
-	public DelayPteroAction(PteroAction<T> action, TimeUnit unit, long delay, ScheduledExecutorService scheduler) {
+	public DelayRequestAction(RequestAction<T> action, TimeUnit unit, long delay, ScheduledExecutorService scheduler) {
 		super(action);
 		this.unit = unit;
 		this.delay = delay;

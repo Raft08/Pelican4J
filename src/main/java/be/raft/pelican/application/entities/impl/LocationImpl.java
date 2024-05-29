@@ -16,13 +16,13 @@
 
 package be.raft.pelican.application.entities.impl;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.application.entities.ApplicationServer;
 import be.raft.pelican.application.entities.Location;
 import be.raft.pelican.application.entities.Node;
 import be.raft.pelican.application.managers.LocationAction;
-import be.raft.pelican.requests.CompletedPteroAction;
-import be.raft.pelican.requests.PteroActionImpl;
+import be.raft.pelican.requests.CompletedRequestAction;
+import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -53,7 +53,7 @@ public class LocationImpl implements Location {
 	}
 
 	@Override
-	public PteroAction<List<Node>> getNodes() {
+	public RequestAction<List<Node>> getNodes() {
 		if (!json.has("relationships")) return impl.retrieveNodesByLocation(this);
 
 		List<Node> nodes = new ArrayList<>();
@@ -62,11 +62,11 @@ public class LocationImpl implements Location {
 			JSONObject node = new JSONObject(o.toString());
 			nodes.add(new NodeImpl(node, impl));
 		}
-		return new CompletedPteroAction<>(impl.getP4J(), Collections.unmodifiableList(nodes));
+		return new CompletedRequestAction<>(impl.getP4J(), Collections.unmodifiableList(nodes));
 	}
 
 	@Override
-	public PteroAction<List<ApplicationServer>> getServers() {
+	public RequestAction<List<ApplicationServer>> getServers() {
 		if (!json.has("relationships")) return impl.retrieveServersByLocation(this);
 
 		List<ApplicationServer> servers = new ArrayList<>();
@@ -75,7 +75,7 @@ public class LocationImpl implements Location {
 			JSONObject server = new JSONObject(o.toString());
 			servers.add(new ApplicationServerImpl(impl, server));
 		}
-		return new CompletedPteroAction<>(impl.getP4J(), Collections.unmodifiableList(servers));
+		return new CompletedRequestAction<>(impl.getP4J(), Collections.unmodifiableList(servers));
 	}
 
 	@Override
@@ -99,8 +99,8 @@ public class LocationImpl implements Location {
 	}
 
 	@Override
-	public PteroAction<Void> delete() {
-		return PteroActionImpl.onRequestExecute(impl.getP4J(), Route.Locations.DELETE_LOCATION.compile(getId()));
+	public RequestAction<Void> delete() {
+		return RequestActionImpl.onRequestExecute(impl.getP4J(), Route.Locations.DELETE_LOCATION.compile(getId()));
 	}
 
 	@Override

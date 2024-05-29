@@ -16,13 +16,13 @@
 
 package be.raft.pelican.client.managers;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.utils.Checks;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.InputStream;
 
-public interface UploadFileAction extends PteroAction<Void> {
+public interface UploadFileAction extends RequestAction<Void> {
 
 	UploadFileAction addFile(InputStream data, String name);
 

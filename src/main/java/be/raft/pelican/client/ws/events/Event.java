@@ -16,7 +16,7 @@
 
 package be.raft.pelican.client.ws.events;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.entities.ClientServer;
 import be.raft.pelican.client.entities.PteroClient;
 import be.raft.pelican.client.entities.impl.PteroClientImpl;
@@ -74,7 +74,7 @@ public abstract class Event {
 	 *
 	 * @see Event#getServer()
 	 */
-	public PteroAction<ClientServer> retrieveServer() {
+	public RequestAction<ClientServer> retrieveServer() {
 		return api.retrieveServerByIdentifier(server.getIdentifier());
 	}
 

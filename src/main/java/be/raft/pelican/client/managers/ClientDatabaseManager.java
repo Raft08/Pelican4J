@@ -16,14 +16,14 @@
 
 package be.raft.pelican.client.managers;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.entities.ClientDatabase;
 
 public interface ClientDatabaseManager {
 
 	ClientDatabaseCreationAction createDatabase();
 
-	PteroAction<ClientDatabase> resetPassword(ClientDatabase database);
+	RequestAction<ClientDatabase> resetPassword(ClientDatabase database);
 
-	PteroAction<Void> deleteDatabase(ClientDatabase database);
+	RequestAction<Void> deleteDatabase(ClientDatabase database);
 }

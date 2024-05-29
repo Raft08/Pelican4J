@@ -16,14 +16,14 @@
 
 package be.raft.pelican.application.managers;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.application.entities.ApplicationDatabase;
 
 public interface ApplicationDatabaseManager {
 
 	ApplicationDatabaseCreationAction createDatabase();
 
-	PteroAction<Void> resetPassword(ApplicationDatabase database);
+	RequestAction<Void> resetPassword(ApplicationDatabase database);
 
-	PteroAction<Void> deleteDatabase(ApplicationDatabase database);
+	RequestAction<Void> deleteDatabase(ApplicationDatabase database);
 }

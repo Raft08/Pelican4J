@@ -4,6 +4,7 @@ plugins {
 	id 'java-library'
 	id 'maven-publish'
 	id 'org.ajoberstar.grgit' version '5.2.1'
+	id 'com.diffplug.spotless' version '6.25.0'
 }
 
 group = "${project_group}"
@@ -39,7 +40,55 @@ dependencies {
 	implementation "org.slf4j:slf4j-api:${slf4j_version}"
 
 	api "org.jetbrains:annotations:${annotation_version}"
+	api "com.google.guava:guava:${guava_version}"
 }
+
+spotless {
+	format 'misc', {
+		target '*.gradle', '.gitignore'
+		trimTrailingWhitespace()
+		indentWithTabs()
+		endWithNewline()
+	}
+	java {
+		ratchetFrom 'origin/dev'
+
+		target 'src/main/java/**/*.java'
+
+		formatAnnotations()
+		palantirJavaFormat()
+		indentWithTabs()
+		endWithNewline()
+
+		licenseHeader '/*\n' +
+				' *    Copyright $YEAR Matt Malec, and the Pterodactyl4J contributors\n' +
+				' *\n' +
+				' *    Licensed under the Apache License, Version 2.0 (the "License");\n' +
+				' *    you may not use this file except in compliance with the License.\n' +
+				' *    You may obtain a copy of the License at\n' +
+				' *\n' +
+				' *        http://www.apache.org/licenses/LICENSE-2.0\n' +
+				' *\n' +
+				' *    Unless required by applicable law or agreed to in writing, software\n' +
+				' *    distributed under the License is distributed on an "AS IS" BASIS,\n' +
+				' *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n' +
+				' *    See the License for the specific language governing permissions and\n' +
+				' *    limitations under the License.\n' +
+				' * \n' +
+				' *    ============================================================================== \n' +
+				' * \n' +
+				' *    Copyright 2024 RaftDev, and the Pelican4J contributors\n' +
+				' * \n' +
+				' *    Licensed under the Apache License, Version 2.0 (the "License");\n' +
+				' *    you may not use this file except in compliance with the License.\n' +
+				' *    You may obtain a copy of the License at\n' +
+				' *\n' +
+				' *        http://www.apache.org/licenses/LICENSE-2.0\n' +
+				' */\n\n'
+
+	}
+}
+
 
 javadoc {
 	failOnError = false

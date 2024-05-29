@@ -17,7 +17,7 @@
 package be.raft.pelican.client.entities.impl;
 
 import be.raft.pelican.PowerAction;
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.entities.Schedule;
 import java.time.OffsetDateTime;
 import java.util.Optional;
@@ -85,7 +85,7 @@ public class ScheduleTaskImpl implements Schedule.ScheduleTask {
 	}
 
 	@Override
-	public PteroAction<Void> delete() {
+	public RequestAction<Void> delete() {
 		return schedule.getTaskManager().deleteTask(this);
 	}
 

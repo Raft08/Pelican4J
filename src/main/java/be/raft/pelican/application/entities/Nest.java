@@ -16,7 +16,7 @@
 
 package be.raft.pelican.application.entities;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +30,7 @@ public interface Nest extends ISnowflake {
 
 	String getDescription();
 
-	PteroAction<List<ApplicationEgg>> retrieveEggs();
+	RequestAction<List<ApplicationEgg>> retrieveEggs();
 
 	Optional<List<ApplicationServer>> getServers();
 }

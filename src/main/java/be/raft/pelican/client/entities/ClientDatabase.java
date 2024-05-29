@@ -16,7 +16,7 @@
 
 package be.raft.pelican.client.entities;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.entities.Database;
 
 public interface ClientDatabase extends Database {
@@ -25,5 +25,5 @@ public interface ClientDatabase extends Database {
 
 	Database.DatabaseHost getHost();
 
-	PteroAction<ClientDatabase> resetPassword();
+	RequestAction<ClientDatabase> resetPassword();
 }

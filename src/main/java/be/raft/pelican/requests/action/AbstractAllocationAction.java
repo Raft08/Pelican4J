@@ -18,13 +18,13 @@ package be.raft.pelican.requests.action;
 
 import be.raft.pelican.application.entities.impl.PteroApplicationImpl;
 import be.raft.pelican.application.managers.AllocationAction;
-import be.raft.pelican.requests.PteroActionImpl;
+import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class AbstractAllocationAction extends PteroActionImpl<Void> implements AllocationAction {
+public abstract class AbstractAllocationAction extends RequestActionImpl<Void> implements AllocationAction {
 
 	protected String ip;
 	protected String alias;

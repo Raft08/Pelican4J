@@ -16,7 +16,7 @@
 
 package be.raft.pelican.client.entities.impl;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.entities.ClientServer;
 import be.raft.pelican.client.entities.Directory;
 import be.raft.pelican.client.entities.File;
@@ -58,12 +58,12 @@ public class DirectoryImpl implements Directory {
 	}
 
 	@Override
-	public PteroAction<Void> createFolder(String folder) {
+	public RequestAction<Void> createFolder(String folder) {
 		return server.getFileManager().createDirectory().setRoot(this).setName(folder);
 	}
 
 	@Override
-	public PteroAction<Void> createFile(String name, String content) {
+	public RequestAction<Void> createFile(String name, String content) {
 		return server.getFileManager().createFile(this, name, content);
 	}
 
@@ -78,17 +78,17 @@ public class DirectoryImpl implements Directory {
 	}
 
 	@Override
-	public PteroAction<Void> decompress(File compressedFile) {
+	public RequestAction<Void> decompress(File compressedFile) {
 		return server.getFileManager().decompress(compressedFile);
 	}
 
 	@Override
-	public PteroAction<Directory> into(Directory directory) {
+	public RequestAction<Directory> into(Directory directory) {
 		return server.retrieveDirectory(this, directory);
 	}
 
 	@Override
-	public PteroAction<Directory> back() {
+	public RequestAction<Directory> back() {
 		String[] array = context.split("/");
 
 		StringBuilder sb = new StringBuilder();
@@ -148,12 +148,12 @@ public class DirectoryImpl implements Directory {
 	}
 
 	@Override
-	public PteroAction<Void> rename(String name) {
+	public RequestAction<Void> rename(String name) {
 		return genericFile.rename(name);
 	}
 
 	@Override
-	public PteroAction<Void> delete() {
+	public RequestAction<Void> delete() {
 		return genericFile.delete();
 	}
 

@@ -16,28 +16,28 @@
 
 package be.raft.pelican.requests;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.entities.P4J;
 import be.raft.pelican.exceptions.RateLimitedException;
 import java.util.function.Consumer;
 
-public class CompletedPteroAction<T> implements PteroAction<T> {
+public class CompletedRequestAction<T> implements RequestAction<T> {
 
 	private final P4J api;
 	protected final T value;
 	protected final Throwable error;
 
-	public CompletedPteroAction(P4J api, T value, Throwable error) {
+	public CompletedRequestAction(P4J api, T value, Throwable error) {
 		this.api = api;
 		this.value = value;
 		this.error = error;
 	}
 
-	public CompletedPteroAction(P4J api, T value) {
+	public CompletedRequestAction(P4J api, T value) {
 		this(api, value, null);
 	}
 
-	public CompletedPteroAction(P4J api, Throwable error) {
+	public CompletedRequestAction(P4J api, Throwable error) {
 		this(api, null, error);
 	}
 
@@ -59,16 +59,16 @@ public class CompletedPteroAction<T> implements PteroAction<T> {
 	@Override
 	public void executeAsync(Consumer<? super T> success, Consumer<? super Throwable> failure) {
 		if (error == null) {
-			if (success == null) PteroAction.getDefaultSuccess().accept(value);
+			if (success == null) RequestAction.getDefaultSuccess().accept(value);
 			else success.accept(value);
 		} else {
-			if (failure == null) PteroAction.getDefaultFailure().accept(error);
+			if (failure == null) RequestAction.getDefaultFailure().accept(error);
 			else failure.accept(error);
 		}
 	}
 
 	@Override
-	public PteroAction<T> deadline(long timestamp) {
+	public RequestAction<T> deadline(long timestamp) {
 		return this;
 	}
 }

@@ -16,12 +16,12 @@
 
 package be.raft.pelican.application.entities.impl;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.application.entities.ApplicationDatabase;
 import be.raft.pelican.application.entities.ApplicationServer;
 import be.raft.pelican.application.managers.ApplicationDatabaseCreationAction;
 import be.raft.pelican.application.managers.ApplicationDatabaseManager;
-import be.raft.pelican.requests.PteroActionImpl;
+import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
 
 public class ApplicationDatabaseManagerImpl implements ApplicationDatabaseManager {
@@ -40,14 +40,14 @@ public class ApplicationDatabaseManagerImpl implements ApplicationDatabaseManage
 	}
 
 	@Override
-	public PteroAction<Void> resetPassword(ApplicationDatabase database) {
-		return PteroActionImpl.onRequestExecute(
+	public RequestAction<Void> resetPassword(ApplicationDatabase database) {
+		return RequestActionImpl.onRequestExecute(
 				impl.getP4J(), Route.Databases.RESET_PASSWORD.compile(server.getId(), database.getId()));
 	}
 
 	@Override
-	public PteroAction<Void> deleteDatabase(ApplicationDatabase database) {
-		return PteroActionImpl.onRequestExecute(
+	public RequestAction<Void> deleteDatabase(ApplicationDatabase database) {
+		return RequestActionImpl.onRequestExecute(
 				impl.getP4J(), Route.Databases.DELETE_DATABASE.compile(server.getId(), database.getId()));
 	}
 }

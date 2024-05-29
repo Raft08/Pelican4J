@@ -21,12 +21,12 @@ import be.raft.pelican.client.entities.Schedule;
 import be.raft.pelican.client.entities.impl.PteroClientImpl;
 import be.raft.pelican.client.entities.impl.ScheduleTaskImpl;
 import be.raft.pelican.client.managers.ScheduleTaskAction;
-import be.raft.pelican.requests.PteroActionImpl;
+import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
 import okhttp3.RequestBody;
 import org.json.JSONObject;
 
-public abstract class AbstractScheduleTaskAction extends PteroActionImpl<Schedule.ScheduleTask>
+public abstract class AbstractScheduleTaskAction extends RequestActionImpl<Schedule.ScheduleTask>
 		implements ScheduleTaskAction {
 
 	protected Schedule.ScheduleTask.ScheduleAction action;

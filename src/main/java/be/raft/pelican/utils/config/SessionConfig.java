@@ -21,7 +21,7 @@ import okhttp3.OkHttpClient;
 
 public final class SessionConfig {
 
-	public static final String DEFAULT_USER_AGENT = "Pterodactyl4J (" + P4JInfo.VERSION + ")";
+	public static final String DEFAULT_USER_AGENT = "Pelican/%s";
 
 	private final OkHttpClient httpClient;
 	private final OkHttpClient webSocketClient;
@@ -49,7 +49,7 @@ public final class SessionConfig {
 	}
 
 	public void setUserAgent(String userAgent) {
-		if (userAgent == null) userAgent = DEFAULT_USER_AGENT;
+		if (userAgent == null) userAgent = String.format(DEFAULT_USER_AGENT, System.getProperty("os.name"));
 		this.userAgent = userAgent;
 	}
 }

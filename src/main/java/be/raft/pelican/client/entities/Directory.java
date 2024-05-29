@@ -16,7 +16,7 @@
 
 package be.raft.pelican.client.entities;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.managers.CompressAction;
 import be.raft.pelican.client.managers.DeleteAction;
 import be.raft.pelican.client.managers.RenameAction;
@@ -51,13 +51,13 @@ public interface Directory extends GenericFile {
 		return getDirectoryByName(name, false);
 	}
 
-	PteroAction<Void> createFolder(String folder);
+	RequestAction<Void> createFolder(String folder);
 
-	PteroAction<Void> createFile(String name, String content);
+	RequestAction<Void> createFile(String name, String content);
 
-	PteroAction<Directory> into(Directory directory);
+	RequestAction<Directory> into(Directory directory);
 
-	PteroAction<Directory> back();
+	RequestAction<Directory> back();
 
 	UploadFileAction upload();
 
@@ -67,5 +67,5 @@ public interface Directory extends GenericFile {
 
 	CompressAction compress();
 
-	PteroAction<Void> decompress(File compressedFile);
+	RequestAction<Void> decompress(File compressedFile);
 }

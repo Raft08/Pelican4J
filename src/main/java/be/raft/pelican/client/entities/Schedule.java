@@ -17,7 +17,7 @@
 package be.raft.pelican.client.entities;
 
 import be.raft.pelican.PowerAction;
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.application.entities.ISnowflake;
 import be.raft.pelican.client.managers.ScheduleTaskManager;
 import java.time.OffsetDateTime;
@@ -44,7 +44,7 @@ public interface Schedule extends ISnowflake {
 
 	ScheduleTaskManager getTaskManager();
 
-	PteroAction<Void> delete();
+	RequestAction<Void> delete();
 
 	interface ScheduleTask extends ISnowflake {
 		int getSequenceId();
@@ -61,7 +61,7 @@ public interface Schedule extends ISnowflake {
 
 		long getTimeOffset();
 
-		PteroAction<Void> delete();
+		RequestAction<Void> delete();
 
 		enum ScheduleAction {
 			POWER,

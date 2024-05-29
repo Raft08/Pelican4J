@@ -16,7 +16,7 @@
 
 package be.raft.pelican.utils;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.application.entities.ApplicationAllocation;
 import java.util.Optional;
 
@@ -48,11 +48,11 @@ public abstract class Relationed<T> {
 	 * Retrieves the entity using its id
 	 * <br>This will retrieve the relationed entity using its id instead of using the object from the entity's relationships
 	 *
-	 * @return {@link be.raft.pelican.PteroAction PteroAction} - Type of the relationed entity
+	 * @return {@link RequestAction PteroAction} - Type of the relationed entity
 	 *
 	 * @see Relationed#get()
 	 **/
-	public abstract PteroAction<T> retrieve();
+	public abstract RequestAction<T> retrieve();
 
 	/**
 	 * Gets the entity from the object's relationships

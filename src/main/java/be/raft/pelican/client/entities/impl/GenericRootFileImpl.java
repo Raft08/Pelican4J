@@ -16,7 +16,7 @@
 
 package be.raft.pelican.client.entities.impl;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.entities.GenericFile;
 import java.nio.file.attribute.PosixFilePermission;
 import java.time.OffsetDateTime;
@@ -90,12 +90,12 @@ public class GenericRootFileImpl implements GenericFile {
 	}
 
 	@Override
-	public PteroAction<Void> rename(String name) {
+	public RequestAction<Void> rename(String name) {
 		throw new UnsupportedOperationException("You cannot rename the root directory");
 	}
 
 	@Override
-	public PteroAction<Void> delete() {
+	public RequestAction<Void> delete() {
 		throw new UnsupportedOperationException("You cannot delete the root directory");
 	}
 }

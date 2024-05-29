@@ -16,13 +16,13 @@
 
 package be.raft.pelican.client.entities.impl;
 
-import static be.raft.pelican.requests.PteroActionImpl.getRequestBody;
+import static be.raft.pelican.requests.RequestActionImpl.getRequestBody;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.entities.ClientAllocation;
 import be.raft.pelican.client.entities.ClientServer;
 import be.raft.pelican.client.managers.ClientAllocationManager;
-import be.raft.pelican.requests.PteroActionImpl;
+import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
 import be.raft.pelican.utils.Checks;
 import org.json.JSONObject;
@@ -38,10 +38,10 @@ public class ClientAllocationManagerImpl implements ClientAllocationManager {
 	}
 
 	@Override
-	public PteroAction<ClientAllocation> setNote(ClientAllocation allocation, String note) {
+	public RequestAction<ClientAllocation> setNote(ClientAllocation allocation, String note) {
 		JSONObject json = new JSONObject().put("notes", note);
 
-		return PteroActionImpl.onRequestExecute(
+		return RequestActionImpl.onRequestExecute(
 				impl.getP4J(),
 				Route.ClientAllocations.SET_NOTE.compile(server.getIdentifier(), allocation.getId()),
 				getRequestBody(json),
@@ -49,24 +49,24 @@ public class ClientAllocationManagerImpl implements ClientAllocationManager {
 	}
 
 	@Override
-	public PteroAction<Void> unassignAllocation(ClientAllocation allocation) {
+	public RequestAction<Void> unassignAllocation(ClientAllocation allocation) {
 		Checks.check(!allocation.isDefault(), "Cannot unassign default Allocation");
-		return PteroActionImpl.onRequestExecute(
+		return RequestActionImpl.onRequestExecute(
 				impl.getP4J(),
 				Route.ClientAllocations.DELETE_ALLOCATION.compile(server.getIdentifier(), allocation.getId()));
 	}
 
 	@Override
-	public PteroAction<ClientAllocation> assignAllocation() {
-		return PteroActionImpl.onRequestExecute(
+	public RequestAction<ClientAllocation> assignAllocation() {
+		return RequestActionImpl.onRequestExecute(
 				impl.getP4J(),
 				Route.ClientAllocations.ASSIGN_ALLOCATION.compile(server.getIdentifier()),
 				(response, request) -> new ClientAllocationImpl(response.getObject(), server));
 	}
 
 	@Override
-	public PteroAction<ClientAllocation> setPrimary(ClientAllocation allocation) {
-		return PteroActionImpl.onRequestExecute(
+	public RequestAction<ClientAllocation> setPrimary(ClientAllocation allocation) {
+		return RequestActionImpl.onRequestExecute(
 				impl.getP4J(),
 				Route.ClientAllocations.SET_PRIMARY.compile(server.getIdentifier(), allocation.getId()),
 				(response, request) -> new ClientAllocationImpl(response.getObject(), server));

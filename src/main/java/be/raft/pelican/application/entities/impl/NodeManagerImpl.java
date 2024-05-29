@@ -16,11 +16,11 @@
 
 package be.raft.pelican.application.entities.impl;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.application.entities.Node;
 import be.raft.pelican.application.managers.NodeAction;
 import be.raft.pelican.application.managers.NodeManager;
-import be.raft.pelican.requests.PteroActionImpl;
+import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
 
 public class NodeManagerImpl implements NodeManager {
@@ -42,7 +42,7 @@ public class NodeManagerImpl implements NodeManager {
 	}
 
 	@Override
-	public PteroAction<Void> deleteNode(Node node) {
-		return PteroActionImpl.onRequestExecute(impl.getP4J(), Route.Nodes.DELETE_NODE.compile(node.getId()));
+	public RequestAction<Void> deleteNode(Node node) {
+		return RequestActionImpl.onRequestExecute(impl.getP4J(), Route.Nodes.DELETE_NODE.compile(node.getId()));
 	}
 }

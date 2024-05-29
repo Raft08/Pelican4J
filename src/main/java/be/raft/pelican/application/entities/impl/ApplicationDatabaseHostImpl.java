@@ -16,7 +16,7 @@
 
 package be.raft.pelican.application.entities.impl;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.application.entities.ApplicationDatabase;
 import be.raft.pelican.application.entities.Node;
 import java.time.OffsetDateTime;
@@ -48,7 +48,7 @@ public class ApplicationDatabaseHostImpl implements ApplicationDatabase.Database
 	}
 
 	@Override
-	public PteroAction<Node> retrieveNode() {
+	public RequestAction<Node> retrieveNode() {
 		return impl.retrieveNodeById(getNodeIdLong());
 	}
 

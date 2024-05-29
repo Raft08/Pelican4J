@@ -16,12 +16,12 @@
 
 package be.raft.pelican.client.entities.impl;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.entities.Backup;
 import be.raft.pelican.client.entities.ClientServer;
 import be.raft.pelican.client.managers.BackupAction;
 import be.raft.pelican.client.managers.BackupManager;
-import be.raft.pelican.requests.PteroActionImpl;
+import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
 
 public class BackupManagerImpl implements BackupManager {
@@ -40,8 +40,8 @@ public class BackupManagerImpl implements BackupManager {
 	}
 
 	@Override
-	public PteroAction<String> retrieveDownloadUrl(Backup backup) {
-		return new PteroActionImpl<>(
+	public RequestAction<String> retrieveDownloadUrl(Backup backup) {
+		return new RequestActionImpl<>(
 				impl.getP4J(),
 				Route.Backups.DOWNLOAD_BACKUP.compile(
 						server.getIdentifier(), backup.getUUID().toString()),
@@ -50,16 +50,16 @@ public class BackupManagerImpl implements BackupManager {
 	}
 
 	@Override
-	public PteroAction<Void> restoreBackup(Backup backup) {
-		return PteroActionImpl.onRequestExecute(
+	public RequestAction<Void> restoreBackup(Backup backup) {
+		return RequestActionImpl.onRequestExecute(
 				impl.getP4J(),
 				Route.Backups.RESTORE_BACKUP.compile(
 						server.getIdentifier(), backup.getUUID().toString()));
 	}
 
 	@Override
-	public PteroAction<Backup> toggleLock(Backup backup) {
-		return new PteroActionImpl<>(
+	public RequestAction<Backup> toggleLock(Backup backup) {
+		return new RequestActionImpl<>(
 				impl.getP4J(),
 				Route.Backups.LOCK_BACKUP.compile(
 						server.getIdentifier(), backup.getUUID().toString()),
@@ -67,8 +67,8 @@ public class BackupManagerImpl implements BackupManager {
 	}
 
 	@Override
-	public PteroAction<Void> deleteBackup(Backup backup) {
-		return PteroActionImpl.onRequestExecute(
+	public RequestAction<Void> deleteBackup(Backup backup) {
+		return RequestActionImpl.onRequestExecute(
 				impl.getP4J(),
 				Route.Backups.DELETE_BACKUP.compile(
 						server.getIdentifier(), backup.getUUID().toString()));

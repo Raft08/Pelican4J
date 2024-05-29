@@ -16,7 +16,7 @@
 
 package be.raft.pelican.application.managers;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.application.entities.ApplicationServer;
 import be.raft.pelican.application.entities.ApplicationUser;
 
@@ -33,7 +33,7 @@ import be.raft.pelican.application.entities.ApplicationUser;
  *
  * @see ApplicationServer#getDetailManager()
  */
-public interface ServerDetailManager extends PteroAction<ApplicationServer> {
+public interface ServerDetailManager extends RequestAction<ApplicationServer> {
 
 	/** Used to remove the server description */
 	long DESCRIPTION = 0x1;

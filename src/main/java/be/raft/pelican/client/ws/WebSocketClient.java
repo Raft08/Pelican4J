@@ -24,7 +24,7 @@ import be.raft.pelican.client.ws.events.connection.DisconnectedEvent;
 import be.raft.pelican.client.ws.events.connection.DisconnectingEvent;
 import be.raft.pelican.client.ws.events.connection.FailureEvent;
 import be.raft.pelican.client.ws.handle.*;
-import be.raft.pelican.requests.PteroActionImpl;
+import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
 import be.raft.pelican.utils.P4JLogger;
 import java.util.HashMap;
@@ -83,7 +83,7 @@ public class WebSocketClient extends WebSocketListener implements Runnable {
 
 	public void connect() {
 		if (connected) throw new IllegalStateException("Client already connected");
-		String url = new PteroActionImpl<String>(
+		String url = new RequestActionImpl<String>(
 						client.getP4J(),
 						Route.Client.GET_WEBSOCKET.compile(server.getIdentifier()),
 						(response, request) ->
@@ -118,7 +118,7 @@ public class WebSocketClient extends WebSocketListener implements Runnable {
 
 	public void sendAuthenticate(String token) {
 		if (!connected) throw new IllegalStateException("Client isn't connected to server websocket");
-		String t = Optional.ofNullable(token).orElseGet(() -> new PteroActionImpl<String>(
+		String t = Optional.ofNullable(token).orElseGet(() -> new RequestActionImpl<String>(
 						client.getP4J(),
 						Route.Client.GET_WEBSOCKET.compile(server.getIdentifier()),
 						(response, request) ->

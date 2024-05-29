@@ -16,13 +16,13 @@
 
 package be.raft.pelican.client.entities.impl;
 
-import be.raft.pelican.PteroAction;
+import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.entities.ClientServer;
 import be.raft.pelican.client.entities.ClientSubuser;
 import be.raft.pelican.client.managers.SubuserAction;
 import be.raft.pelican.client.managers.SubuserCreationAction;
 import be.raft.pelican.client.managers.SubuserManager;
-import be.raft.pelican.requests.PteroActionImpl;
+import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
 
 public class SubuserManagerImpl implements SubuserManager {
@@ -46,8 +46,8 @@ public class SubuserManagerImpl implements SubuserManager {
 	}
 
 	@Override
-	public PteroAction<Void> deleteUser(ClientSubuser subuser) {
-		return PteroActionImpl.onRequestExecute(
+	public RequestAction<Void> deleteUser(ClientSubuser subuser) {
+		return RequestActionImpl.onRequestExecute(
 				impl.getP4J(),
 				Route.Subusers.DELETE_SUBUSER.compile(
 						server.getUUID().toString(), subuser.getUUID().toString()));
