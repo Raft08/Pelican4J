@@ -67,7 +67,7 @@ public class PelicanBuilder {
 	/**
 	 * Creates a {@link Application} instance with the recommended default settings.
 	 *
-	 * @param url the URL for your panel.
+	 * @param url   the URL for your panel.
 	 * @param token the Application API key.
 	 * @return A new {@link Application} instance.
 	 */
@@ -94,7 +94,7 @@ public class PelicanBuilder {
 	/**
 	 * Creates a {@link be.raft.pelican.client.entities.PteroClient} instance with the recommended default settings.
 	 *
-	 * @param url the URL for your panel.
+	 * @param url   the URL for your panel.
 	 * @param token the Client API key.
 	 * @return A new {@link be.raft.pelican.client.entities.PteroClient} instance.
 	 */
@@ -121,7 +121,7 @@ public class PelicanBuilder {
 	/**
 	 * Creates a {@link PelicanBuilder} with the predefined panel URL and API key.
 	 *
-	 * @param url the URL for your panel.
+	 * @param url   the URL for your panel.
 	 * @param token the API key.
 	 * @return the new {@link PelicanBuilder}.
 	 **/
@@ -320,7 +320,6 @@ public class PelicanBuilder {
 	 * to the <b>Client API</b>.
 	 *
 	 * @return A PteroApplication instance that is ready to execute requests.
-	 *
 	 * @see PelicanBuilder#buildClient()
 	 */
 	public Application buildApplication() {

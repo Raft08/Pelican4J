@@ -50,7 +50,6 @@ public interface ApplicationServer extends Server, ISnowflake {
 	 * <p> The server suspension state can be controlled using {@link ServerController#suspend()} and {@link ServerController#unsuspend()}.
 	 *
 	 * @return True - if this ApplicationServer is suspended
-	 *
 	 * @deprecated This key will be removed in the coming Pterodactyl updates. Use {@link ApplicationServer#getStatus()} instead
 	 */
 	@Deprecated
@@ -82,7 +81,6 @@ public interface ApplicationServer extends Server, ISnowflake {
 	 * The {@link be.raft.pelican.application.entities.ApplicationUser owner} id of the ApplicationServer
 	 *
 	 * @return Long containing the owner id
-	 *
 	 * @see ApplicationServer#retrieveOwner()
 	 */
 	long getOwnerIdLong();
@@ -91,7 +89,6 @@ public interface ApplicationServer extends Server, ISnowflake {
 	 * The {@link be.raft.pelican.application.entities.ApplicationUser owner} id of the ApplicationServer
 	 *
 	 * @return Never-null String containing the owner id
-	 *
 	 * @see ApplicationServer#retrieveOwner()
 	 */
 	default String getOwnerId() {
@@ -109,7 +106,6 @@ public interface ApplicationServer extends Server, ISnowflake {
 	 * The id of the {@link be.raft.pelican.application.entities.Node Node} the ApplicationServer is running on
 	 *
 	 * @return Long containing the node id
-	 *
 	 * @see ApplicationServer#retrieveNode()
 	 */
 	long getNodeIdLong();
@@ -118,7 +114,6 @@ public interface ApplicationServer extends Server, ISnowflake {
 	 * The id of the {@link be.raft.pelican.application.entities.Node Node} the ApplicationServer is running on
 	 *
 	 * @return Never-null String containing the node id
-	 *
 	 * @see ApplicationServer#retrieveNode()
 	 */
 	default String getNodeId() {
@@ -143,7 +138,6 @@ public interface ApplicationServer extends Server, ISnowflake {
 	 * The id of the main {@link ApplicationAllocation Allocation} for the ApplicationServer
 	 *
 	 * @return Long containing the main allocation id
-	 *
 	 * @see ApplicationServer#retrieveDefaultAllocation()
 	 */
 	long getDefaultAllocationIdLong();
@@ -152,7 +146,6 @@ public interface ApplicationServer extends Server, ISnowflake {
 	 * The id of the main {@link ApplicationAllocation Allocation} for the ApplicationServer
 	 *
 	 * @return Never-null String containing the main allocation id
-	 *
 	 * @see ApplicationServer#retrieveDefaultAllocation()
 	 */
 	default String getDefaultAllocationId() {
@@ -170,7 +163,6 @@ public interface ApplicationServer extends Server, ISnowflake {
 	 * The id of the {@link be.raft.pelican.application.entities.ApplicationEgg ApplicationEgg} for the ApplicationServer
 	 *
 	 * @return Long containing the egg id
-	 *
 	 * @see ApplicationServer#retrieveEgg()
 	 */
 	long getEggIdLong();
@@ -188,7 +180,6 @@ public interface ApplicationServer extends Server, ISnowflake {
 	 * The container of the ApplicationServer used to get startup objects
 	 *
 	 * @return The server container
-	 *
 	 * @see ApplicationServer#getStartupManager()
 	 */
 	Container getContainer();
@@ -199,7 +190,6 @@ public interface ApplicationServer extends Server, ISnowflake {
 	 * <br>Managing a server requires an <b>Application API key</b> with the <b>Servers</b> permission with <b>Read &amp; Write</b> access.
 	 *
 	 * @return The manager for this server
-	 *
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ApplicationServer#getDetailManager()},
 	 * {@link ApplicationServer#getBuildManager()}, or {@link ApplicationServer#getStartupManager()} instead
 	 */
@@ -254,16 +244,10 @@ public interface ApplicationServer extends Server, ISnowflake {
 	 * Retrieves an individual ApplicationDatabase represented by the provided id from Pterodactyl instance
 	 * <br>This requires an <b>Application API key</b> with the <b>Databases</b> permission with <b>Read</b> access.
 	 *
-	 * @param  id
-	 *         The id
-	 *
-	 * @throws be.raft.pelican.exceptions.LoginException
-	 *         If the API key is incorrect or doesn't have the required permissions
-	 *
-	 * @throws be.raft.pelican.exceptions.NotFoundException
-	 * 		   If the database cannot be found
-	 *
+	 * @param id The id
 	 * @return {@link RequestAction PteroAction} - Type {@link be.raft.pelican.application.entities.ApplicationDatabase ApplicationDatabase}
+	 * @throws be.raft.pelican.exceptions.LoginException    If the API key is incorrect or doesn't have the required permissions
+	 * @throws be.raft.pelican.exceptions.NotFoundException If the database cannot be found
 	 */
 	RequestAction<ApplicationDatabase> retrieveDatabaseById(String id);
 
@@ -271,16 +255,10 @@ public interface ApplicationServer extends Server, ISnowflake {
 	 * Retrieves an individual ApplicationDatabase represented by the provided id from Pterodactyl instance
 	 * <br>This requires an <b>Application API key</b> with the <b>Databases</b> permission with <b>Read</b> access.
 	 *
-	 * @param  id
-	 *         The id
-	 *
-	 * @throws be.raft.pelican.exceptions.LoginException
-	 *         If the API key is incorrect or doesn't have the required permissions
-	 *
-	 * @throws be.raft.pelican.exceptions.NotFoundException
-	 * 		   If the database cannot be found
-	 *
+	 * @param id The id
 	 * @return {@link RequestAction PteroAction} - Type {@link be.raft.pelican.application.entities.ApplicationDatabase ApplicationDatabase}
+	 * @throws be.raft.pelican.exceptions.LoginException    If the API key is incorrect or doesn't have the required permissions
+	 * @throws be.raft.pelican.exceptions.NotFoundException If the database cannot be found
 	 */
 	default RequestAction<ApplicationDatabase> retrieveDatabaseById(long id) {
 		return retrieveDatabaseById(Long.toUnsignedString(id));

@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2022 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2021-2024 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -12,6 +12,16 @@
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
+ * 
+ *    ============================================================================== 
+ * 
+ *    Copyright 2024 RaftDev, and the Pelican4J contributors
+ * 
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
  */
 
 package be.raft.pelican.application.managers;
@@ -35,9 +45,13 @@ import be.raft.pelican.application.entities.ApplicationUser;
  */
 public interface ServerDetailManager extends RequestAction<ApplicationServer> {
 
-	/** Used to remove the server description */
+	/**
+	 * Used to remove the server description
+	 */
 	long DESCRIPTION = 0x1;
-	/** Used to remove the external id */
+	/**
+	 * Used to remove the external id
+	 */
 	long EXTERNAL_ID = 0x2;
 
 	/**
@@ -55,9 +69,7 @@ public interface ServerDetailManager extends RequestAction<ApplicationServer> {
 	 *     <li>{@link #EXTERNAL_ID}</li>
 	 * </ul>
 	 *
-	 * @param  fields
-	 *         Integer value containing the flags to remove.
-	 *
+	 * @param fields Integer value containing the flags to remove.
 	 * @return The {@link be.raft.pelican.application.managers.ServerDetailManager ServerDetailManager} instance, useful for chaining
 	 */
 	ServerDetailManager remove(long fields);
@@ -77,9 +89,7 @@ public interface ServerDetailManager extends RequestAction<ApplicationServer> {
 	 *     <li>{@link #EXTERNAL_ID}</li>
 	 * </ul>
 	 *
-	 * @param  fields
-	 *         Integer values containing the flags to remove.
-	 *
+	 * @param fields Integer values containing the flags to remove.
 	 * @return The {@link be.raft.pelican.application.managers.ServerDetailManager ServerDetailManager}
 	 * instance, useful for chaining
 	 */
@@ -96,40 +106,29 @@ public interface ServerDetailManager extends RequestAction<ApplicationServer> {
 	/**
 	 * Sets the name of this {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer}.
 	 *
-	 * @param  name
-	 *         The new name for the server
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided name is {@code null} or not between 1-191 characters long
-	 *
+	 * @param name The new name for the server
 	 * @return The {@link be.raft.pelican.application.managers.ServerDetailManager ServerDetailManager}
 	 * instance, useful for chaining
+	 * @throws IllegalArgumentException If the provided name is {@code null} or not between 1-191 characters long
 	 */
 	ServerDetailManager setName(String name);
 
 	/**
 	 * Sets the owner of this {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer}.
 	 *
-	 * @param  user
-	 *         The new owner for the server
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided user is {@code null}
-	 *
+	 * @param user The new owner for the server
 	 * @return The {@link be.raft.pelican.application.managers.ServerDetailManager ServerDetailManager}
 	 * instance, useful for chaining
+	 * @throws IllegalArgumentException If the provided user is {@code null}
 	 */
 	ServerDetailManager setOwner(ApplicationUser user);
 
 	/**
 	 * Sets the description of this {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer}.
 	 *
-	 * @param  description
-	 *         The new description for the server or use {@link ServerDetailManager#remove(long)} to remove
-	 *
+	 * @param description The new description for the server or use {@link ServerDetailManager#remove(long)} to remove
 	 * @return The {@link be.raft.pelican.application.managers.ServerDetailManager ServerDetailManager}
 	 * instance, useful for chaining
-	 *
 	 * @see ServerDetailManager#remove(long)
 	 * @see ServerDetailManager#remove(long...)
 	 */
@@ -138,15 +137,10 @@ public interface ServerDetailManager extends RequestAction<ApplicationServer> {
 	/**
 	 * Sets the external id of this {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer}.
 	 *
-	 * @param  id
-	 *         The new external for the server or use {@link ServerDetailManager#remove(long)} to remove
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided id is not between 1-191 characters long
-	 *
+	 * @param id The new external for the server or use {@link ServerDetailManager#remove(long)} to remove
 	 * @return The {@link be.raft.pelican.application.managers.ServerDetailManager ServerDetailManager}
 	 * instance, useful for chaining
-	 *
+	 * @throws IllegalArgumentException If the provided id is not between 1-191 characters long
 	 * @see ServerDetailManager#remove(long)
 	 * @see ServerDetailManager#remove(long...)
 	 */

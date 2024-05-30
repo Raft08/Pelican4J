@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2022 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2021-2024 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -12,6 +12,16 @@
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
+ * 
+ *    ============================================================================== 
+ * 
+ *    Copyright 2024 RaftDev, and the Pelican4J contributors
+ * 
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
  */
 
 package be.raft.pelican.requests;
@@ -33,7 +43,7 @@ import java.util.stream.StreamSupport;
  * {@link RequestAction PteroAction} specification used to retrieve entities for paginated endpoints.
  * <br>Note that this implementation is not considered thread-safe as modifications to the cache are not done
  * with a lock. Calling methods on this class from multiple threads is not recommended.
- *
+ * <p>
  * The PaginationAction provides some unique capabilites for iterating over the list of entities
  * <ul>
  *     <li>{@link #forEach(Consumer)} {@link #forEachAsync(Procedure, Consumer)}
@@ -79,8 +89,7 @@ import java.util.stream.StreamSupport;
  *   }
  * </code></pre>
  *
- * @param  <T>
- *         The type of entity to paginate
+ * @param <T> The type of entity to paginate
  */
 public interface PaginationAction<T> extends RequestAction<List<T>>, Iterable<T> {
 
@@ -91,9 +100,7 @@ public interface PaginationAction<T> extends RequestAction<List<T>>, Iterable<T>
 	 *
 	 * <p>Set this to {@code 1} to start from the first page
 	 *
-	 * @param  page
-	 *         The page to skip to
-	 *
+	 * @param page The page to skip to
 	 * @return The current PaginationAction implementation instance, useful for chaining
 	 */
 	PaginationAction<T> skipTo(int page);
@@ -103,8 +110,7 @@ public interface PaginationAction<T> extends RequestAction<List<T>>, Iterable<T>
 	 * <br>This is updated by each retrieve action.
 	 *
 	 * @return The current page
-	 *
-	 * @see    #skipTo(int) Use skipTo(page) to change this
+	 * @see #skipTo(int) Use skipTo(page) to change this
 	 */
 	int getCurrentPage();
 
@@ -152,20 +158,16 @@ public interface PaginationAction<T> extends RequestAction<List<T>>, Iterable<T>
 	/**
 	 * The most recent entity retrieved by this PaginationAction instance
 	 *
-	 * @throws java.util.NoSuchElementException
-	 *         If no entities have been retrieved yet (see {@link #isEmpty()})
-	 *
 	 * @return The most recent cached entity
+	 * @throws java.util.NoSuchElementException If no entities have been retrieved yet (see {@link #isEmpty()})
 	 */
 	T getLast();
 
 	/**
 	 * The first cached entity retrieved by this PaginationAction instance
 	 *
-	 * @throws java.util.NoSuchElementException
-	 *         If no entities have been retrieved yet (see {@link #isEmpty()})
-	 *
 	 * @return The very first cached entity
+	 * @throws java.util.NoSuchElementException If no entities have been retrieved yet (see {@link #isEmpty()})
 	 */
 	T getFirst();
 
@@ -181,14 +183,9 @@ public interface PaginationAction<T> extends RequestAction<List<T>>, Iterable<T>
 	 * <br>is not the same as
 	 * <br>{@code action.stream().limit(50).collect(collector)}
 	 *
-	 *
-	 * @param  limit
-	 *         The limit to use
-	 *
-	 * @throws java.lang.IllegalArgumentException
-	 *         If the provided limit is out of range
-	 *
+	 * @param limit The limit to use
 	 * @return The current PaginationAction implementation instance, useful for chaining
+	 * @throws java.lang.IllegalArgumentException If the provided limit is out of range
 	 */
 	PaginationAction<T> limit(int limit);
 
@@ -201,9 +198,7 @@ public interface PaginationAction<T> extends RequestAction<List<T>>, Iterable<T>
 	 * the memory heap by the garbage collector. If this is enabled this will not
 	 * take place until all references to this PaginationAction have been cleared.
 	 *
-	 * @param  enableCache
-	 *         Whether to enable entity cache
-	 *
+	 * @param enableCache Whether to enable entity cache
 	 * @return The current PaginationAction implementation instance, useful for chaining
 	 */
 	PaginationAction<T> cache(boolean enableCache);
@@ -240,18 +235,13 @@ public interface PaginationAction<T> extends RequestAction<List<T>>, Iterable<T>
 	/**
 	 * Retrieves elements while the specified condition is met.
 	 *
-	 * @param  rule
-	 *         The rule which must be fulfilled for an element to be added,
-	 *         returns false to discard the element and finish the task
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided rule is {@code null}
-	 *
+	 * @param rule The rule which must be fulfilled for an element to be added,
+	 *             returns false to discard the element and finish the task
 	 * @return {@link CompletableFuture} - Type {@link List List}
-	 *         <br>Future representing the fetch task, the list will be sorted most recent to oldest
-	 *
-	 * @see    #takeWhileAsync(int, Predicate)
-	 * @see    #takeUntilAsync(Predicate)
+	 * <br>Future representing the fetch task, the list will be sorted most recent to oldest
+	 * @throws IllegalArgumentException If the provided rule is {@code null}
+	 * @see #takeWhileAsync(int, Predicate)
+	 * @see #takeUntilAsync(Predicate)
 	 */
 	default CompletableFuture<List<T>> takeWhileAsync(Predicate<? super T> rule) {
 		Checks.notNull(rule, "Rule");
@@ -261,20 +251,14 @@ public interface PaginationAction<T> extends RequestAction<List<T>>, Iterable<T>
 	/**
 	 * Retrieves elements while the specified condition is met.
 	 *
-	 * @param  limit
-	 *         The maximum amount of elements to collect or {@code 0} for no limit
-	 * @param  rule
-	 *         The rule which must be fulfilled for an element to be added,
-	 *         returns false to discard the element and finish the task
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided rule is {@code null} or the limit is negative
-	 *
+	 * @param limit The maximum amount of elements to collect or {@code 0} for no limit
+	 * @param rule  The rule which must be fulfilled for an element to be added,
+	 *              returns false to discard the element and finish the task
 	 * @return {@link CompletableFuture} - Type {@link List List}
-	 *         <br>Future representing the fetch task, the list will be sorted most recent to oldest
-	 *
-	 * @see    #takeWhileAsync(Predicate)
-	 * @see    #takeUntilAsync(int, Predicate)
+	 * <br>Future representing the fetch task, the list will be sorted most recent to oldest
+	 * @throws IllegalArgumentException If the provided rule is {@code null} or the limit is negative
+	 * @see #takeWhileAsync(Predicate)
+	 * @see #takeUntilAsync(int, Predicate)
 	 */
 	default CompletableFuture<List<T>> takeWhileAsync(int limit, Predicate<? super T> rule) {
 		Checks.notNull(rule, "Rule");
@@ -284,18 +268,13 @@ public interface PaginationAction<T> extends RequestAction<List<T>>, Iterable<T>
 	/**
 	 * Retrieves elements until the specified condition is met.
 	 *
-	 * @param  rule
-	 *         The rule which must be fulfilled for an element to be discarded,
-	 *         returns true to discard the element and finish the task
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided rule is {@code null}
-	 *
+	 * @param rule The rule which must be fulfilled for an element to be discarded,
+	 *             returns true to discard the element and finish the task
 	 * @return {@link CompletableFuture} - Type {@link List List}
-	 *         <br>Future representing the fetch task, the list will be sorted most recent to oldest
-	 *
-	 * @see    #takeWhileAsync(Predicate)
-	 * @see    #takeUntilAsync(int, Predicate)
+	 * <br>Future representing the fetch task, the list will be sorted most recent to oldest
+	 * @throws IllegalArgumentException If the provided rule is {@code null}
+	 * @see #takeWhileAsync(Predicate)
+	 * @see #takeUntilAsync(int, Predicate)
 	 */
 	default CompletableFuture<List<T>> takeUntilAsync(Predicate<? super T> rule) {
 		return takeUntilAsync(0, rule);
@@ -304,20 +283,14 @@ public interface PaginationAction<T> extends RequestAction<List<T>>, Iterable<T>
 	/**
 	 * Retrieves elements until the specified condition is met.
 	 *
-	 * @param  limit
-	 *         The maximum amount of elements to collect or {@code 0} for no limit
-	 * @param  rule
-	 *         The rule which must be fulfilled for an element to be discarded,
-	 *         returns true to discard the element and finish the task
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided rule is {@code null} or the limit is negative
-	 *
+	 * @param limit The maximum amount of elements to collect or {@code 0} for no limit
+	 * @param rule  The rule which must be fulfilled for an element to be discarded,
+	 *              returns true to discard the element and finish the task
 	 * @return {@link CompletableFuture} - Type {@link List List}
-	 *         <br>Future representing the fetch task, the list will be sorted most recent to oldest
-	 *
-	 * @see    #takeWhileAsync(Predicate)
-	 * @see    #takeUntilAsync(int, Predicate)
+	 * <br>Future representing the fetch task, the list will be sorted most recent to oldest
+	 * @throws IllegalArgumentException If the provided rule is {@code null} or the limit is negative
+	 * @see #takeWhileAsync(Predicate)
+	 * @see #takeUntilAsync(int, Predicate)
 	 */
 	default CompletableFuture<List<T>> takeUntilAsync(int limit, Predicate<? super T> rule) {
 		Checks.notNull(rule, "Rule");
@@ -341,12 +314,9 @@ public interface PaginationAction<T> extends RequestAction<List<T>>, Iterable<T>
 	 * Convenience method to retrieve an amount of entities from this pagination action.
 	 * <br>This also includes already cached entities similar to {@link #forEachAsync(Procedure)}.
 	 *
-	 * @param  amount
-	 *         The maximum amount to retrieve
-	 *
+	 * @param amount The maximum amount to retrieve
 	 * @return {@link java.util.concurrent.CompletableFuture CompletableFuture} - Type {@link java.util.List List}
-	 *
-	 * @see    #forEachAsync(Procedure)
+	 * @see #forEachAsync(Procedure)
 	 */
 	CompletableFuture<List<T>> takeAsync(int amount);
 
@@ -354,12 +324,9 @@ public interface PaginationAction<T> extends RequestAction<List<T>>, Iterable<T>
 	 * Convenience method to retrieve an amount of entities from this pagination action.
 	 * <br>Unlike {@link #takeAsync(int)} this does not include already cached entities.
 	 *
-	 * @param  amount
-	 *         The maximum amount to retrieve
-	 *
+	 * @param amount The maximum amount to retrieve
 	 * @return {@link java.util.concurrent.CompletableFuture CompletableFuture} - Type {@link java.util.List List}
-	 *
-	 * @see    #forEachRemainingAsync(Procedure)
+	 * @see #forEachRemainingAsync(Procedure)
 	 */
 	CompletableFuture<List<T>> takeRemainingAsync(int amount);
 
@@ -388,13 +355,9 @@ public interface PaginationAction<T> extends RequestAction<List<T>>, Iterable<T>
 	 * }
 	 * }</pre>
 	 *
-	 * @param  action
-	 *         {@link be.raft.pelican.utils.Procedure Procedure} returning {@code true} if iteration should continue
-	 *
-	 * @throws java.lang.IllegalArgumentException
-	 *         If the provided Procedure is {@code null}
-	 *
+	 * @param action {@link be.raft.pelican.utils.Procedure Procedure} returning {@code true} if iteration should continue
 	 * @return {@link java.util.concurrent.CompletableFuture CompletableFuture} that can be cancelled to stop iteration from outside
+	 * @throws java.lang.IllegalArgumentException If the provided Procedure is {@code null}
 	 */
 	default CompletableFuture<?> forEachAsync(Procedure<? super T> action) {
 		return forEachAsync(action, RequestAction.getDefaultFailure());
@@ -426,15 +389,10 @@ public interface PaginationAction<T> extends RequestAction<List<T>>, Iterable<T>
 	 * }
 	 * }</pre>
 	 *
-	 * @param  action
-	 *         {@link be.raft.pelican.utils.Procedure Procedure} returning {@code true} if iteration should continue
-	 * @param  failure
-	 *         {@link java.util.function.Consumer Consumer} that should handle any throwables from the action
-	 *
-	 * @throws java.lang.IllegalArgumentException
-	 *         If the provided Procedure or the failure Consumer is {@code null}
-	 *
+	 * @param action  {@link be.raft.pelican.utils.Procedure Procedure} returning {@code true} if iteration should continue
+	 * @param failure {@link java.util.function.Consumer Consumer} that should handle any throwables from the action
 	 * @return {@link java.util.concurrent.CompletableFuture CompletableFuture} that can be cancelled to stop iteration from outside
+	 * @throws java.lang.IllegalArgumentException If the provided Procedure or the failure Consumer is {@code null}
 	 */
 	CompletableFuture<?> forEachAsync(Procedure<? super T> action, Consumer<? super Throwable> failure);
 
@@ -464,13 +422,9 @@ public interface PaginationAction<T> extends RequestAction<List<T>>, Iterable<T>
 	 * }
 	 * }</pre>
 	 *
-	 * @param  action
-	 *         {@link be.raft.pelican.utils.Procedure Procedure} returning {@code true} if iteration should continue
-	 *
-	 * @throws java.lang.IllegalArgumentException
-	 *         If the provided Procedure is {@code null}
-	 *
+	 * @param action {@link be.raft.pelican.utils.Procedure Procedure} returning {@code true} if iteration should continue
 	 * @return {@link java.util.concurrent.Future Future} that can be cancelled to stop iteration from outside
+	 * @throws java.lang.IllegalArgumentException If the provided Procedure is {@code null}
 	 */
 	default CompletableFuture<?> forEachRemainingAsync(Procedure<? super T> action) {
 		return forEachRemainingAsync(action, RequestAction.getDefaultFailure());
@@ -502,15 +456,10 @@ public interface PaginationAction<T> extends RequestAction<List<T>>, Iterable<T>
 	 * }
 	 * }</pre>
 	 *
-	 * @param  action
-	 *         {@link be.raft.pelican.utils.Procedure Procedure} returning {@code true} if iteration should continue
-	 * @param  failure
-	 *         {@link java.util.function.Consumer Consumer} that should handle any throwables from the action
-	 *
-	 * @throws java.lang.IllegalArgumentException
-	 *         If the provided Procedure or the failure Consumer is {@code null}
-	 *
+	 * @param action  {@link be.raft.pelican.utils.Procedure Procedure} returning {@code true} if iteration should continue
+	 * @param failure {@link java.util.function.Consumer Consumer} that should handle any throwables from the action
 	 * @return {@link java.util.concurrent.CompletableFuture CompletableFuture} that can be cancelled to stop iteration from outside
+	 * @throws java.lang.IllegalArgumentException If the provided Procedure or the failure Consumer is {@code null}
 	 */
 	CompletableFuture<?> forEachRemainingAsync(Procedure<? super T> action, Consumer<? super Throwable> failure);
 
@@ -520,9 +469,8 @@ public interface PaginationAction<T> extends RequestAction<List<T>>, Iterable<T>
 	 *
 	 * <p><b>This is a blocking operation that might take a while to complete</b>
 	 *
-	 * @param  action
-	 *         The {@link be.raft.pelican.utils.Procedure Procedure}
-	 *         which should return {@code true} to continue iterating
+	 * @param action The {@link be.raft.pelican.utils.Procedure Procedure}
+	 *               which should return {@code true} to continue iterating
 	 */
 	void forEachRemaining(Procedure<? super T> action);
 
@@ -572,8 +520,8 @@ public interface PaginationAction<T> extends RequestAction<List<T>>, Iterable<T>
 	 * <br><b>It is recommended to use the highest possible limit for this task. (see {@link #limit(int)})</b>
 	 */
 	class PaginationIterator<E> implements Iterator<E> {
-		private Queue<E> items;
 		private final Supplier<List<E>> supply;
+		private Queue<E> items;
 
 		public PaginationIterator(Collection<E> queue, Supplier<List<E>> supply) {
 			this.items = new LinkedList<>(queue);

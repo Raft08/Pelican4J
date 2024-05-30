@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2022 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2021-2024 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -12,6 +12,16 @@
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
+ * 
+ *    ============================================================================== 
+ * 
+ *    Copyright 2024 RaftDev, and the Pelican4J contributors
+ * 
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
  */
 
 package be.raft.pelican.utils;
@@ -38,9 +48,7 @@ import java.util.Optional;
  * {@link ApplicationAllocation Allocation}. The egg relationship will not be included in server relationship from the allocation.
  * You will need to retrieve the egg instead.
  *
- * @param <T>
- *        An entity from an object's relationship
- *
+ * @param <T> An entity from an object's relationship
  */
 public abstract class Relationed<T> {
 
@@ -49,7 +57,6 @@ public abstract class Relationed<T> {
 	 * <br>This will retrieve the relationed entity using its id instead of using the object from the entity's relationships
 	 *
 	 * @return {@link RequestAction PteroAction} - Type of the relationed entity
-	 *
 	 * @see Relationed#get()
 	 **/
 	public abstract RequestAction<T> retrieve();
@@ -61,7 +68,6 @@ public abstract class Relationed<T> {
 	 * <p>Note if the optional is not present, you'll need to retrieve the object using {@link Relationed#retrieve()}
 	 *
 	 * @return Possibly-present {@link java.util.Optional Optional} - Type of the relationed entity
-	 *
 	 * @see Relationed#retrieve()
 	 **/
 	public abstract Optional<T> get();

@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2022 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2021-2024 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -12,6 +12,16 @@
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
+ * 
+ *    ============================================================================== 
+ * 
+ *    Copyright 2024 RaftDev, and the Pelican4J contributors
+ * 
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
  */
 
 package be.raft.pelican;
@@ -45,7 +55,7 @@ import java.util.function.Predicate;
  *     <br>This will simply block the thread and return the Request result, or throw an exception.
  *     <br>An optional boolean parameter can be passed to disable automated rate limit handling (not recommended)</li>
  * </ul>
- *
+ * <p>
  * The most efficient way to use a PteroAction is by using the asynchronous {@link #executeAsync()} operations.
  * <br>These allow users to provide success and failure callbacks which will be called at a convenient time for the wrapper.
  *
@@ -53,17 +63,9 @@ import java.util.function.Predicate;
  * which can be avoided by using callbacks:
  *  <br>{@link #executeAsync(Consumer)} {@literal >} {@link #execute()}
  *
- * @param <T>
- *        The generic response type for this PteroAction
+ * @param <T> The generic response type for this PteroAction
  */
 public interface RequestAction<T> {
-
-	/**
-	 * The current Pterodactyl instance
-	 *
-	 * @return The corresponding API instance
-	 */
-	P4J getP4J();
 
 	/**
 	 * The default failure callback used when none is provided in {@link #executeAsync(Consumer, Consumer)}.
@@ -84,6 +86,13 @@ public interface RequestAction<T> {
 	}
 
 	/**
+	 * The current Pterodactyl instance
+	 *
+	 * @return The corresponding API instance
+	 */
+	P4J getP4J();
+
+	/**
 	 * Blocks the current Thread and awaits the completion of a Request.
 	 * <br>Used for synchronous logic.
 	 *
@@ -101,13 +110,10 @@ public interface RequestAction<T> {
 	 *
 	 * <p><b>This method is synchronous</b>
 	 *
-	 * @param  shouldQueue
-	 *         Whether this should automatically handle rate limitations (default true)
-	 *
-	 * @throws RateLimitedException
-	 *         If the Request was rate limited and {@code shouldQueue} is false.
-	 *         Use {@link #execute()} to avoid this Exception.
+	 * @param shouldQueue Whether this should automatically handle rate limitations (default true)
 	 * @return The response value
+	 * @throws RateLimitedException If the Request was rate limited and {@code shouldQueue} is false.
+	 *                              Use {@link #execute()} to avoid this Exception.
 	 **/
 	T execute(boolean shouldQueue) throws RateLimitedException;
 
@@ -118,7 +124,6 @@ public interface RequestAction<T> {
 	 * To handle failures, use {@link #executeAsync(Consumer, Consumer)}.
 	 *
 	 * <p><b>This method is asynchronous</b>
-	 *
 	 *
 	 * @see #executeAsync(Consumer)
 	 * @see #executeAsync(Consumer, Consumer)
@@ -134,9 +139,7 @@ public interface RequestAction<T> {
 	 *
 	 * <p><b>This method is asynchronous</b>
 	 *
-	 * @param success
-	 *        The success callback that will be called at a convenient time for P4J. (can be null)
-	 *
+	 * @param success The success callback that will be called at a convenient time for P4J. (can be null)
 	 * @see #executeAsync(Consumer, Consumer)
 	 */
 	default void executeAsync(Consumer<? super T> success) {
@@ -147,11 +150,8 @@ public interface RequestAction<T> {
 	 * Submits a Request for execution.
 	 * <p><b>This method is asynchronous</b>
 	 *
-	 * @param success
-	 *        The success callback that will be called at a convenient time for P4J. (can be null to use default)
-	 *
-	 * @param failure
-	 *        The failure callback that will be called if the Request encounters an exception at its execution point. (can be null to use default)
+	 * @param success The success callback that will be called at a convenient time for P4J. (can be null to use default)
+	 * @param failure The failure callback that will be called if the Request encounters an exception at its execution point. (can be null to use default)
 	 */
 	void executeAsync(Consumer<? super T> success, Consumer<? super Throwable> failure);
 
@@ -169,15 +169,10 @@ public interface RequestAction<T> {
 	 *       .executeAsync(); // request will not be executed within deadline and will timeout immediately after 20 seconds
 	 * }</pre>
 	 *
-	 * @param  timeout
-	 *         The timeout to use
-	 * @param  unit
-	 *         {@link TimeUnit TimeUnit} for the timeout value
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided time unit is null
-	 *
+	 * @param timeout The timeout to use
+	 * @param unit    {@link TimeUnit TimeUnit} for the timeout value
 	 * @return The same PteroAction instance with the applied timeout
+	 * @throws IllegalArgumentException If the provided time unit is null
 	 */
 	default RequestAction<T> timeout(long timeout, TimeUnit unit) {
 		Checks.notNull(unit, "TimeUnit");
@@ -198,13 +193,9 @@ public interface RequestAction<T> {
 	 *       .executeAsync(); // request will not be executed within deadline and will timeout immediately after 20 seconds
 	 * }</pre>
 	 *
-	 *
-	 * @param  timestamp
-	 *         Millisecond timestamp at which the request will timeout
-	 *
+	 * @param timestamp Millisecond timestamp at which the request will timeout
 	 * @return The same PteroAction with the applied deadline
-	 *
-	 * @see    #timeout(long, TimeUnit)
+	 * @see #timeout(long, TimeUnit)
 	 */
 	RequestAction<T> deadline(long timestamp);
 
@@ -222,14 +213,9 @@ public interface RequestAction<T> {
 	 * }
 	 * }</pre>
 	 *
-	 * @param  map
-	 *         The mapping function to apply to the action result
-	 *
-	 * @param  <O>
-	 *         The target output type
-	 *
+	 * @param map The mapping function to apply to the action result
+	 * @param <O> The target output type
 	 * @return PteroAction for the mapped type
-	 *
 	 */
 	default <O> RequestAction<O> map(Function<? super T, ? extends O> map) {
 		Checks.notNull(map, "Function");
@@ -251,13 +237,9 @@ public interface RequestAction<T> {
 	 * }
 	 * }</pre>
 	 *
-	 * @param  map
-	 *         The mapping function which provides the fallback value to use
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the mapping function is null
-	 *
+	 * @param map The mapping function which provides the fallback value to use
 	 * @return PteroAction with fallback handling
+	 * @throws IllegalArgumentException If the mapping function is null
 	 */
 	default RequestAction<T> onErrorMap(Function<? super Throwable, ? extends T> map) {
 		return onErrorMap(null, map);
@@ -278,15 +260,10 @@ public interface RequestAction<T> {
 	 * }
 	 * }</pre>
 	 *
-	 * @param  condition
-	 *         A condition that must return true to apply this fallback
-	 * @param  map
-	 *         The mapping function which provides the fallback value to use
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the mapping function is null
-	 *
+	 * @param condition A condition that must return true to apply this fallback
+	 * @param map       The mapping function which provides the fallback value to use
 	 * @return PteroAction with fallback handling
+	 * @throws IllegalArgumentException If the mapping function is null
 	 */
 	default RequestAction<T> onErrorMap(
 			Predicate<? super Throwable> condition, Function<? super Throwable, ? extends T> map) {
@@ -310,16 +287,11 @@ public interface RequestAction<T> {
 	 * }
 	 * }</pre>
 	 *
-	 * @param  flatMap
-	 *         The mapping function to apply to the action result, must return a PteroAction
-	 *
-	 * @param  <O>
-	 *         The target output type
-	 *
+	 * @param flatMap The mapping function to apply to the action result, must return a PteroAction
+	 * @param <O>     The target output type
 	 * @return PteroAction for the mapped type
-	 *
-	 * @see    #flatMap(Function)
-	 * @see    #map(Function)
+	 * @see #flatMap(Function)
+	 * @see #map(Function)
 	 */
 	default <O> RequestAction<O> flatMap(Function<? super T, ? extends RequestAction<O>> flatMap) {
 		return flatMap(null, flatMap);
@@ -341,18 +313,12 @@ public interface RequestAction<T> {
 	 * }
 	 * }</pre>
 	 *
-	 * @param  condition
-	 *         A condition predicate that decides whether to apply the flat map operator or not
-	 * @param  flatMap
-	 *         The mapping function to apply to the action result, must return a PteroAction
-	 *
-	 * @param  <O>
-	 *         The target output type
-	 *
+	 * @param condition A condition predicate that decides whether to apply the flat map operator or not
+	 * @param flatMap   The mapping function to apply to the action result, must return a PteroAction
+	 * @param <O>       The target output type
 	 * @return PteroAction for the mapped type
-	 *
-	 * @see    #flatMap(Function)
-	 * @see    #map(Function)
+	 * @see #flatMap(Function)
+	 * @see #map(Function)
 	 */
 	default <O> RequestAction<O> flatMap(
 			Predicate<? super T> condition, Function<? super T, ? extends RequestAction<O>> flatMap) {
@@ -380,13 +346,9 @@ public interface RequestAction<T> {
 	 * }
 	 * }</pre>
 	 *
-	 * @param  map
-	 *         The mapping function which provides the fallback action to use
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the mapping function is null
-	 *
+	 * @param map The mapping function which provides the fallback action to use
 	 * @return PteroAction with fallback handling
+	 * @throws IllegalArgumentException If the mapping function is null
 	 */
 	default RequestAction<T> onErrorFlatMap(Function<? super Throwable, ? extends RequestAction<? extends T>> map) {
 		return onErrorFlatMap(null, map);
@@ -412,15 +374,10 @@ public interface RequestAction<T> {
 	 * }
 	 * }</pre>
 	 *
-	 * @param  condition
-	 *         A condition that must return true to apply this fallback
-	 * @param  map
-	 *         The mapping function which provides the fallback action to use
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the mapping function is null
-	 *
+	 * @param condition A condition that must return true to apply this fallback
+	 * @param map       The mapping function which provides the fallback action to use
 	 * @return PteroAction with fallback handling
+	 * @throws IllegalArgumentException If the mapping function is null
 	 */
 	default RequestAction<T> onErrorFlatMap(
 			Predicate<? super Throwable> condition,
@@ -449,9 +406,7 @@ public interface RequestAction<T> {
 	 * }
 	 * }</pre>
 	 *
-	 * @param  duration
-	 *         The delay
-	 *
+	 * @param duration The delay
 	 * @return PteroAction with delay
 	 */
 	default RequestAction<T> delay(Duration duration) {
@@ -472,11 +427,8 @@ public interface RequestAction<T> {
 	 * }
 	 * }</pre>
 	 *
-	 * @param  duration
-	 *         The delay
-	 * @param  scheduler
-	 *         The scheduler to use, null to use {@link P4J#getRateLimitPool()}
-	 *
+	 * @param duration  The delay
+	 * @param scheduler The scheduler to use, null to use {@link P4J#getRateLimitPool()}
 	 * @return PteroAction with delay
 	 */
 	default RequestAction<T> delay(Duration duration, ScheduledExecutorService scheduler) {
@@ -498,11 +450,8 @@ public interface RequestAction<T> {
 	 * }
 	 * }</pre>
 	 *
-	 * @param  delay
-	 *         The delay value
-	 * @param  unit
-	 *         The time unit for the delay value
-	 *
+	 * @param delay The delay value
+	 * @param unit  The time unit for the delay value
 	 * @return PteroAction with delay
 	 */
 	default RequestAction<T> delay(long delay, TimeUnit unit) {
@@ -523,13 +472,9 @@ public interface RequestAction<T> {
 	 * }
 	 * }</pre>
 	 *
-	 * @param  delay
-	 *         The delay value
-	 * @param  unit
-	 *         The time unit for the delay value
-	 * @param  scheduler
-	 *         The scheduler to use, null to use {@link P4J#getRateLimitPool()}
-	 *
+	 * @param delay     The delay value
+	 * @param unit      The time unit for the delay value
+	 * @param scheduler The scheduler to use, null to use {@link P4J#getRateLimitPool()}
 	 * @return PteroAction with delay
 	 */
 	default RequestAction<T> delay(long delay, TimeUnit unit, ScheduledExecutorService scheduler) {

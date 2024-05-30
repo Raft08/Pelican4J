@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2022 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2021-2024 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -12,6 +12,16 @@
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
+ * 
+ *    ============================================================================== 
+ * 
+ *    Copyright 2024 RaftDev, and the Pelican4J contributors
+ * 
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
  */
 
 package be.raft.pelican;
@@ -294,71 +304,112 @@ public enum Permission {
 	 */
 	UNKNOWN("unknown", "Unknown Permission");
 
-	private final String raw;
-	private final String description;
-
 	/**
 	 * Represents a set of all the available permissions
 	 */
 	public static final Permission[] ALL_PERMISSIONS = Permission.values();
-
 	/**
 	 * All permissions that apply to controlling a server's state
 	 */
 	public static final Permission[] CONTROL_PERMISSIONS =
 			new Permission[] {CONTROL_CONSOLE, CONTROL_START, CONTROL_STOP, CONTROL_RESTART};
-
 	/**
 	 * All permissions that apply to controlling a server's database
 	 */
 	public static final Permission[] DATABASE_PERMISSIONS =
 			new Permission[] {DATABASE_READ, DATABASE_CREATE, DATABASE_UPDATE, DATABASE_DELETE, DATABASE_VIEW_PASSWORD};
-
 	/**
 	 * All permissions that apply to a server's schedules
 	 */
 	public static final Permission[] SCHEDULE_PERMISSIONS =
 			new Permission[] {SCHEDULE_READ, SCHEDULE_CREATE, SCHEDULE_UPDATE, SCHEDULE_DELETE};
-
 	/**
 	 * All permissions that apply to controlling a server's subuser access
 	 */
 	public static final Permission[] USER_PERMISSIONS =
 			new Permission[] {USER_READ, USER_CREATE, USER_UPDATE, USER_DELETE};
-
 	/**
 	 * All permissions that apply to controlling a server's backups
 	 */
 	public static final Permission[] BACKUP_PERMISSIONS =
 			new Permission[] {BACKUP_READ, BACKUP_CREATE, BACKUP_UPDATE, BACKUP_DELETE, BACKUP_DOWNLOAD, BACKUP_RESTORE
 			};
-
 	/**
 	 * All permissions that apply to controlling a server's allocations
 	 */
 	public static final Permission[] ALLOCATION_PERMISSIONS =
 			new Permission[] {ALLOCATION_READ, ALLOCATION_CREATE, ALLOCATION_UPDATE, ALLOCATION_DELETE};
-
 	/**
 	 * All permissions that apply to modifying a server's files
 	 */
 	public static final Permission[] FILE_PERMISSIONS = new Permission[] {
 		FILE_READ, FILE_READ_CONTENT, FILE_CREATE, FILE_UPDATE, FILE_DELETE, FILE_ARCHIVE, FILE_SFTP
 	};
-
 	/**
 	 * All permissions that apply to modifying a server's startup command
 	 */
 	public static final Permission[] STARTUP_PERMISSIONS = new Permission[] {STARTUP_READ, STARTUP_UPDATE};
-
 	/**
 	 * All permissions that apply to renaming and reinstalling a server
 	 */
 	public static final Permission[] SETTINGS_PERMISSIONS = new Permission[] {SETTINGS_RENAME, SETTINGS_REINSTALL};
 
+	private final String raw;
+	private final String description;
+
 	Permission(String raw, String description) {
 		this.raw = raw;
 		this.description = description;
+	}
+
+	/**
+	 * A set of all {@link be.raft.pelican.Permission Permissions} that are specified by the collection of
+	 * raw permissions.
+	 *
+	 * @param permissions The raw representation of permissions
+	 * @return Possibly-empty EnumSet of {@link be.raft.pelican.Permission Permissions}.
+	 */
+	public static EnumSet<Permission> getPermissions(String... permissions) {
+		EnumSet<Permission> perms = EnumSet.noneOf(Permission.class);
+		if (permissions.length == 0) {
+			return perms;
+		}
+		for (String raw : permissions) {
+			Permission perm = ofRaw(raw);
+			if (perm != UNKNOWN) perms.add(perm);
+		}
+		return perms;
+	}
+
+	/**
+	 * This is effectively the opposite of {@link #getPermissions(String...)}, this takes 1 or more {@link be.raft.pelican.Permission Permissions}
+	 * and returns a list of the raw representations.
+	 *
+	 * @param permissions The collection of permissions of which to return into the raw representation
+	 * @return Never-empty String array representating the raw values of the {@link be.raft.pelican.Permission Permissions}
+	 */
+	public static String[] getRaw(Permission... permissions) {
+		int length = permissions.length;
+		String[] perms = new String[length];
+		for (int i = 0; i < length; i++) {
+			perms[i] = permissions[i].getRaw();
+		}
+		return perms;
+	}
+
+	/**
+	 * This is effectively {@link #getPermissions(String...)}, designed for returning a single {@link be.raft.pelican.Permission Permission}
+	 *
+	 * @param raw The raw representation of the permission
+	 * @return Never-null {@link be.raft.pelican.Permission Permission}.
+	 */
+	public static Permission ofRaw(String raw) {
+		for (Permission perm : ALL_PERMISSIONS) {
+			if (perm.getRaw().equals(raw)) {
+				return perm;
+			}
+		}
+		return Permission.UNKNOWN;
 	}
 
 	/**
@@ -377,63 +428,5 @@ public enum Permission {
 	 */
 	public String getDescription() {
 		return description;
-	}
-
-	/**
-	 * A set of all {@link be.raft.pelican.Permission Permissions} that are specified by the collection of
-	 * raw permissions.
-	 *
-	 * @param  permissions
-	 *         The raw representation of permissions
-	 *
-	 * @return Possibly-empty EnumSet of {@link be.raft.pelican.Permission Permissions}.
-	 *
-	 */
-	public static EnumSet<Permission> getPermissions(String... permissions) {
-		EnumSet<Permission> perms = EnumSet.noneOf(Permission.class);
-		if (permissions.length == 0) {
-			return perms;
-		}
-		for (String raw : permissions) {
-			Permission perm = ofRaw(raw);
-			if (perm != UNKNOWN) perms.add(perm);
-		}
-		return perms;
-	}
-
-	/**
-	 * This is effectively the opposite of {@link #getPermissions(String...)}, this takes 1 or more {@link be.raft.pelican.Permission Permissions}
-	 * and returns a list of the raw representations.
-	 *
-	 * @param  permissions
-	 *         The collection of permissions of which to return into the raw representation
-	 *
-	 * @return Never-empty String array representating the raw values of the {@link be.raft.pelican.Permission Permissions}
-	 */
-	public static String[] getRaw(Permission... permissions) {
-		int length = permissions.length;
-		String[] perms = new String[length];
-		for (int i = 0; i < length; i++) {
-			perms[i] = permissions[i].getRaw();
-		}
-		return perms;
-	}
-
-	/**
-	 * This is effectively {@link #getPermissions(String...)}, designed for returning a single {@link be.raft.pelican.Permission Permission}
-	 *
-	 * @param  raw
-	 *         The raw representation of the permission
-	 *
-	 * @return Never-null {@link be.raft.pelican.Permission Permission}.
-	 *
-	 */
-	public static Permission ofRaw(String raw) {
-		for (Permission perm : ALL_PERMISSIONS) {
-			if (perm.getRaw().equals(raw)) {
-				return perm;
-			}
-		}
-		return Permission.UNKNOWN;
 	}
 }

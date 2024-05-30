@@ -106,8 +106,7 @@ public class ServerDetailManagerImpl extends AbstractManagerBase implements Serv
 
 	@Override
 	public ServerDetailManager setExternalId(String id) {
-		if (id != null)
-			Checks.check(!id.isEmpty() && id.length() <= 191, "ID must be between 1-191 characters long");
+		if (id != null) Checks.check(!id.isEmpty() && id.length() <= 191, "ID must be between 1-191 characters long");
 
 		this.externalId = id;
 		set |= EXTERNAL_ID;

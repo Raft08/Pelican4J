@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2022 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2021-2024 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -12,6 +12,16 @@
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
+ * 
+ *    ============================================================================== 
+ * 
+ *    Copyright 2024 RaftDev, and the Pelican4J contributors
+ * 
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
  */
 
 package be.raft.pelican.requests;
@@ -24,6 +34,52 @@ public class Route {
 
 	private static final String APPLICATION_PREFIX = "application/";
 	private static final String CLIENT_PREFIX = "client/";
+	private final Method method;
+	private final String route;
+	private final String compilableRoute;
+	private final int paramCount;
+
+	private Route(Method method, String route) {
+		this.method = method;
+		this.route = route;
+		this.paramCount = countMatches(route, '{');
+
+		compilableRoute = route.replaceAll("\\{.*?\\}", "%s");
+
+		if (paramCount != countMatches(route, '}'))
+			throw new IllegalArgumentException(
+					"An argument does not have both {}'s for route: " + method + "  " + route);
+	}
+
+	private static int countMatches(CharSequence seq, char c) {
+		int count = 0;
+		for (int i = 0; i < seq.length(); i++) {
+			if (seq.charAt(i) == c) count++;
+		}
+		return count;
+	}
+
+	public String getRoute() {
+		return route;
+	}
+
+	@Override
+	public String toString() {
+		return "Route(" + method + ": " + route + ")";
+	}
+
+	public CompiledRoute compile(String... params) {
+		if (params.length != paramCount)
+			throw new IllegalArgumentException(
+					"Error Compiling Route: [" + route + "], incorrect amount of parameters provided. " + "Expected: "
+							+ paramCount + ", Provided: " + params.length);
+
+		if (paramCount == 0) return new CompiledRoute(this, compilableRoute);
+
+		String compiledRoute = String.format(compilableRoute, (Object[]) params);
+
+		return new CompiledRoute(this, compiledRoute);
+	}
 
 	public static class Users {
 
@@ -104,8 +160,7 @@ public class Route {
 	}
 
 	public static class Eggs {
-		public static final Route GET_EGGS =
-				new Route(GET, APPLICATION_PREFIX + "eggs?include=variables,servers");
+		public static final Route GET_EGGS = new Route(GET, APPLICATION_PREFIX + "eggs?include=variables,servers");
 
 		public static final Route GET_EGG =
 				new Route(GET, APPLICATION_PREFIX + "eggs/{egg_id}?include=variables,servers");
@@ -248,45 +303,6 @@ public class Route {
 				new Route(DELETE, CLIENT_PREFIX + "servers/{server_id}/network/allocations/{allocation_id}");
 	}
 
-	private final Method method;
-	private final String route;
-	private final String compilableRoute;
-	private final int paramCount;
-
-	private Route(Method method, String route) {
-		this.method = method;
-		this.route = route;
-		this.paramCount = countMatches(route, '{');
-
-		compilableRoute = route.replaceAll("\\{.*?\\}", "%s");
-
-		if (paramCount != countMatches(route, '}'))
-			throw new IllegalArgumentException(
-					"An argument does not have both {}'s for route: " + method + "  " + route);
-	}
-
-	public String getRoute() {
-		return route;
-	}
-
-	@Override
-	public String toString() {
-		return "Route(" + method + ": " + route + ")";
-	}
-
-	public CompiledRoute compile(String... params) {
-		if (params.length != paramCount)
-			throw new IllegalArgumentException(
-					"Error Compiling Route: [" + route + "], incorrect amount of parameters provided. " + "Expected: "
-							+ paramCount + ", Provided: " + params.length);
-
-		if (paramCount == 0) return new CompiledRoute(this, compilableRoute);
-
-		String compiledRoute = String.format(compilableRoute, (Object[]) params);
-
-		return new CompiledRoute(this, compiledRoute);
-	}
-
 	public static class CompiledRoute {
 		private final Route baseRoute;
 		private final String compiledRoute;
@@ -323,13 +339,5 @@ public class Route {
 
 			return new CompiledRoute(baseRoute, newRoute.toString());
 		}
-	}
-
-	private static int countMatches(CharSequence seq, char c) {
-		int count = 0;
-		for (int i = 0; i < seq.length(); i++) {
-			if (seq.charAt(i) == c) count++;
-		}
-		return count;
 	}
 }

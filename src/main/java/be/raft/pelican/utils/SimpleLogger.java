@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2022 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2021-2024 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -12,11 +12,21 @@
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
+ * 
+ *    ============================================================================== 
+ * 
+ *    Copyright 2024 RaftDev, and the Pelican4J contributors
+ * 
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
  */
 
 package be.raft.pelican.utils;
 
-import java.io.*;
+import java.io.PrintStream;
 import java.text.DateFormat;
 import java.util.Date;
 import org.slf4j.helpers.FormattingTuple;
@@ -27,15 +37,11 @@ import org.slf4j.spi.LocationAwareLogger;
 class SimpleLogger extends MarkerIgnoringBase {
 
 	private static final long serialVersionUID = -4634988394764007409L;
-
-	private static boolean INITIALIZED = false;
-
 	private static final int LOG_LEVEL_TRACE = LocationAwareLogger.TRACE_INT;
 	private static final int LOG_LEVEL_DEBUG = LocationAwareLogger.DEBUG_INT;
 	private static final int LOG_LEVEL_INFO = LocationAwareLogger.INFO_INT;
 	private static final int LOG_LEVEL_WARN = LocationAwareLogger.WARN_INT;
 	private static final int LOG_LEVEL_ERROR = LocationAwareLogger.ERROR_INT;
-
 	private static final int DEFAULT_LOG_LEVEL = LOG_LEVEL_INFO;
 	private static final boolean SHOW_DATE_TIME = false;
 	private static final DateFormat DATE_FORMATTER = DateFormat.getTimeInstance();
@@ -43,11 +49,7 @@ class SimpleLogger extends MarkerIgnoringBase {
 	private static final boolean SHOW_LOG_NAME = true;
 	private static final boolean SHOW_SHORT_LOG_NAME = false;
 	private static final PrintStream TARGET_STREAM = System.err;
-
-	static void init() {
-		INITIALIZED = true;
-	}
-
+	private static boolean INITIALIZED = false;
 	protected int currentLogLevel = DEFAULT_LOG_LEVEL;
 	private transient String shortLogName = null;
 
@@ -55,6 +57,10 @@ class SimpleLogger extends MarkerIgnoringBase {
 		if (!INITIALIZED) init();
 
 		this.name = name;
+	}
+
+	static void init() {
+		INITIALIZED = true;
 	}
 
 	private void log(int level, String message, Throwable t) {

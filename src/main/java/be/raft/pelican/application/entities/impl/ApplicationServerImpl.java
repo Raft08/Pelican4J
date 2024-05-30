@@ -120,8 +120,7 @@ public class ApplicationServerImpl implements ApplicationServer {
 
 	@Override
 	public Optional<List<ApplicationAllocation>> getAllocations() {
-		if (!json.has("relationships"))
-			return Optional.empty();
+		if (!json.has("relationships")) return Optional.empty();
 
 		List<ApplicationAllocation> allocations = new ArrayList<>();
 		JSONObject json = relationships.getJSONObject("allocations");
@@ -155,8 +154,7 @@ public class ApplicationServerImpl implements ApplicationServer {
 	public RequestAction<ApplicationEgg> retrieveEgg() {
 		if (!json.has("relationships")) return impl.retrieveEggById(getEggId());
 
-		return new CompletedRequestAction<>(
-				impl.getP4J(), new ApplicationEggImpl(relationships.getJSONObject("egg")));
+		return new CompletedRequestAction<>(impl.getP4J(), new ApplicationEggImpl(relationships.getJSONObject("egg")));
 	}
 
 	@Override

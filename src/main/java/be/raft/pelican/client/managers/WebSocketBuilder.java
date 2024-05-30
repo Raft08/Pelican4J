@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2022 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2021-2024 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -12,6 +12,16 @@
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
+ * 
+ *    ============================================================================== 
+ * 
+ *    Copyright 2024 RaftDev, and the Pelican4J contributors
+ * 
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
  */
 
 package be.raft.pelican.client.managers;
@@ -39,12 +49,9 @@ public class WebSocketBuilder {
 	/**
 	 * Registers the specified listeners
 	 *
-	 * @param listeners
-	 *        The listener objects
-	 *
-	 * @throws java.lang.IllegalArgumentException
-	 *         If one of the listeners does not implement {@link be.raft.pelican.client.ws.hooks.ClientSocketListener ClientSocketListener}
-	 *         or if the listeners are null
+	 * @param listeners The listener objects
+	 * @throws java.lang.IllegalArgumentException If one of the listeners does not implement {@link be.raft.pelican.client.ws.hooks.ClientSocketListener ClientSocketListener}
+	 *                                            or if the listeners are null
 	 */
 	public WebSocketBuilder addEventListeners(Object... listeners) {
 		if (listeners == null) throw new IllegalArgumentException("Listeners cannot be null");
@@ -58,11 +65,8 @@ public class WebSocketBuilder {
 	/**
 	 * Removes the specified listeners
 	 *
-	 * @param listeners
-	 *        The listener objects to remove
-	 *
-	 * @throws java.lang.IllegalArgumentException
-	 *         If the listeners are null
+	 * @param listeners The listener objects to remove
+	 * @throws java.lang.IllegalArgumentException If the listeners are null
 	 */
 	public WebSocketBuilder removeEventListeners(Object... listeners) {
 		if (listeners == null) throw new IllegalArgumentException("Listeners cannot be null");
@@ -87,10 +91,8 @@ public class WebSocketBuilder {
 	 *
 	 * <p>Default: <b>false (disabled)</b>
 	 *
-	 * @param  enable
-	 *         True - provide a fresh instance of the {@link be.raft.pelican.client.entities.ClientServer ClientServer}
-	 *         in event context
-	 *
+	 * @param enable True - provide a fresh instance of the {@link be.raft.pelican.client.entities.ClientServer ClientServer}
+	 *               in event context
 	 * @return The {@link be.raft.pelican.client.managers.WebSocketBuilder WebSocketBuilder} instance. Useful for chaining.
 	 */
 	public WebSocketBuilder freshServer(boolean enable) {

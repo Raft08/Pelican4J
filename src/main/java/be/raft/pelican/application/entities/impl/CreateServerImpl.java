@@ -43,6 +43,7 @@ import org.json.JSONObject;
 
 public class CreateServerImpl extends RequestActionImpl<ApplicationServer> implements ServerCreationAction {
 
+	private final ApplicationImpl impl;
 	private String name;
 	private String description;
 	private ApplicationUser owner;
@@ -65,8 +66,6 @@ public class CreateServerImpl extends RequestActionImpl<ApplicationServer> imple
 	private boolean skipScripts;
 	private ApplicationAllocation defaultAllocation;
 	private Collection<ApplicationAllocation> additionalAllocations;
-
-	private final ApplicationImpl impl;
 
 	public CreateServerImpl(ApplicationImpl impl) {
 		super(

@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2022 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2021-2024 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -12,6 +12,16 @@
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
+ * 
+ *    ============================================================================== 
+ * 
+ *    Copyright 2024 RaftDev, and the Pelican4J contributors
+ * 
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
  */
 
 package be.raft.pelican.application.managers;
@@ -49,14 +59,10 @@ public interface ServerStartupManager extends RequestAction<ApplicationServer> {
 	/**
 	 * Sets the start up command of this {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer}.
 	 *
-	 * @param  command
-	 *         The new startup command for the server
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided command is {@code null}
-	 *
+	 * @param command The new startup command for the server
 	 * @return The {@link be.raft.pelican.application.managers.ServerStartupManager ServerStartupManager}
 	 * instance, useful for chaining
+	 * @throws IllegalArgumentException If the provided command is {@code null}
 	 */
 	ServerStartupManager setStartupCommand(String command);
 
@@ -64,15 +70,10 @@ public interface ServerStartupManager extends RequestAction<ApplicationServer> {
 	 * Sets the egg environment variables of this {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer}.
 	 * <br>This method will not remove any existing environment variables, it will only replace them.
 	 *
-	 * @param  environment
-	 *         The updated map
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided environment map is {@code null}
-	 *
+	 * @param environment The updated map
 	 * @return The {@link be.raft.pelican.application.managers.ServerStartupManager ServerStartupManager}
 	 * instance, useful for chaining
-	 *
+	 * @throws IllegalArgumentException If the provided environment map is {@code null}
 	 * @see EnvironmentValue
 	 */
 	ServerStartupManager setEnvironment(Map<String, EnvironmentValue<?>> environment);
@@ -82,15 +83,10 @@ public interface ServerStartupManager extends RequestAction<ApplicationServer> {
 	 *
 	 * <p><b>Note:</b> You will need to restart the server for the changes to take effect.
 	 *
-	 * @param  egg
-	 *         The new egg for the server
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided egg is {@code null}
-	 *
+	 * @param egg The new egg for the server
 	 * @return The {@link be.raft.pelican.application.managers.ServerStartupManager ServerStartupManager}
 	 * instance, useful for chaining
-	 *
+	 * @throws IllegalArgumentException If the provided egg is {@code null}
 	 * @see ClientServer#restart()
 	 */
 	ServerStartupManager setEgg(ApplicationEgg egg);
@@ -100,15 +96,10 @@ public interface ServerStartupManager extends RequestAction<ApplicationServer> {
 	 *
 	 * <p><b>Note:</b> You will need to restart the server for the changes to take effect.
 	 *
-	 * @param  dockerImage
-	 *         The new Docker image for the server
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided image is {@code null} or longer then 191 characters
-	 *
+	 * @param dockerImage The new Docker image for the server
 	 * @return The {@link be.raft.pelican.application.managers.ServerStartupManager ServerStartupManager}
 	 * instance, useful for chaining
-	 *
+	 * @throws IllegalArgumentException If the provided image is {@code null} or longer then 191 characters
 	 * @see ClientServer#restart()
 	 */
 	ServerStartupManager setImage(String dockerImage);
@@ -119,9 +110,7 @@ public interface ServerStartupManager extends RequestAction<ApplicationServer> {
 	 *
 	 * <p>Default: <b>disabled (false)</b>
 	 *
-	 * @param  skipScripts
-	 *         True - will not run egg install scripts
-	 *
+	 * @param skipScripts True - will not run egg install scripts
 	 * @return The {@link be.raft.pelican.application.managers.ServerStartupManager ServerStartupManager}
 	 * instance, useful for chaining
 	 */

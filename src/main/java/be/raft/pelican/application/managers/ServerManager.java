@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2022 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2021-2024 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -12,6 +12,16 @@
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
+ * 
+ *    ============================================================================== 
+ * 
+ *    Copyright 2024 RaftDev, and the Pelican4J contributors
+ * 
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
  */
 
 package be.raft.pelican.application.managers;
@@ -49,15 +59,10 @@ public class ServerManager {
 	/**
 	 * Sets the name of this {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer}.
 	 *
-	 * @param  name
-	 *         The new name for the server
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided name is {@code null} or not between 1-191 characters long
-	 *
+	 * @param name The new name for the server
 	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
-	 *
+	 * @throws IllegalArgumentException If the provided name is {@code null} or not between 1-191 characters long
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerDetailManager#setName(String)} instead
 	 */
 	@Deprecated
@@ -68,15 +73,10 @@ public class ServerManager {
 	/**
 	 * Sets the owner of this {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer}.
 	 *
-	 * @param  user
-	 *         The new owner for the server
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided user is {@code null}
-	 *
+	 * @param user The new owner for the server
 	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
-	 *
+	 * @throws IllegalArgumentException If the provided user is {@code null}
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerDetailManager#setOwner(ApplicationUser)} instead
 	 */
 	@Deprecated
@@ -87,12 +87,9 @@ public class ServerManager {
 	/**
 	 * Sets the description of this {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer}.
 	 *
-	 * @param  description
-	 *         The new description for the server or {@code null} to remove
-	 *
+	 * @param description The new description for the server or {@code null} to remove
 	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
-	 *
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerDetailManager#setDescription(String)} instead
 	 */
 	@Deprecated
@@ -103,15 +100,10 @@ public class ServerManager {
 	/**
 	 * Sets the external id of this {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer}.
 	 *
-	 * @param  id
-	 *         The new external for the server or {@code null} to remove
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided id is not between 1-191 characters long
-	 *
+	 * @param id The new external for the server or {@code null} to remove
 	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
-	 *
+	 * @throws IllegalArgumentException If the provided id is not between 1-191 characters long
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerDetailManager#setExternalId(String)} instead
 	 */
 	@Deprecated
@@ -122,18 +114,11 @@ public class ServerManager {
 	/**
 	 * Sets the primary allocation for this {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer}.
 	 *
-	 * @param  allocation
-	 *         The new primary allocation for the server
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided allocation is {@code null}
-	 *
-	 * @throws be.raft.pelican.exceptions.MissingActionException
-	 *         If the provided allocation is already assigned
-	 *
+	 * @param allocation The new primary allocation for the server
 	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
-	 *
+	 * @throws IllegalArgumentException                          If the provided allocation is {@code null}
+	 * @throws be.raft.pelican.exceptions.MissingActionException If the provided allocation is already assigned
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerBuildManager#setAllocation(ApplicationAllocation)} instead
 	 */
 	@Deprecated
@@ -150,18 +135,11 @@ public class ServerManager {
 	 * when submitting the data to the panel.
 	 * <br>Amount of {@code 1024} and DataType {@code MB} is effectively the same as {@code 1} and {@code GB}
 	 *
-	 * @param  amount
-	 *         The new amount of memory
-	 *
-	 * @param dataType
-	 * 		  The unit of data pertaining to the amount
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided amount is less than 0 or provided DataType is {@code null}
-	 *
+	 * @param amount   The new amount of memory
+	 * @param dataType The unit of data pertaining to the amount
 	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
-	 *
+	 * @throws IllegalArgumentException If the provided amount is less than 0 or provided DataType is {@code null}
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerBuildManager#setMemory(long, DataType)} instead
 	 */
 	@Deprecated
@@ -178,18 +156,11 @@ public class ServerManager {
 	 * when submitting the data to the panel.
 	 * <br>Amount of {@code 1024} and DataType {@code MB} is effectively the same as {@code 1} and {@code GB}
 	 *
-	 * @param  amount
-	 *         The new amount of swap
-	 *
-	 * @param dataType
-	 * 		  The unit of data pertaining to the amount
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided amount is less than -1 MB or provided DataType is {@code null}
-	 *
+	 * @param amount   The new amount of swap
+	 * @param dataType The unit of data pertaining to the amount
 	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
-	 *
+	 * @throws IllegalArgumentException If the provided amount is less than -1 MB or provided DataType is {@code null}
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerBuildManager#setSwap(long, DataType)} instead
 	 */
 	@Deprecated
@@ -204,15 +175,10 @@ public class ServerManager {
 	 *
 	 * <p>Default: <b>500</b>
 	 *
-	 * @param  amount
-	 *         The new block io proportion
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided amount is not between 10-1000
-	 *
+	 * @param amount The new block io proportion
 	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
-	 *
+	 * @throws IllegalArgumentException If the provided amount is not between 10-1000
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerBuildManager#setIO(long)} instead
 	 */
 	@Deprecated
@@ -225,15 +191,10 @@ public class ServerManager {
 	 * <br>Each physical core on the node is considered to be multiple of {@code 100}. Setting this value to {@code 0} will allow
 	 * unlimited cpu performance for the container
 	 *
-	 * @param  amount
-	 *         The new cpu limit
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided amount is less than 0
-	 *
+	 * @param amount The new cpu limit
 	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
-	 *
+	 * @throws IllegalArgumentException If the provided amount is less than 0
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerBuildManager#setCPU(long)} instead
 	 */
 	@Deprecated
@@ -252,17 +213,11 @@ public class ServerManager {
 	 * <p><b>Example:</b> {@code 0}, {@code 0-1,3}, or {@code 0,1,3,4}
 	 * <br>The panel validates this value using the following regex: {@code /^[0-9-,]+$/}
 	 *
-	 * @param  cores
-	 *         The cpu cores the container process can run on
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided amount is less than 0
-	 *
+	 * @param cores The cpu cores the container process can run on
 	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
-	 *
+	 * @throws IllegalArgumentException If the provided amount is less than 0
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerBuildManager#setThreads(String)} instead
-	 *
 	 */
 	@Deprecated
 	public RequestAction<ApplicationServer> setThreads(String cores) {
@@ -278,18 +233,11 @@ public class ServerManager {
 	 * when submitting the data to the panel.
 	 * <br>Amount of {@code 1024} and DataType {@code MB} is effectively the same as {@code 1} and {@code GB}
 	 *
-	 * @param  amount
-	 *         The new amount of disk space
-	 *
-	 * @param dataType
-	 * 		  The unit of data pertaining to the amount
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided amount is less than 0 MB or provided DataType is {@code null}
-	 *
+	 * @param amount   The new amount of disk space
+	 * @param dataType The unit of data pertaining to the amount
 	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
-	 *
+	 * @throws IllegalArgumentException If the provided amount is less than 0 MB or provided DataType is {@code null}
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerBuildManager#setDisk(long, DataType)} instead
 	 */
 	@Deprecated
@@ -300,15 +248,10 @@ public class ServerManager {
 	/**
 	 * Sets the maximum number of databases that can be created for this {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer}.
 	 *
-	 * @param  amount
-	 *         The new database limit
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided amount is less than 0
-	 *
+	 * @param amount The new database limit
 	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
-	 *
+	 * @throws IllegalArgumentException If the provided amount is less than 0
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerBuildManager#setAllowedDatabases(int)} instead
 	 */
 	@Deprecated
@@ -319,15 +262,10 @@ public class ServerManager {
 	/**
 	 * Sets the maximum number of allocations that can be assigned to this {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer}.
 	 *
-	 * @param  amount
-	 *         The new allocation limit
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided amount is less than 0
-	 *
+	 * @param amount The new allocation limit
 	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
-	 *
+	 * @throws IllegalArgumentException If the provided amount is less than 0
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerBuildManager#setAllowedAllocations(int)} instead
 	 */
 	@Deprecated
@@ -338,15 +276,10 @@ public class ServerManager {
 	/**
 	 * Sets the maximum number of backups that can be created for this {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer}.
 	 *
-	 * @param  amount
-	 *         The new backup limit
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided amount is less than 0
-	 *
+	 * @param amount The new backup limit
 	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
-	 *
+	 * @throws IllegalArgumentException If the provided amount is less than 0
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerBuildManager#setAllowedBackups(int)} instead
 	 */
 	@Deprecated
@@ -363,12 +296,9 @@ public class ServerManager {
 	 *
 	 * <p><b>Note:</b> You will need to restart the server for the changes to take effect.
 	 *
-	 * @param  enable
-	 *         True - enable the oom killer
-	 *
+	 * @param enable True - enable the oom killer
 	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
-	 *
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerBuildManager#setEnableOOMKiller(boolean)} instead
 	 */
 	@Deprecated
@@ -379,15 +309,10 @@ public class ServerManager {
 	/**
 	 * Sets the start up command of this {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer}.
 	 *
-	 * @param  command
-	 *         The new startup command for the server
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided command is {@code null}
-	 *
+	 * @param command The new startup command for the server
 	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
-	 *
+	 * @throws IllegalArgumentException If the provided command is {@code null}
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerStartupManager#setStartupCommand(String)} instead
 	 */
 	@Deprecated
@@ -399,17 +324,11 @@ public class ServerManager {
 	 * Sets the egg environment variables of this {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer}.
 	 * <br>This method will not remove any existing environment variables, it will only replace them.
 	 *
-	 * @param  environment
-	 *         The updated map
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided environment map is {@code null}
-	 *
+	 * @param environment The updated map
 	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
-	 *
+	 * @throws IllegalArgumentException If the provided environment map is {@code null}
 	 * @see EnvironmentValue
-	 *
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerStartupManager#setEnvironment(Map)} instead
 	 */
 	@Deprecated
@@ -422,17 +341,11 @@ public class ServerManager {
 	 *
 	 * <p><b>Note:</b> You will need to restart the server for the changes to take effect.
 	 *
-	 * @param  egg
-	 *         The new egg for the server
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided egg is {@code null}
-	 *
+	 * @param egg The new egg for the server
 	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
-	 *
+	 * @throws IllegalArgumentException If the provided egg is {@code null}
 	 * @see ClientServer#restart()
-	 *
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerStartupManager#setEgg(ApplicationEgg)} instead
 	 */
 	@Deprecated
@@ -445,17 +358,11 @@ public class ServerManager {
 	 *
 	 * <p><b>Note:</b> You will need to restart the server for the changes to take effect.
 	 *
-	 * @param  dockerImage
-	 *         The new Docker image for the server
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided image is {@code null} or longer then 191 characters
-	 *
+	 * @param dockerImage The new Docker image for the server
 	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
-	 *
+	 * @throws IllegalArgumentException If the provided image is {@code null} or longer then 191 characters
 	 * @see ClientServer#restart()
-	 *
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerStartupManager#setImage(String)} instead
 	 */
 	@Deprecated
@@ -469,12 +376,9 @@ public class ServerManager {
 	 *
 	 * <p>Default: <b>disabled (false)</b>
 	 *
-	 * @param  skipScripts
-	 *         True - will not run egg install scripts
-	 *
+	 * @param skipScripts True - will not run egg install scripts
 	 * @return {@link RequestAction PteroAction} - Type
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer} - The updated server
-	 *
 	 * @deprecated This will be removed in the next major release (non-beta). Use {@link ServerStartupManager#setSkipScripts(boolean)} instead
 	 */
 	@Deprecated

@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2022 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2021-2024 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -12,6 +12,16 @@
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
+ * 
+ *    ============================================================================== 
+ * 
+ *    Copyright 2024 RaftDev, and the Pelican4J contributors
+ * 
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
  */
 
 package be.raft.pelican.client.entities.impl;
@@ -25,6 +35,21 @@ public class CronImpl implements Cron {
 
 	public CronImpl(JSONObject json) {
 		this.json = json.getJSONObject("cron");
+	}
+
+	public static Cron ofExpression(String expression) {
+		String[] exp = expression.split("\\s+");
+		if (exp.length != 5)
+			throw new IllegalArgumentException(
+					"P4J Cron Expression must have 5 elements (minute, hour, day of month, month, day of week)");
+
+		JSONObject cron = new JSONObject();
+		cron.put("minute", exp[0])
+				.put("hour", exp[1])
+				.put("day_of_month", exp[2])
+				.put("month", exp[3])
+				.put("day_of_week", exp[4]);
+		return new CronImpl(new JSONObject().put("cron", cron));
 	}
 
 	@Override
@@ -55,20 +80,5 @@ public class CronImpl implements Cron {
 	@Override
 	public String getExpression() {
 		return String.format("%s %s %s %s %s", getMinute(), getHour(), getDayOfMonth(), getMonth(), getDayOfWeek());
-	}
-
-	public static Cron ofExpression(String expression) {
-		String[] exp = expression.split("\\s+");
-		if (exp.length != 5)
-			throw new IllegalArgumentException(
-					"P4J Cron Expression must have 5 elements (minute, hour, day of month, month, day of week)");
-
-		JSONObject cron = new JSONObject();
-		cron.put("minute", exp[0])
-				.put("hour", exp[1])
-				.put("day_of_month", exp[2])
-				.put("month", exp[3])
-				.put("day_of_week", exp[4]);
-		return new CronImpl(new JSONObject().put("cron", cron));
 	}
 }

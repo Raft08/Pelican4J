@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2022 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2021-2024 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -12,6 +12,16 @@
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
+ * 
+ *    ============================================================================== 
+ * 
+ *    Copyright 2024 RaftDev, and the Pelican4J contributors
+ * 
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
  */
 
 package be.raft.pelican.requests;
@@ -32,34 +42,14 @@ import org.slf4j.Logger;
 public class RequestActionImpl<T> implements RequestAction<T> {
 
 	public static final Logger LOGGER = P4JLogger.getLogger(RequestAction.class);
-
+	public static final Consumer<Object> DEFAULT_SUCCESS = o -> {};
+	public static final Consumer<? super Throwable> DEFAULT_FAILURE =
+			t -> System.err.printf("Action execute returned failure: %s%n", t.getMessage());
 	private final P4J api;
 	private final Route.CompiledRoute route;
 	private final RequestBody data;
-	private long deadline = 0;
 	private final BiFunction<Response, Request<T>, T> handler;
-
-	public static <T> DeferredRequestAction<T> onExecute(P4J api, Supplier<? extends T> supplier) {
-		return new DeferredRequestAction<>(api, supplier);
-	}
-
-	public static <T> RequestActionImpl<T> onRequestExecute(P4J api, Route.CompiledRoute route) {
-		return new RequestActionImpl<>(api, route);
-	}
-
-	public static <T> RequestActionImpl<T> onRequestExecute(P4J api, Route.CompiledRoute route, RequestBody data) {
-		return new RequestActionImpl<>(api, route, data);
-	}
-
-	public static <T> RequestActionImpl<T> onRequestExecute(
-			P4J api, Route.CompiledRoute route, BiFunction<Response, Request<T>, T> handler) {
-		return new RequestActionImpl<>(api, route, handler);
-	}
-
-	public static <T> RequestActionImpl<T> onRequestExecute(
-			P4J api, Route.CompiledRoute route, RequestBody data, BiFunction<Response, Request<T>, T> handler) {
-		return new RequestActionImpl<>(api, route, data, handler);
-	}
+	private long deadline = 0;
 
 	public RequestActionImpl(P4J api) {
 		this(api, null);
@@ -85,9 +75,35 @@ public class RequestActionImpl<T> implements RequestAction<T> {
 		this.handler = handler;
 	}
 
-	public static final Consumer<Object> DEFAULT_SUCCESS = o -> {};
-	public static final Consumer<? super Throwable> DEFAULT_FAILURE =
-			t -> System.err.printf("Action execute returned failure: %s%n", t.getMessage());
+	public static <T> DeferredRequestAction<T> onExecute(P4J api, Supplier<? extends T> supplier) {
+		return new DeferredRequestAction<>(api, supplier);
+	}
+
+	public static <T> RequestActionImpl<T> onRequestExecute(P4J api, Route.CompiledRoute route) {
+		return new RequestActionImpl<>(api, route);
+	}
+
+	public static <T> RequestActionImpl<T> onRequestExecute(P4J api, Route.CompiledRoute route, RequestBody data) {
+		return new RequestActionImpl<>(api, route, data);
+	}
+
+	public static <T> RequestActionImpl<T> onRequestExecute(
+			P4J api, Route.CompiledRoute route, BiFunction<Response, Request<T>, T> handler) {
+		return new RequestActionImpl<>(api, route, handler);
+	}
+
+	public static <T> RequestActionImpl<T> onRequestExecute(
+			P4J api, Route.CompiledRoute route, RequestBody data, BiFunction<Response, Request<T>, T> handler) {
+		return new RequestActionImpl<>(api, route, data, handler);
+	}
+
+	public static RequestBody getRequestBody(JSONObject object) {
+		return object == null ? null : RequestBody.create(Requester.MEDIA_TYPE_JSON, object.toString());
+	}
+
+	public static RequestBody getRequestBody(JSONArray array) {
+		return array == null ? null : RequestBody.create(Requester.MEDIA_TYPE_JSON, array.toString());
+	}
 
 	@Override
 	public T execute(boolean shouldQueue) {
@@ -147,13 +163,5 @@ public class RequestActionImpl<T> implements RequestAction<T> {
 
 	protected Route.CompiledRoute finalizeRoute() {
 		return route;
-	}
-
-	public static RequestBody getRequestBody(JSONObject object) {
-		return object == null ? null : RequestBody.create(Requester.MEDIA_TYPE_JSON, object.toString());
-	}
-
-	public static RequestBody getRequestBody(JSONArray array) {
-		return array == null ? null : RequestBody.create(Requester.MEDIA_TYPE_JSON, array.toString());
 	}
 }

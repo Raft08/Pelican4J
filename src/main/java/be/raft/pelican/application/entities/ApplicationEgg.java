@@ -100,7 +100,6 @@ public interface ApplicationEgg extends Egg, ISnowflake {
 	 * or triggers a reinstall
 	 *
 	 * @return Never-null installation script
-	 *
 	 * @see ClientServerManager#reinstall()
 	 * @see ServerController#reinstall()
 	 */

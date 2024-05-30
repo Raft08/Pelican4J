@@ -29,7 +29,10 @@ package be.raft.pelican.application.managers;
 import be.raft.pelican.DataType;
 import be.raft.pelican.EnvironmentValue;
 import be.raft.pelican.RequestAction;
-import be.raft.pelican.application.entities.*;
+import be.raft.pelican.application.entities.ApplicationAllocation;
+import be.raft.pelican.application.entities.ApplicationEgg;
+import be.raft.pelican.application.entities.ApplicationServer;
+import be.raft.pelican.application.entities.ApplicationUser;
 import java.util.*;
 
 public interface ServerCreationAction extends RequestAction<ApplicationServer> {

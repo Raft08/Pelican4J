@@ -108,8 +108,7 @@ public class ApplicationEggImpl implements ApplicationEgg {
 
 	@Override
 	public Optional<Map<String, EnvironmentValue<?>>> getDefaultVariableMap() {
-		if (getVariables().isEmpty())
-			return Optional.empty();
+		if (getVariables().isEmpty()) return Optional.empty();
 
 		Map<String, EnvironmentValue<?>> variableMap = new HashMap<>();
 		getVariables().get().forEach(var -> variableMap.put(var.getEnvironmentVariable(), var.getDefaultValue()));

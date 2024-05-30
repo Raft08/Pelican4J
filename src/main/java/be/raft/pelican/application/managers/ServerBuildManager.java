@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2022 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2021-2024 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -12,6 +12,16 @@
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
+ * 
+ *    ============================================================================== 
+ * 
+ *    Copyright 2024 RaftDev, and the Pelican4J contributors
+ * 
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
  */
 
 package be.raft.pelican.application.managers;
@@ -56,17 +66,11 @@ public interface ServerBuildManager extends RequestAction<ApplicationServer> {
 	/**
 	 * Sets the primary allocation for this {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer}.
 	 *
-	 * @param  allocation
-	 *         The new primary allocation for the server
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided allocation is {@code null}
-	 *
-	 * @throws be.raft.pelican.exceptions.MissingActionException
-	 *         If the provided allocation is already assigned
-	 *
+	 * @param allocation The new primary allocation for the server
 	 * @return The {@link be.raft.pelican.application.managers.ServerBuildManager ServerBuildManager}
 	 * instance, useful for chaining
+	 * @throws IllegalArgumentException                          If the provided allocation is {@code null}
+	 * @throws be.raft.pelican.exceptions.MissingActionException If the provided allocation is already assigned
 	 */
 	ServerBuildManager setAllocation(ApplicationAllocation allocation);
 
@@ -80,17 +84,11 @@ public interface ServerBuildManager extends RequestAction<ApplicationServer> {
 	 *
 	 * <br>Amount of {@code 1024} and DataType {@code MB} is effectively the same as {@code 1} and {@code GB}
 	 *
-	 * @param  amount
-	 *         The new amount of memory
-	 *
-	 * @param dataType
-	 * 		  The unit of data pertaining to the amount
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided amount is less than 0 or provided DataType is {@code null}
-	 *
+	 * @param amount   The new amount of memory
+	 * @param dataType The unit of data pertaining to the amount
 	 * @return The {@link be.raft.pelican.application.managers.ServerBuildManager ServerBuildManager}
 	 * instance, useful for chaining
+	 * @throws IllegalArgumentException If the provided amount is less than 0 or provided DataType is {@code null}
 	 */
 	ServerBuildManager setMemory(long amount, DataType dataType);
 
@@ -104,17 +102,11 @@ public interface ServerBuildManager extends RequestAction<ApplicationServer> {
 	 *
 	 * <br>Amount of {@code 1024} and DataType {@code MB} is effectively the same as {@code 1} and {@code GB}
 	 *
-	 * @param  amount
-	 *         The new amount of swap
-	 *
-	 * @param dataType
-	 * 		  The unit of data pertaining to the amount
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided amount is less than -1 MB or provided DataType is {@code null}
-	 *
+	 * @param amount   The new amount of swap
+	 * @param dataType The unit of data pertaining to the amount
 	 * @return The {@link be.raft.pelican.application.managers.ServerBuildManager ServerBuildManager}
 	 * instance, useful for chaining
+	 * @throws IllegalArgumentException If the provided amount is less than -1 MB or provided DataType is {@code null}
 	 */
 	ServerBuildManager setSwap(long amount, DataType dataType);
 
@@ -125,14 +117,10 @@ public interface ServerBuildManager extends RequestAction<ApplicationServer> {
 	 *
 	 * <p>Default: <b>500</b>
 	 *
-	 * @param  amount
-	 *         The new block io proportion
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided amount is not between 10-1000
-	 *
+	 * @param amount The new block io proportion
 	 * @return The {@link be.raft.pelican.application.managers.ServerBuildManager ServerBuildManager}
 	 * instance, useful for chaining
+	 * @throws IllegalArgumentException If the provided amount is not between 10-1000
 	 */
 	ServerBuildManager setIO(long amount);
 
@@ -141,14 +129,10 @@ public interface ServerBuildManager extends RequestAction<ApplicationServer> {
 	 * <br>Each physical core on the node is considered to be multiple of {@code 100}. Setting this value to {@code 0} will allow
 	 * unlimited cpu performance for the container
 	 *
-	 * @param  amount
-	 *         The new cpu limit
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided amount is less than 0
-	 *
+	 * @param amount The new cpu limit
 	 * @return The {@link be.raft.pelican.application.managers.ServerBuildManager ServerBuildManager}
 	 * instance, useful for chaining
+	 * @throws IllegalArgumentException If the provided amount is less than 0
 	 */
 	ServerBuildManager setCPU(long amount);
 
@@ -164,14 +148,10 @@ public interface ServerBuildManager extends RequestAction<ApplicationServer> {
 	 * <p><b>Example:</b> {@code 0}, {@code 0-1,3}, or {@code 0,1,3,4}
 	 * <br>The panel validates this value using the following regex: {@code /^[0-9-,]+$/}
 	 *
-	 * @param  cores
-	 *         The cpu cores the container process can run on
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided amount is less than 0
-	 *
+	 * @param cores The cpu cores the container process can run on
 	 * @return The {@link be.raft.pelican.application.managers.ServerBuildManager ServerBuildManager}
 	 * instance, useful for chaining
+	 * @throws IllegalArgumentException If the provided amount is less than 0
 	 */
 	ServerBuildManager setThreads(String cores);
 
@@ -185,17 +165,11 @@ public interface ServerBuildManager extends RequestAction<ApplicationServer> {
 	 *
 	 * <br>Amount of {@code 1024} and DataType {@code MB} is effectively the same as {@code 1} and {@code GB}
 	 *
-	 * @param  amount
-	 *         The new amount of disk space
-	 *
-	 * @param dataType
-	 * 		  The unit of data pertaining to the amount
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided amount is less than 0 MB or provided DataType is {@code null}
-	 *
+	 * @param amount   The new amount of disk space
+	 * @param dataType The unit of data pertaining to the amount
 	 * @return The {@link be.raft.pelican.application.managers.ServerBuildManager ServerBuildManager}
 	 * instance, useful for chaining
+	 * @throws IllegalArgumentException If the provided amount is less than 0 MB or provided DataType is {@code null}
 	 */
 	ServerBuildManager setDisk(long amount, DataType dataType);
 
@@ -203,14 +177,10 @@ public interface ServerBuildManager extends RequestAction<ApplicationServer> {
 	 * Sets the maximum number of databases that can be created for this
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer}.
 	 *
-	 * @param  amount
-	 *         The new database limit
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided amount is less than 0
-	 *
+	 * @param amount The new database limit
 	 * @return The {@link be.raft.pelican.application.managers.ServerBuildManager ServerBuildManager}
 	 * instance, useful for chaining
+	 * @throws IllegalArgumentException If the provided amount is less than 0
 	 */
 	ServerBuildManager setAllowedDatabases(int amount);
 
@@ -218,14 +188,10 @@ public interface ServerBuildManager extends RequestAction<ApplicationServer> {
 	 * Sets the maximum number of allocations that can be assigned to this
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer}.
 	 *
-	 * @param  amount
-	 *         The new allocation limit
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided amount is less than 0
-	 *
+	 * @param amount The new allocation limit
 	 * @return The {@link be.raft.pelican.application.managers.ServerBuildManager ServerBuildManager}
 	 * instance, useful for chaining
+	 * @throws IllegalArgumentException If the provided amount is less than 0
 	 */
 	ServerBuildManager setAllowedAllocations(int amount);
 
@@ -233,14 +199,10 @@ public interface ServerBuildManager extends RequestAction<ApplicationServer> {
 	 * Sets the maximum number of backups that can be created for this
 	 * {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer}.
 	 *
-	 * @param  amount
-	 *         The new backup limit
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided amount is less than 0
-	 *
+	 * @param amount The new backup limit
 	 * @return The {@link be.raft.pelican.application.managers.ServerBuildManager ServerBuildManager}
 	 * instance, useful for chaining
+	 * @throws IllegalArgumentException If the provided amount is less than 0
 	 */
 	ServerBuildManager setAllowedBackups(int amount);
 
@@ -254,9 +216,7 @@ public interface ServerBuildManager extends RequestAction<ApplicationServer> {
 	 *
 	 * <p><b>Note:</b> You will need to restart the server for the changes to take effect.
 	 *
-	 * @param  enable
-	 *         True - enable the oom killer
-	 *
+	 * @param enable True - enable the oom killer
 	 * @return The {@link be.raft.pelican.application.managers.ServerBuildManager ServerBuildManager}
 	 * instance, useful for chaining
 	 */

@@ -55,16 +55,10 @@ public interface Application {
 	 * Retrieves an individual ApplicationUser represented by the provided id from Pterodactyl instance
 	 * <br>This requires an <b>Application API key</b> with the <b>Users</b> permission with <b>Read</b> access.
 	 *
-	 * @param  id
-	 *         The user id
-	 *
-	 * @throws be.raft.pelican.exceptions.LoginException
-	 *         If the API key is incorrect or doesn't have the required permissions
-	 *
-	 * @throws be.raft.pelican.exceptions.NotFoundException
-	 * 		   If the user cannot be found
-	 *
+	 * @param id The user id
 	 * @return {@link RequestAction PteroAction} - Type {@link be.raft.pelican.application.entities.ApplicationUser ApplicationUsers}
+	 * @throws be.raft.pelican.exceptions.LoginException    If the API key is incorrect or doesn't have the required permissions
+	 * @throws be.raft.pelican.exceptions.NotFoundException If the user cannot be found
 	 */
 	RequestAction<ApplicationUser> retrieveUserById(String id);
 
@@ -72,16 +66,10 @@ public interface Application {
 	 * Retrieves an individual ApplicationUser represented by the provided id from Pterodactyl instance
 	 * <br>This requires an <b>Application API key</b> with the <b>Users</b> permission with <b>Read</b> access.
 	 *
-	 * @param  id
-	 *         The user id
-	 *
-	 * @throws be.raft.pelican.exceptions.LoginException
-	 *         If the API key is incorrect or doesn't have the required permissions
-	 *
-	 * @throws be.raft.pelican.exceptions.NotFoundException
-	 * 		   If the user cannot be found
-	 *
+	 * @param id The user id
 	 * @return {@link RequestAction PteroAction} - Type {@link be.raft.pelican.application.entities.ApplicationUser ApplicationUsers}
+	 * @throws be.raft.pelican.exceptions.LoginException    If the API key is incorrect or doesn't have the required permissions
+	 * @throws be.raft.pelican.exceptions.NotFoundException If the user cannot be found
 	 */
 	default RequestAction<ApplicationUser> retrieveUserById(long id) {
 		return retrieveUserById(Long.toUnsignedString(id));
@@ -91,18 +79,11 @@ public interface Application {
 	 * Retrieves ApplicationUsers matching the provided username from Pterodactyl instance
 	 * <br>This requires an <b>Application API key</b> with the <b>Users</b> permission with <b>Read</b> access.
 	 *
-	 * @param  name
-	 *         The username
-	 * @param caseSensitive
-	 * 		   True - If P4J should search using case sensitivity
-	 *
-	 * @throws be.raft.pelican.exceptions.LoginException
-	 *         If the API key is incorrect or doesn't have the required permissions
-	 *
-	 * @throws be.raft.pelican.exceptions.NotFoundException
-	 * 		   If the user cannot be found
-	 *
+	 * @param name          The username
+	 * @param caseSensitive True - If P4J should search using case sensitivity
 	 * @return {@link RequestAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.ApplicationUser ApplicationUsers}
+	 * @throws be.raft.pelican.exceptions.LoginException    If the API key is incorrect or doesn't have the required permissions
+	 * @throws be.raft.pelican.exceptions.NotFoundException If the user cannot be found
 	 */
 	RequestAction<List<ApplicationUser>> retrieveUsersByUsername(String name, boolean caseSensitive);
 
@@ -110,18 +91,11 @@ public interface Application {
 	 * Retrieves ApplicationUsers matching the provided email from Pterodactyl instance
 	 * <br>This requires an <b>Application API key</b> with the <b>Users</b> permission with <b>Read</b> access.
 	 *
-	 * @param  email
-	 *         The email
-	 * @param caseSensitive
-	 * 		   True - If P4J should search using case sensitivity
-	 *
-	 * @throws be.raft.pelican.exceptions.LoginException
-	 *         If the API key is incorrect or doesn't have the required permissions
-	 *
-	 * @throws be.raft.pelican.exceptions.NotFoundException
-	 * 		   If the user cannot be found
-	 *
+	 * @param email         The email
+	 * @param caseSensitive True - If P4J should search using case sensitivity
 	 * @return {@link RequestAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.ApplicationUser ApplicationUsers}
+	 * @throws be.raft.pelican.exceptions.LoginException    If the API key is incorrect or doesn't have the required permissions
+	 * @throws be.raft.pelican.exceptions.NotFoundException If the user cannot be found
 	 */
 	RequestAction<List<ApplicationUser>> retrieveUsersByEmail(String email, boolean caseSensitive);
 
@@ -137,10 +111,8 @@ public interface Application {
 	 * Retrieves all of the Nodes from the Pterodactyl instance
 	 * <br>This requires an <b>Application API key</b> with the <b>Nodes</b> permission with <b>Read</b> access.
 	 *
-	 * @throws be.raft.pelican.exceptions.LoginException
-	 *         If the API key is incorrect or doesn't have the required permissions
-	 *
 	 * @return {@link RequestAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.Node Nodes}
+	 * @throws be.raft.pelican.exceptions.LoginException If the API key is incorrect or doesn't have the required permissions
 	 */
 	PaginationAction<Node> retrieveNodes();
 
@@ -148,16 +120,10 @@ public interface Application {
 	 * Retrieves an individual Node represented by the provided id from Pterodactyl instance
 	 * <br>This requires an <b>Application API key</b> with the <b>Nodes</b> permission with <b>Read</b> access.
 	 *
-	 * @param  id
-	 *         The node id
-	 *
-	 * @throws be.raft.pelican.exceptions.LoginException
-	 *         If the API key is incorrect or doesn't have the required permissions
-	 *
-	 * @throws be.raft.pelican.exceptions.NotFoundException
-	 * 		   If the node cannot be found
-	 *
+	 * @param id The node id
 	 * @return {@link RequestAction PteroAction} - Type {@link be.raft.pelican.application.entities.Node Node}
+	 * @throws be.raft.pelican.exceptions.LoginException    If the API key is incorrect or doesn't have the required permissions
+	 * @throws be.raft.pelican.exceptions.NotFoundException If the node cannot be found
 	 */
 	RequestAction<Node> retrieveNodeById(String id);
 
@@ -165,16 +131,10 @@ public interface Application {
 	 * Retrieves an individual Node represented by the provided id from Pterodactyl instance
 	 * <br>This requires an <b>Application API key</b> with the <b>Nodes</b> permission with <b>Read</b> access.
 	 *
-	 * @param  id
-	 *         The node id
-	 *
-	 * @throws be.raft.pelican.exceptions.LoginException
-	 *         If the API key is incorrect or doesn't have the required permissions
-	 *
-	 * @throws be.raft.pelican.exceptions.NotFoundException
-	 * 		   If the node cannot be found
-	 *
+	 * @param id The node id
 	 * @return {@link RequestAction PteroAction} - Type {@link be.raft.pelican.application.entities.Node Node}
+	 * @throws be.raft.pelican.exceptions.LoginException    If the API key is incorrect or doesn't have the required permissions
+	 * @throws be.raft.pelican.exceptions.NotFoundException If the node cannot be found
 	 */
 	default RequestAction<Node> retrieveNodeById(long id) {
 		return retrieveNodeById(Long.toUnsignedString(id));
@@ -184,15 +144,10 @@ public interface Application {
 	 * Retrieves Nodes matching the provided name from Pterodactyl instance
 	 * <br>This requires an <b>Application API key</b> with the <b>Nodes</b> permission with <b>Read</b> access.
 	 *
-	 * @param  name
-	 *         The name
-	 * @param caseSensitive
-	 * 		   True - If P4J should search using case sensitivity
-	 *
-	 * @throws be.raft.pelican.exceptions.LoginException
-	 *         If the API key is incorrect or doesn't have the required permissions
-	 *
+	 * @param name          The name
+	 * @param caseSensitive True - If P4J should search using case sensitivity
 	 * @return {@link RequestAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.Node Nodes}
+	 * @throws be.raft.pelican.exceptions.LoginException If the API key is incorrect or doesn't have the required permissions
 	 */
 	RequestAction<List<Node>> retrieveNodesByName(String name, boolean caseSensitive);
 
@@ -208,16 +163,10 @@ public interface Application {
 	 * Retrieves an individual Allocation represented by the provided id from Pterodactyl instance
 	 * <br>This requires an <b>Application API key</b> with the <b>Allocations</b> permission with <b>Read</b> access.
 	 *
-	 * @param  id
-	 *         The allocation id
-	 *
-	 * @throws be.raft.pelican.exceptions.LoginException
-	 *         If the API key is incorrect or doesn't have the required permissions
-	 *
-	 * @throws be.raft.pelican.exceptions.NotFoundException
-	 * 		   If the allocation cannot be found
-	 *
+	 * @param id The allocation id
 	 * @return {@link RequestAction PteroAction} - Type {@link ApplicationAllocation Allocation}
+	 * @throws be.raft.pelican.exceptions.LoginException    If the API key is incorrect or doesn't have the required permissions
+	 * @throws be.raft.pelican.exceptions.NotFoundException If the allocation cannot be found
 	 */
 	RequestAction<ApplicationAllocation> retrieveAllocationById(String id);
 
@@ -225,16 +174,10 @@ public interface Application {
 	 * Retrieves an individual Allocation represented by the provided id from Pterodactyl instance
 	 * <br>This requires an <b>Application API key</b> with the <b>Allocations</b> permission with <b>Read</b> access.
 	 *
-	 * @param  id
-	 *         The allocation id
-	 *
-	 * @throws be.raft.pelican.exceptions.LoginException
-	 *         If the API key is incorrect or doesn't have the required permissions
-	 *
-	 * @throws be.raft.pelican.exceptions.NotFoundException
-	 * 		   If the allocation cannot be found
-	 *
+	 * @param id The allocation id
 	 * @return {@link RequestAction PteroAction} - Type {@link ApplicationAllocation Allocation}
+	 * @throws be.raft.pelican.exceptions.LoginException    If the API key is incorrect or doesn't have the required permissions
+	 * @throws be.raft.pelican.exceptions.NotFoundException If the allocation cannot be found
 	 */
 	default RequestAction<ApplicationAllocation> retrieveAllocationById(long id) {
 		return retrieveAllocationById(Long.toUnsignedString(id));
@@ -244,13 +187,9 @@ public interface Application {
 	 * Retrieves Allocations from the provided {@link be.raft.pelican.application.entities.Node Node} from Pterodactyl instance
 	 * <br>This requires an <b>Application API key</b> with the <b>Allocations</b> permission with <b>Read</b> access.
 	 *
-	 * @param  node
-	 *         The node
-	 *
-	 * @throws be.raft.pelican.exceptions.LoginException
-	 *         If the API key is incorrect or doesn't have the required permissions
-	 *
+	 * @param node The node
 	 * @return {@link RequestAction PteroAction} - Type {@link java.util.List List} of {@link ApplicationAllocation Allocations}
+	 * @throws be.raft.pelican.exceptions.LoginException If the API key is incorrect or doesn't have the required permissions
 	 */
 	PaginationAction<ApplicationAllocation> retrieveAllocationsByNode(Node node);
 
@@ -258,10 +197,8 @@ public interface Application {
 	 * Retrieves all of the Allocations from the Pterodactyl instance
 	 * <br>This requires an <b>Application API key</b> with the <b>Allocations</b> permission with <b>Read</b> access.
 	 *
-	 * @throws be.raft.pelican.exceptions.LoginException
-	 *         If the API key is incorrect or doesn't have the required permissions
-	 *
 	 * @return {@link RequestAction PteroAction} - Type {@link java.util.List List} of {@link ApplicationAllocation Allocations}
+	 * @throws be.raft.pelican.exceptions.LoginException If the API key is incorrect or doesn't have the required permissions
 	 */
 	RequestAction<List<ApplicationAllocation>> retrieveAllocations();
 
@@ -269,11 +206,8 @@ public interface Application {
 	 * Retrieves all of the ApplicationEggs from the Pterodactyl instance
 	 * <br>This requires an <b>Application API key</b> with the <b>Nests</b> and <b>Eggs</b> permissions with <b>Read</b> access.
 	 *
-	 *
-	 * @throws be.raft.pelican.exceptions.LoginException
-	 *         If the API key is incorrect or doesn't have the required permissions
-	 *
 	 * @return {@link RequestAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.ApplicationEgg ApplicationEggs}
+	 * @throws be.raft.pelican.exceptions.LoginException If the API key is incorrect or doesn't have the required permissions
 	 */
 	RequestAction<List<ApplicationEgg>> retrieveEggs();
 
@@ -281,15 +215,10 @@ public interface Application {
 	 * Retrieves an individual ApplicationEgg represented by the provided {@link be.raft.pelican.application.entities.Nest Nest} and id from Pterodactyl instance
 	 * <br>This requires an <b>Application API key</b> with the <b>Nests</b> and <b>Eggs</b> permissions with <b>Read</b> access.
 	 *
-	 * @param  id The (integer) identifier of the egg
-	 *
-	 * @throws be.raft.pelican.exceptions.LoginException
-	 *         If the API key is incorrect or doesn't have the required permissions
-	 *
-	 * @throws be.raft.pelican.exceptions.NotFoundException
-	 * 		   If the egg cannot be found
-	 *
+	 * @param id The (integer) identifier of the egg
 	 * @return {@link RequestAction PteroAction} - Type {@link be.raft.pelican.application.entities.ApplicationEgg ApplicationEgg}
+	 * @throws be.raft.pelican.exceptions.LoginException    If the API key is incorrect or doesn't have the required permissions
+	 * @throws be.raft.pelican.exceptions.NotFoundException If the egg cannot be found
 	 */
 	RequestAction<ApplicationEgg> retrieveEggById(@NotNull String id);
 
@@ -297,17 +226,10 @@ public interface Application {
 	 * Retrieves an individual ApplicationEgg represented by the provided id from Pterodactyl instance
 	 * <br>This requires an <b>Application API key</b> with <b>Eggs</b> permissions with <b>Read</b> access.
 	 *
-	 *
-	 * @param  id
-	 * 		   The id of the egg from in nest
-	 *
-	 * @throws be.raft.pelican.exceptions.LoginException
-	 *         If the API key is incorrect or doesn't have the required permissions
-	 *
-	 * @throws be.raft.pelican.exceptions.NotFoundException
-	 * 		   If the egg cannot be found
-	 *
+	 * @param id The id of the egg from in nest
 	 * @return {@link RequestAction PteroAction} - Type {@link be.raft.pelican.application.entities.ApplicationEgg ApplicationEgg}
+	 * @throws be.raft.pelican.exceptions.LoginException    If the API key is incorrect or doesn't have the required permissions
+	 * @throws be.raft.pelican.exceptions.NotFoundException If the egg cannot be found
 	 */
 	default RequestAction<ApplicationEgg> retrieveEggById(long id) {
 		return retrieveEggById(Long.toUnsignedString(id));
@@ -317,10 +239,8 @@ public interface Application {
 	 * Retrieves all of the ApplicationServers from the Pterodactyl instance
 	 * <br>This requires an <b>Application API key</b> with the <b>Servers</b> permissions with <b>Read</b> access.
 	 *
-	 * @throws be.raft.pelican.exceptions.LoginException
-	 *         If the API key is incorrect or doesn't have the required permissions
-	 *
 	 * @return {@link RequestAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServers}
+	 * @throws be.raft.pelican.exceptions.LoginException If the API key is incorrect or doesn't have the required permissions
 	 */
 	PaginationAction<ApplicationServer> retrieveServers();
 
@@ -328,16 +248,10 @@ public interface Application {
 	 * Retrieves an individual ApplicationServer represented by the provided id from Pterodactyl instance
 	 * <br>This requires an <b>Application API key</b> with the <b>Servers</b> permission with <b>Read</b> access.
 	 *
-	 * @param  id
-	 *         The id
-	 *
-	 * @throws be.raft.pelican.exceptions.LoginException
-	 *         If the API key is incorrect or doesn't have the required permissions
-	 *
-	 * @throws be.raft.pelican.exceptions.NotFoundException
-	 * 		   If the server cannot be found
-	 *
+	 * @param id The id
 	 * @return {@link RequestAction PteroAction} - Type {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer}
+	 * @throws be.raft.pelican.exceptions.LoginException    If the API key is incorrect or doesn't have the required permissions
+	 * @throws be.raft.pelican.exceptions.NotFoundException If the server cannot be found
 	 */
 	RequestAction<ApplicationServer> retrieveServerById(String id);
 
@@ -345,16 +259,10 @@ public interface Application {
 	 * Retrieves an individual ApplicationServer represented by the provided id from Pterodactyl instance
 	 * <br>This requires an <b>Application API key</b> with the <b>Servers</b> permission with <b>Read</b> access.
 	 *
-	 * @param  id
-	 *         The id
-	 *
-	 * @throws be.raft.pelican.exceptions.LoginException
-	 *         If the API key is incorrect or doesn't have the required permissions
-	 *
-	 * @throws be.raft.pelican.exceptions.NotFoundException
-	 * 		   If the server cannot be found
-	 *
+	 * @param id The id
 	 * @return {@link RequestAction PteroAction} - Type {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer}
+	 * @throws be.raft.pelican.exceptions.LoginException    If the API key is incorrect or doesn't have the required permissions
+	 * @throws be.raft.pelican.exceptions.NotFoundException If the server cannot be found
 	 */
 	default RequestAction<ApplicationServer> retrieveServerById(long id) {
 		return retrieveServerById(Long.toUnsignedString(id));
@@ -364,15 +272,10 @@ public interface Application {
 	 * Retrieves ApplicationServers matching the provided name from Pterodactyl instance
 	 * <br>This requires an <b>Application API key</b> with the <b>Servers</b> permission with <b>Read</b> access.
 	 *
-	 * @param  name
-	 *         The name
-	 * @param caseSensitive
-	 * 		   True - If P4J should search using case sensitivity
-	 *
-	 * @throws be.raft.pelican.exceptions.LoginException
-	 *         If the API key is incorrect or doesn't have the required permissions
-	 *
+	 * @param name          The name
+	 * @param caseSensitive True - If P4J should search using case sensitivity
 	 * @return {@link RequestAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServers}
+	 * @throws be.raft.pelican.exceptions.LoginException If the API key is incorrect or doesn't have the required permissions
 	 */
 	RequestAction<List<ApplicationServer>> retrieveServersByName(String name, boolean caseSensitive);
 
@@ -380,13 +283,9 @@ public interface Application {
 	 * Retrieves ApplicationServers owned by the provided {@link be.raft.pelican.application.entities.ApplicationUser ApplicationUser} from Pterodactyl instance
 	 * <br>This requires an <b>Application API key</b> with the <b>Servers</b> and <b>Users</b> permissions with <b>Read</b> access.
 	 *
-	 * @param  user
-	 *         The owner
-	 *
-	 * @throws be.raft.pelican.exceptions.LoginException
-	 *         If the API key is incorrect or doesn't have the required permissions
-	 *
+	 * @param user The owner
 	 * @return {@link RequestAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServers}
+	 * @throws be.raft.pelican.exceptions.LoginException If the API key is incorrect or doesn't have the required permissions
 	 */
 	RequestAction<List<ApplicationServer>> retrieveServersByOwner(ApplicationUser user);
 
@@ -394,13 +293,9 @@ public interface Application {
 	 * Retrieves ApplicationServers running on the provided {@link be.raft.pelican.application.entities.Node Node} from Pterodactyl instance
 	 * <br>This requires an <b>Application API key</b> with the <b>Servers</b> and <b>Nodes</b> permissions with <b>Read</b> access.
 	 *
-	 * @param  node
-	 *         The node
-	 *
-	 * @throws be.raft.pelican.exceptions.LoginException
-	 *         If the API key is incorrect or doesn't have the required permissions
-	 *
+	 * @param node The node
 	 * @return {@link RequestAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServers}
+	 * @throws be.raft.pelican.exceptions.LoginException If the API key is incorrect or doesn't have the required permissions
 	 */
 	default RequestAction<List<ApplicationServer>> retrieveServersByNode(Node node) {
 		return retrieveServers().map(List::stream).map(stream -> stream.filter(

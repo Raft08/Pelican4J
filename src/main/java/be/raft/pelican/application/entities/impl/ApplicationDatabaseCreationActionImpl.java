@@ -72,7 +72,7 @@ public class ApplicationDatabaseCreationActionImpl extends AbstractDatabaseActio
 
 		Checks.notBlank(remote, "Remote Connection String");
 		Checks.check(
-                !remote.isEmpty() && remote.length() <= 15,
+				!remote.isEmpty() && remote.length() <= 15,
 				"Remote Connection String must be between 1-15 characters long");
 
 		Checks.notNumeric(host, "Database Host");

@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2022 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2021-2024 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -12,6 +12,16 @@
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
+ * 
+ *    ============================================================================== 
+ * 
+ *    Copyright 2024 RaftDev, and the Pelican4J contributors
+ * 
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
  */
 
 package be.raft.pelican.application.managers;
@@ -33,14 +43,10 @@ public interface UserAction extends RequestAction<ApplicationUser> {
 	 *
 	 * <br>The panel requires this value to be <b>unique</b> across the entire panel instance
 	 *
-	 * @param  userName
-	 *         The username for the ApplicationUser
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided username is {@code null} or not between 1-191 characters long
-	 *
+	 * @param userName The username for the ApplicationUser
 	 * @return The {@link be.raft.pelican.application.managers.UserAction UserAction}
 	 * instance, useful for chaining
+	 * @throws IllegalArgumentException If the provided username is {@code null} or not between 1-191 characters long
 	 */
 	UserAction setUserName(String userName);
 
@@ -53,42 +59,30 @@ public interface UserAction extends RequestAction<ApplicationUser> {
 	 * <a href=https://github.com/egulias/EmailValidator>egulias/email-validator</a> package using
 	 * the <code>RFCValidation</code> validator.
 	 *
-	 * @param  email
-	 *         The email for the ApplicationUser
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided email is {@code null} or not between 1-191 characters long
-	 *
+	 * @param email The email for the ApplicationUser
 	 * @return The {@link be.raft.pelican.application.managers.UserAction UserAction}
 	 * instance, useful for chaining
+	 * @throws IllegalArgumentException If the provided email is {@code null} or not between 1-191 characters long
 	 */
 	UserAction setEmail(String email);
 
 	/**
 	 * Sets the first name for this {@link be.raft.pelican.application.entities.ApplicationUser ApplicationUser}.
 	 *
-	 * @param  firstName
-	 *         The first name for the ApplicationUser
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided name is {@code null} or not between 1-191 characters long
-	 *
+	 * @param firstName The first name for the ApplicationUser
 	 * @return The {@link be.raft.pelican.application.managers.UserAction UserAction}
 	 * instance, useful for chaining
+	 * @throws IllegalArgumentException If the provided name is {@code null} or not between 1-191 characters long
 	 */
 	UserAction setFirstName(String firstName);
 
 	/**
 	 * Sets the last name for this {@link be.raft.pelican.application.entities.ApplicationUser ApplicationUser}.
 	 *
-	 * @param  lastName
-	 *         The last name for the ApplicationUser
-	 *
-	 * @throws IllegalArgumentException
-	 *         If the provided name is {@code null} or not between 1-191 characters long
-	 *
+	 * @param lastName The last name for the ApplicationUser
 	 * @return The {@link be.raft.pelican.application.managers.UserAction UserAction}
 	 * instance, useful for chaining
+	 * @throws IllegalArgumentException If the provided name is {@code null} or not between 1-191 characters long
 	 */
 	UserAction setLastName(String lastName);
 
@@ -98,9 +92,7 @@ public interface UserAction extends RequestAction<ApplicationUser> {
 	 * <br>If no password is provided, and SMTP on the panel is configured, the panel's queue worker will attempt to send
 	 * a registration email to the address set in {@link #setEmail(String)}
 	 *
-	 * @param  password
-	 *         The password for the ApplicationUser
-	 *
+	 * @param password The password for the ApplicationUser
 	 * @return The {@link be.raft.pelican.application.managers.UserAction UserAction}
 	 * instance, useful for chaining
 	 */

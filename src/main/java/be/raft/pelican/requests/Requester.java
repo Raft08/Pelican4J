@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2022 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2021-2024 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -12,6 +12,16 @@
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
+ * 
+ *    ============================================================================== 
+ * 
+ *    Copyright 2024 RaftDev, and the Pelican4J contributors
+ * 
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
  */
 
 package be.raft.pelican.requests;
@@ -32,17 +42,13 @@ import org.slf4j.Logger;
 
 public class Requester {
 
-	private final P4J api;
-	private final Logger REQUESTER_LOG = P4JLogger.getLogger(Requester.class);
-
 	public static final RequestBody EMPTY_BODY = RequestBody.create(null, new byte[0]);
-
 	public static final MediaType MEDIA_TYPE_JSON = MediaType.parse("application/json; charset=utf8");
 	public static final MediaType MEDIA_TYPE_PLAIN = MediaType.parse("text/plain; charset=utf8");
 	public static final MediaType MEDIA_TYPE_OCTET = MediaType.parse("application/octet-stream; charset=utf-8");
-
 	private static final String PTERODACTYL_API_PREFIX = "%s/api/";
-
+	private final P4J api;
+	private final Logger REQUESTER_LOG = P4JLogger.getLogger(Requester.class);
 	private final RateLimiter rateLimiter;
 	private final OkHttpClient client;
 	private final String userAgent;
@@ -52,6 +58,12 @@ public class Requester {
 		this.rateLimiter = new RateLimiter(this, api);
 		this.client = api.getHttpClient();
 		this.userAgent = api.getUserAgent();
+	}
+
+	private static boolean isRetry(Throwable e) {
+		return e instanceof SocketException // Socket couldn't be created or access failed
+				|| e instanceof SocketTimeoutException // Connection timed out
+				|| e instanceof SSLPeerUnverifiedException; // SSL Certificate was wrong
 	}
 
 	public <T> void request(Request<T> request) {
@@ -164,11 +176,5 @@ public class Requester {
 				r.close();
 			}
 		}
-	}
-
-	private static boolean isRetry(Throwable e) {
-		return e instanceof SocketException // Socket couldn't be created or access failed
-				|| e instanceof SocketTimeoutException // Connection timed out
-				|| e instanceof SSLPeerUnverifiedException; // SSL Certificate was wrong
 	}
 }

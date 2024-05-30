@@ -53,11 +53,9 @@ public interface UserManager {
 	 * Creates a new {@link be.raft.pelican.application.entities.ApplicationUser ApplicationUser}.
 	 * <br>For this to be successful, the <b>Application API key</b> requires <b>Users</b> permission with <b>Read &amp; Write</b> access.
 	 *
-	 * @throws be.raft.pelican.exceptions.LoginException
-	 *         If the API key is incorrect or doesn't have the required permissions upon PteroAction execution
-	 *
 	 * @return A specific {@link be.raft.pelican.application.managers.UserAction UserAction}
-	 *         allowing to set fields for the new ApplicationUser before creating it
+	 * allowing to set fields for the new ApplicationUser before creating it
+	 * @throws be.raft.pelican.exceptions.LoginException If the API key is incorrect or doesn't have the required permissions upon PteroAction execution
 	 */
 	UserAction createUser();
 
@@ -65,14 +63,10 @@ public interface UserManager {
 	 * Modifies an existing {@link be.raft.pelican.application.entities.ApplicationUser ApplicationUser}.
 	 * <br>For this to be successful, the <b>Application API key</b> requires <b>Users</b> permission with <b>Read &amp; Write</b> access.
 	 *
-	 * @param user
-	 *        The target user of which to update
-	 *
-	 * @throws be.raft.pelican.exceptions.LoginException
-	 *         If the API key is incorrect or doesn't have the required permissions upon PteroAction execution
-	 *
+	 * @param user The target user of which to update
 	 * @return A specific {@link be.raft.pelican.application.managers.UserAction UserAction}
-	 *         allowing to set fields for the existing ApplicationUser before updating it
+	 * allowing to set fields for the existing ApplicationUser before updating it
+	 * @throws be.raft.pelican.exceptions.LoginException If the API key is incorrect or doesn't have the required permissions upon PteroAction execution
 	 */
 	UserAction editUser(ApplicationUser user);
 
@@ -80,13 +74,9 @@ public interface UserManager {
 	 * Attempts to delete an existing {@link be.raft.pelican.application.entities.ApplicationUser ApplicationUser}.
 	 * <br>For this to be successful, the <b>Application API key</b> requires <b>Users</b> permission with <b>Write</b> access.
 	 *
-	 * @param user
-	 *        The target user of which to delete
-	 *
-	 * @throws be.raft.pelican.exceptions.LoginException
-	 *         If the API key is incorrect or doesn't have the required permissions upon PteroAction execution
-	 *
+	 * @param user The target user of which to delete
 	 * @return {@link RequestAction PteroAction}
+	 * @throws be.raft.pelican.exceptions.LoginException If the API key is incorrect or doesn't have the required permissions upon PteroAction execution
 	 */
 	RequestAction<Void> deleteUser(ApplicationUser user);
 }
