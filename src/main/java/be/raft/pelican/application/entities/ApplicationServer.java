@@ -160,26 +160,6 @@ public interface ApplicationServer extends Server, ISnowflake {
 	}
 
 	/**
-	 * The id of the {@link be.raft.pelican.application.entities.Nest Nest} for the ApplicationServer
-	 *
-	 * @return Long containing the nest id
-	 *
-	 * @see ApplicationServer#retrieveNest()
-	 */
-	long getNestIdLong();
-
-	/**
-	 * The id of the {@link be.raft.pelican.application.entities.Nest Nest} for the ApplicationServer
-	 *
-	 * @return Never-null String containing the nest id
-	 *
-	 * @see ApplicationServer#retrieveNest()
-	 */
-	default String getNestId() {
-		return Long.toUnsignedString(getNestIdLong());
-	}
-
-	/**
 	 * The Egg the ApplicationServer is using
 	 *
 	 * @return {@link RequestAction PteroAction} - Type {@link be.raft.pelican.application.entities.ApplicationEgg ApplicationEgg}
@@ -199,8 +179,6 @@ public interface ApplicationServer extends Server, ISnowflake {
 	 * The id of the {@link be.raft.pelican.application.entities.ApplicationEgg ApplicationEgg} for the ApplicationServer
 	 *
 	 * @return Never-null String containing the egg id
-	 *
-	 * @see ApplicationServer#retrieveNest()
 	 */
 	default String getEggId() {
 		return Long.toUnsignedString(getEggIdLong());

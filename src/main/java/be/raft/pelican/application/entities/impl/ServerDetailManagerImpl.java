@@ -85,7 +85,7 @@ public class ServerDetailManagerImpl extends AbstractManagerBase implements Serv
 	@Override
 	public ServerDetailManager setName(String name) {
 		Checks.notNull(name, "Name");
-		Checks.check(name.length() >= 1 && name.length() <= 191, "Name must be between 1-191 characters long");
+		Checks.check(!name.isEmpty() && name.length() <= 191, "Name must be between 1-191 characters long");
 		this.name = name;
 		return this;
 	}
@@ -107,7 +107,7 @@ public class ServerDetailManagerImpl extends AbstractManagerBase implements Serv
 	@Override
 	public ServerDetailManager setExternalId(String id) {
 		if (id != null)
-			Checks.check(id.length() >= 1 && id.length() <= 191, "ID must be between 1-191 characters long");
+			Checks.check(!id.isEmpty() && id.length() <= 191, "ID must be between 1-191 characters long");
 
 		this.externalId = id;
 		set |= EXTERNAL_ID;

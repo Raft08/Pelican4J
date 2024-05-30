@@ -38,12 +38,10 @@ public class ApplicationEggImpl implements ApplicationEgg {
 
 	private final JSONObject json;
 	private final JSONObject relationships;
-	private final ApplicationImpl impl;
 
-	public ApplicationEggImpl(JSONObject json, ApplicationImpl impl) {
+	public ApplicationEggImpl(JSONObject json) {
 		this.json = json.getJSONObject("attributes");
 		this.relationships = json.getJSONObject("attributes").optJSONObject("relationships");
-		this.impl = impl;
 	}
 
 	@Override
@@ -110,9 +108,12 @@ public class ApplicationEggImpl implements ApplicationEgg {
 
 	@Override
 	public Optional<Map<String, EnvironmentValue<?>>> getDefaultVariableMap() {
-		if (!getVariables().isPresent()) return Optional.empty();
+		if (getVariables().isEmpty())
+			return Optional.empty();
+
 		Map<String, EnvironmentValue<?>> variableMap = new HashMap<>();
 		getVariables().get().forEach(var -> variableMap.put(var.getEnvironmentVariable(), var.getDefaultValue()));
+
 		return Optional.of(Collections.unmodifiableMap(variableMap));
 	}
 

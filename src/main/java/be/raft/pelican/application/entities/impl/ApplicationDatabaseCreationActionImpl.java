@@ -68,11 +68,11 @@ public class ApplicationDatabaseCreationActionImpl extends AbstractDatabaseActio
 	@Override
 	protected RequestBody finalizeData() {
 		Checks.notBlank(name, "Database Name");
-		Checks.check(name.length() >= 1 && name.length() <= 48, "Database Name must be between 1-48 characters long");
+		Checks.check(!name.isEmpty() && name.length() <= 48, "Database Name must be between 1-48 characters long");
 
 		Checks.notBlank(remote, "Remote Connection String");
 		Checks.check(
-				remote.length() >= 1 && remote.length() <= 15,
+                !remote.isEmpty() && remote.length() <= 15,
 				"Remote Connection String must be between 1-15 characters long");
 
 		Checks.notNumeric(host, "Database Host");

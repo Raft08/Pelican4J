@@ -183,7 +183,7 @@ public class ApplicationImpl implements Application {
 		return RequestActionImpl.onRequestExecute(
 				api,
 				Route.Nests.GET_EGG.compile(nest, egg),
-				(response, request) -> new ApplicationEggImpl(response.getObject(), this));
+				(response, request) -> new ApplicationEggImpl(response.getObject()));
 	}
 
 	@Override
@@ -193,7 +193,7 @@ public class ApplicationImpl implements Application {
 			JSONObject json = response.getObject();
 			for (Object o : json.getJSONArray("data")) {
 				JSONObject egg = new JSONObject(o.toString());
-				eggs.add(new ApplicationEggImpl(egg, this));
+				eggs.add(new ApplicationEggImpl(egg));
 			}
 			return Collections.unmodifiableList(eggs);
 		});
@@ -204,7 +204,7 @@ public class ApplicationImpl implements Application {
 		return RequestActionImpl.onRequestExecute(
 				api,
 				Route.Nests.GET_NEST.compile(id),
-				(response, request) -> new ApplicationEggImpl(response.getObject(), this));
+				(response, request) -> new ApplicationEggImpl(response.getObject()));
 	}
 
 	@Override

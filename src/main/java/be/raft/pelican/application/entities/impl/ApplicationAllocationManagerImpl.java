@@ -48,10 +48,6 @@ public class ApplicationAllocationManagerImpl implements ApplicationAllocationMa
 		return new CreateAllocationImpl(impl, node);
 	}
 
-	public AllocationAction editAllocation(ApplicationAllocation allocation) {
-		return new EditAllocationImpl(impl, node, allocation);
-	}
-
 	public RequestAction<Void> deleteAllocation(ApplicationAllocation allocation) {
 		return RequestActionImpl.onRequestExecute(
 				impl.getP4J(), Route.Nodes.DELETE_ALLOCATION.compile(node.getId(), allocation.getId()));

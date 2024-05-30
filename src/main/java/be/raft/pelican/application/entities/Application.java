@@ -281,9 +281,6 @@ public interface Application {
 	 * Retrieves an individual ApplicationEgg represented by the provided {@link be.raft.pelican.application.entities.Nest Nest} and id from Pterodactyl instance
 	 * <br>This requires an <b>Application API key</b> with the <b>Nests</b> and <b>Eggs</b> permissions with <b>Read</b> access.
 	 *
-	 * @param  nest
-	 *         The nest
-	 *
 	 * @param  id The (integer) identifier of the egg
 	 *
 	 * @throws be.raft.pelican.exceptions.LoginException
@@ -297,11 +294,9 @@ public interface Application {
 	RequestAction<ApplicationEgg> retrieveEggById(@NotNull String id);
 
 	/**
-	 * Retrieves an individual ApplicationEgg represented by the provided {@link be.raft.pelican.application.entities.Nest Nest} and id from Pterodactyl instance
-	 * <br>This requires an <b>Application API key</b> with the <b>Nests</b> and <b>Eggs</b> permissions with <b>Read</b> access.
+	 * Retrieves an individual ApplicationEgg represented by the provided id from Pterodactyl instance
+	 * <br>This requires an <b>Application API key</b> with <b>Eggs</b> permissions with <b>Read</b> access.
 	 *
-	 * @param  nest
-	 *         The nest
 	 *
 	 * @param  id
 	 * 		   The id of the egg from in nest
