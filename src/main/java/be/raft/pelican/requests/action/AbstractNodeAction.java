@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2022 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2021-2024 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -12,14 +12,23 @@
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
+ * 
+ *    ============================================================================== 
+ * 
+ *    Copyright 2024 RaftDev, and the Pelican4J contributors
+ * 
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
  */
 
 package be.raft.pelican.requests.action;
 
-import be.raft.pelican.application.entities.Location;
 import be.raft.pelican.application.entities.Node;
+import be.raft.pelican.application.entities.impl.ApplicationImpl;
 import be.raft.pelican.application.entities.impl.NodeImpl;
-import be.raft.pelican.application.entities.impl.PteroApplicationImpl;
 import be.raft.pelican.application.managers.NodeAction;
 import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
@@ -27,7 +36,6 @@ import be.raft.pelican.requests.Route;
 public abstract class AbstractNodeAction extends RequestActionImpl<Node> implements NodeAction {
 
 	protected String name;
-	protected Location location;
 	protected Boolean isPublic;
 	protected String fqdn;
 	protected Boolean isBehindProxy;
@@ -41,19 +49,13 @@ public abstract class AbstractNodeAction extends RequestActionImpl<Node> impleme
 	protected Boolean throttle;
 	protected Boolean secure;
 
-	public AbstractNodeAction(PteroApplicationImpl impl, Route.CompiledRoute route) {
+	public AbstractNodeAction(ApplicationImpl impl, Route.CompiledRoute route) {
 		super(impl.getP4J(), route, (response, request) -> new NodeImpl(response.getObject(), impl));
 	}
 
 	@Override
 	public NodeAction setName(String name) {
 		this.name = name;
-		return this;
-	}
-
-	@Override
-	public NodeAction setLocation(Location location) {
-		this.location = location;
 		return this;
 	}
 

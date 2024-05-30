@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2022 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2021-2024 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -12,6 +12,16 @@
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
+ * 
+ *    ============================================================================== 
+ * 
+ *    Copyright 2024 RaftDev, and the Pelican4J contributors
+ * 
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
  */
 
 package be.raft.pelican.application.entities.impl;
@@ -24,14 +34,13 @@ import org.json.JSONObject;
 
 public class CreateNodeImpl extends AbstractNodeAction {
 
-	public CreateNodeImpl(PteroApplicationImpl impl) {
+	public CreateNodeImpl(ApplicationImpl impl) {
 		super(impl, Route.Nodes.CREATE_NODE.compile());
 	}
 
 	@Override
 	protected RequestBody finalizeData() {
 		Checks.notBlank(name, "Name");
-		Checks.notNull(location, "Location");
 		Checks.notBlank(fqdn, "FQDN");
 		Checks.notBlank(daemonBase, "Daemon Base");
 		Checks.notNumeric(memory, "Memory");
@@ -42,7 +51,6 @@ public class CreateNodeImpl extends AbstractNodeAction {
 		Checks.notNumeric(daemonListenPort, "Daemon Listen Port");
 		JSONObject json = new JSONObject();
 		json.put("name", name);
-		json.put("location_id", location.getId());
 		json.put("public", isPublic ? "1" : "0");
 		json.put("fqdn", fqdn);
 		json.put("scheme", secure ? "https" : "http");

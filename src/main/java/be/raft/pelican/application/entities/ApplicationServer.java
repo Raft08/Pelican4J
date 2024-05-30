@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2022 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2021-2024 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -12,6 +12,16 @@
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
+ * 
+ *    ============================================================================== 
+ * 
+ *    Copyright 2024 RaftDev, and the Pelican4J contributors
+ * 
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
  */
 
 package be.raft.pelican.application.entities;
@@ -27,12 +37,11 @@ import java.util.Optional;
  * Represents a Pterodactyl {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServer}.
  * This should contain all information provided from the Pterodactyl instance about an ApplicationServer.
  *
- * @see PteroApplication#retrieveServers()
- * @see PteroApplication#retrieveServerById(long)
- * @see PteroApplication#retrieveServersByName(String, boolean)
- * @see PteroApplication#retrieveServersByOwner(ApplicationUser)
- * @see PteroApplication#retrieveServersByNode(Node)
- * @see PteroApplication#retrieveServersByLocation(Location)
+ * @see Application#retrieveServers()
+ * @see Application#retrieveServerById(long)
+ * @see Application#retrieveServersByName(String, boolean)
+ * @see Application#retrieveServersByOwner(ApplicationUser)
+ * @see Application#retrieveServersByNode(Node)
  */
 public interface ApplicationServer extends Server, ISnowflake {
 
@@ -149,13 +158,6 @@ public interface ApplicationServer extends Server, ISnowflake {
 	default String getDefaultAllocationId() {
 		return Long.toUnsignedString(getDefaultAllocationIdLong());
 	}
-
-	/**
-	 * The Nest the ApplicationServer is using
-	 *
-	 * @return {@link RequestAction PteroAction} - Type {@link be.raft.pelican.application.entities.Nest Nest}
-	 */
-	RequestAction<Nest> retrieveNest();
 
 	/**
 	 * The id of the {@link be.raft.pelican.application.entities.Nest Nest} for the ApplicationServer

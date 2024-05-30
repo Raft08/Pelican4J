@@ -1,5 +1,5 @@
 /*
- *    Copyright 2021-2022 Matt Malec, and the Pterodactyl4J contributors
+ *    Copyright 2021-2024 Matt Malec, and the Pterodactyl4J contributors
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -12,6 +12,16 @@
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
+ * 
+ *    ============================================================================== 
+ * 
+ *    Copyright 2024 RaftDev, and the Pelican4J contributors
+ * 
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
  */
 
 package be.raft.pelican.application.entities.impl;
@@ -49,7 +59,6 @@ public class CreateServerImpl extends RequestActionImpl<ApplicationServer> imple
 	private long allocations = 0L;
 	private long backups = 0L;
 	private Map<String, EnvironmentValue<?>> environment;
-	private Set<Location> locations;
 	private Set<Integer> portRange;
 	private boolean useDedicatedIP;
 	private boolean startOnCompletion;
@@ -57,9 +66,9 @@ public class CreateServerImpl extends RequestActionImpl<ApplicationServer> imple
 	private ApplicationAllocation defaultAllocation;
 	private Collection<ApplicationAllocation> additionalAllocations;
 
-	private final PteroApplicationImpl impl;
+	private final ApplicationImpl impl;
 
-	public CreateServerImpl(PteroApplicationImpl impl) {
+	public CreateServerImpl(ApplicationImpl impl) {
 		super(
 				impl.getP4J(),
 				Route.Servers.CREATE_SERVER.compile(),
@@ -165,12 +174,6 @@ public class CreateServerImpl extends RequestActionImpl<ApplicationServer> imple
 	}
 
 	@Override
-	public ServerCreationAction setLocations(Set<Location> locations) {
-		this.locations = locations;
-		return this;
-	}
-
-	@Override
 	public ServerCreationAction setDedicatedIP(boolean dedicatedIP) {
 		this.useDedicatedIP = dedicatedIP;
 		return this;
@@ -210,14 +213,13 @@ public class CreateServerImpl extends RequestActionImpl<ApplicationServer> imple
 
 		if (defaultAllocation != null)
 			Checks.check(
-					portRange == null && locations == null,
+					portRange == null,
 					"You need to set both a port range and Location, or set only an Allocation instead.");
 
-		Nest nest = egg.retrieveNest().execute();
 		Map<String, Object> env = new HashMap<>();
 		environment.forEach((k, v) -> env.put(k, v.get().orElse(null)));
 		egg.getDefaultVariableMap()
-				.orElseGet(() -> impl.retrieveEggById(nest, egg.getId())
+				.orElseGet(() -> impl.retrieveEggById(egg.getId())
 						.execute()
 						.getDefaultVariableMap()
 						.get())
@@ -241,17 +243,12 @@ public class CreateServerImpl extends RequestActionImpl<ApplicationServer> imple
 				.put("default", defaultAllocation != null ? defaultAllocation.getIdLong() : null)
 				.put(
 						"additional",
-						(additionalAllocations != null && additionalAllocations.size() != 0)
+						(additionalAllocations != null && !additionalAllocations.isEmpty())
 								? additionalAllocations.stream()
 										.map(ApplicationAllocation::getIdLong)
 										.collect(Collectors.toList())
 								: null);
 		JSONObject deploy = new JSONObject()
-				.put(
-						"locations",
-						locations != null
-								? locations.stream().map(ISnowflake::getIdLong).collect(Collectors.toList())
-								: null)
 				.put("dedicated_ip", useDedicatedIP)
 				.put(
 						"port_range",
@@ -264,14 +261,13 @@ public class CreateServerImpl extends RequestActionImpl<ApplicationServer> imple
 				.put("name", name)
 				.put("description", description)
 				.put("user", owner.getId())
-				.put("nest", nest.getId())
 				.put("egg", egg.getId())
 				.put("docker_image", dockerImage != null ? dockerImage : egg.getDockerImage())
 				.put("startup", startupCommand != null ? startupCommand : egg.getStartupCommand())
 				.put("limits", limits)
 				.put("feature_limits", featureLimits)
 				.put("environment", env)
-				.put("deploy", (locations != null || portRange != null) ? deploy : null)
+				.put("deploy", (portRange != null) ? deploy : null)
 				.put("allocation", allocation)
 				.put("start_on_completion", startOnCompletion)
 				.put("skip_scripts", skipScripts);

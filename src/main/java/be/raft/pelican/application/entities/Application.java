@@ -15,7 +15,7 @@
  * 
  *    ============================================================================== 
  * 
- *    Copyright $YEAR RaftDev, and the Pelican4J contributors
+ *    Copyright 2024 RaftDev, and the Pelican4J contributors
  * 
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -28,22 +28,20 @@ package be.raft.pelican.application.entities;
 
 import be.raft.pelican.PelicanBuilder;
 import be.raft.pelican.RequestAction;
-import be.raft.pelican.application.managers.LocationManager;
 import be.raft.pelican.application.managers.NodeManager;
 import be.raft.pelican.application.managers.ServerCreationAction;
 import be.raft.pelican.application.managers.UserManager;
 import be.raft.pelican.requests.PaginationAction;
 import be.raft.pelican.utils.StreamUtils;
-import org.jetbrains.annotations.NotNull;
-
 import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The core of PteroApplication. All parts of the the PteroApplication API can be accessed starting from this class.
  *
  * @see PelicanBuilder PteroBuilder
  */
-public interface PteroApplication {
+public interface Application {
 
 	/**
 	 * Retrieves all of the ApplicationUsers from the Pterodactyl instance
@@ -197,23 +195,6 @@ public interface PteroApplication {
 	 * @return {@link RequestAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.Node Nodes}
 	 */
 	RequestAction<List<Node>> retrieveNodesByName(String name, boolean caseSensitive);
-
-	/**
-	 * Retrieves Nodes matching the provided {@link be.raft.pelican.application.entities.Location Location} from Pterodactyl instance
-	 * <br>This requires an <b>Application API key</b> with the <b>Nodes</b> permission with <b>Read</b> access.
-	 *
-	 * @param  location
-	 *         The location
-	 *
-	 * @throws be.raft.pelican.exceptions.LoginException
-	 *         If the API key is incorrect or doesn't have the required permissions
-	 *
-	 * @throws be.raft.pelican.exceptions.NotFoundException
-	 * 		   If the user cannot be found
-	 *
-	 * @return {@link RequestAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.Node Nodes}
-	 */
-	RequestAction<List<Node>> retrieveNodesByLocation(Location location);
 
 	/**
 	 * Returns the {@link be.raft.pelican.application.managers.NodeManager NodeManager}, used to create, edit, and delete Nodes from the Pterodactyl instance
@@ -429,27 +410,6 @@ public interface PteroApplication {
 	default RequestAction<List<ApplicationServer>> retrieveServersByNode(Node node) {
 		return retrieveServers().map(List::stream).map(stream -> stream.filter(
 						s -> s.retrieveNode().map(ISnowflake::getIdLong).execute() == node.getIdLong())
-				.collect(StreamUtils.toUnmodifiableList()));
-	}
-
-	/**
-	 * Retrieves ApplicationServers in the provided {@link be.raft.pelican.application.entities.Location Location} from Pterodactyl instance
-	 * <br>This requires an <b>Application API key</b> with the <b>Servers</b> and <b>Locations</b> permissions with <b>Read</b> access.
-	 *
-	 * @param  location
-	 *         The location
-	 *
-	 * @throws be.raft.pelican.exceptions.LoginException
-	 *         If the API key is incorrect or doesn't have the required permissions
-	 *
-	 * @return {@link RequestAction PteroAction} - Type {@link java.util.List List} of {@link be.raft.pelican.application.entities.ApplicationServer ApplicationServers}
-	 */
-	default RequestAction<List<ApplicationServer>> retrieveServersByLocation(Location location) {
-		return retrieveServers().map(List::stream).map(stream -> stream.filter(s -> s.retrieveNode()
-								.flatMap(Node::retrieveLocation)
-								.map(ISnowflake::getIdLong)
-								.execute()
-						== location.getIdLong())
 				.collect(StreamUtils.toUnmodifiableList()));
 	}
 

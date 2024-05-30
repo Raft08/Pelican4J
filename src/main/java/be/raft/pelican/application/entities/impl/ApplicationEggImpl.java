@@ -12,17 +12,24 @@
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
+ * 
+ *    ============================================================================== 
+ * 
+ *    Copyright 2024 RaftDev, and the Pelican4J contributors
+ * 
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
  */
 
 package be.raft.pelican.application.entities.impl;
 
 import be.raft.pelican.EnvironmentValue;
-import be.raft.pelican.RequestAction;
 import be.raft.pelican.application.entities.ApplicationEgg;
 import be.raft.pelican.application.entities.DockerImage;
-import be.raft.pelican.application.entities.Nest;
 import be.raft.pelican.application.entities.Script;
-import be.raft.pelican.requests.CompletedRequestAction;
 import java.time.OffsetDateTime;
 import java.util.*;
 import org.json.JSONObject;
@@ -31,19 +38,12 @@ public class ApplicationEggImpl implements ApplicationEgg {
 
 	private final JSONObject json;
 	private final JSONObject relationships;
-	private final PteroApplicationImpl impl;
+	private final ApplicationImpl impl;
 
-	public ApplicationEggImpl(JSONObject json, PteroApplicationImpl impl) {
+	public ApplicationEggImpl(JSONObject json, ApplicationImpl impl) {
 		this.json = json.getJSONObject("attributes");
 		this.relationships = json.getJSONObject("attributes").optJSONObject("relationships");
 		this.impl = impl;
-	}
-
-	@Override
-	public RequestAction<Nest> retrieveNest() {
-		if (!json.has("relationships")) return impl.retrieveNestById(json.getLong("nest"));
-
-		return new CompletedRequestAction<>(impl.getP4J(), new NestImpl(relationships.getJSONObject("nest"), impl));
 	}
 
 	@Override

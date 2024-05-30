@@ -15,7 +15,7 @@
  * 
  *    ============================================================================== 
  * 
- *    Copyright $YEAR RaftDev, and the Pelican4J contributors
+ *    Copyright 2024 RaftDev, and the Pelican4J contributors
  * 
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -26,25 +26,23 @@
 
 package be.raft.pelican;
 
-import be.raft.pelican.application.entities.PteroApplication;
+import be.raft.pelican.application.entities.Application;
 import be.raft.pelican.client.entities.PteroClient;
 import be.raft.pelican.entities.P4J;
 import be.raft.pelican.entities.impl.P4JImpl;
 import be.raft.pelican.utils.config.EndpointConfig;
 import be.raft.pelican.utils.config.SessionConfig;
 import be.raft.pelican.utils.config.ThreadingConfig;
-
+import com.google.common.base.Preconditions;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.util.concurrent.*;
-
-import com.google.common.base.Preconditions;
 import okhttp3.OkHttpClient;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Used to create new {@link be.raft.pelican.application.entities.PteroApplication} or {@link be.raft.pelican.client.entities.PteroClient} instances.
+ * Used to create new {@link Application} or {@link be.raft.pelican.client.entities.PteroClient} instances.
  */
 public class PelicanBuilder {
 
@@ -67,20 +65,22 @@ public class PelicanBuilder {
 	}
 
 	/**
-	 * Creates a {@link be.raft.pelican.application.entities.PteroApplication} instance with the recommended default settings.
+	 * Creates a {@link Application} instance with the recommended default settings.
 	 *
 	 * @param url the URL for your panel.
 	 * @param token the Application API key.
-	 * @return A new {@link be.raft.pelican.application.entities.PteroApplication} instance.
+	 * @return A new {@link Application} instance.
 	 */
-	public static PteroApplication createApplication(@NotNull String url, @NotNull String token) {
+	public static Application createApplication(@NotNull String url, @NotNull String token) {
 		Preconditions.checkNotNull(url);
 		Preconditions.checkNotNull(token);
 
 		Preconditions.checkArgument(!url.isEmpty(), "Url may not be empty!");
-		Preconditions.checkArgument(!token.isEmpty(),"Token cannot be empty!");
+		Preconditions.checkArgument(!token.isEmpty(), "Token cannot be empty!");
 
-		Preconditions.checkArgument(!token.startsWith("ptlc"), "Provided token was created for a Pterodactyl Panel! Pterodactyl Panels are not supported!");
+		Preconditions.checkArgument(
+				!token.startsWith("ptlc"),
+				"Provided token was created for a Pterodactyl Panel! Pterodactyl Panels are not supported!");
 
 		try {
 			URI.create(url).toURL();
@@ -103,9 +103,11 @@ public class PelicanBuilder {
 		Preconditions.checkNotNull(token);
 
 		Preconditions.checkArgument(!url.isEmpty(), "Url may not be empty!");
-		Preconditions.checkArgument(!token.isEmpty(),"Token cannot be empty!");
+		Preconditions.checkArgument(!token.isEmpty(), "Token cannot be empty!");
 
-		Preconditions.checkArgument(!token.startsWith("ptlc"), "Provided token was created for a Pterodactyl Panel! Pterodactyl Panels are not supported!");
+		Preconditions.checkArgument(
+				!token.startsWith("ptlc"),
+				"Provided token was created for a Pterodactyl Panel! Pterodactyl Panels are not supported!");
 
 		try {
 			URI.create(url).toURL();
@@ -128,9 +130,11 @@ public class PelicanBuilder {
 		Preconditions.checkNotNull(token);
 
 		Preconditions.checkArgument(!url.isEmpty(), "Url may not be empty!");
-		Preconditions.checkArgument(!token.isEmpty(),"Token cannot be empty!");
+		Preconditions.checkArgument(!token.isEmpty(), "Token cannot be empty!");
 
-		Preconditions.checkArgument(!token.startsWith("ptlc"), "Provided token was created for a Pterodactyl Panel! Pterodactyl Panels are not supported!");
+		Preconditions.checkArgument(
+				!token.startsWith("ptlc"),
+				"Provided token was created for a Pterodactyl Panel! Pterodactyl Panels are not supported!");
 
 		try {
 			URI.create(url).toURL();
@@ -153,10 +157,10 @@ public class PelicanBuilder {
 		try {
 			URI.create(url).toURL();
 		} catch (MalformedURLException e) {
-            throw new IllegalArgumentException("Invalid/Incorrect url!");
-        }
+			throw new IllegalArgumentException("Invalid/Incorrect url!");
+		}
 
-        this.applicationUrl = url;
+		this.applicationUrl = url;
 		return this;
 	}
 
@@ -168,7 +172,9 @@ public class PelicanBuilder {
 	 */
 	public PelicanBuilder token(@NotNull String token) {
 		Preconditions.checkNotNull(token);
-		Preconditions.checkArgument(!token.startsWith("ptlc"), "Provided token was created for a Pterodactyl Panel! Pterodactyl Panels are not supported!");
+		Preconditions.checkArgument(
+				!token.startsWith("ptlc"),
+				"Provided token was created for a Pterodactyl Panel! Pterodactyl Panels are not supported!");
 
 		this.token = token;
 		return this;
@@ -307,7 +313,7 @@ public class PelicanBuilder {
 	}
 
 	/**
-	 * Builds a new {@link be.raft.pelican.application.entities.PteroApplication} instance
+	 * Builds a new {@link Application} instance
 	 * and uses the provided panel URL and application API key to make requests.
 	 * <p>
 	 * This provides access to the <b>Application API</b>. Use a {@link PteroClient PteroClient} if you need access
@@ -317,7 +323,7 @@ public class PelicanBuilder {
 	 *
 	 * @see PelicanBuilder#buildClient()
 	 */
-	public PteroApplication buildApplication() {
+	public Application buildApplication() {
 		return build().asApplication();
 	}
 
@@ -326,7 +332,7 @@ public class PelicanBuilder {
 	 * and uses the provided panel URL and client API key to make requests and offer websocket access.
 	 * <p>
 	 * This provides access to the <b>Client API</b>. Use a
-	 * {@link be.raft.pelican.application.entities.PteroApplication PteroApplication} if you need access
+	 * {@link Application PteroApplication} if you need access
 	 * to the <b>Application API</b>.
 	 *
 	 * @return A new {@link PteroClient} instance that is ready to execute requests.

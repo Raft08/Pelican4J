@@ -12,12 +12,21 @@
  *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
+ * 
+ *    ============================================================================== 
+ * 
+ *    Copyright 2024 RaftDev, and the Pelican4J contributors
+ * 
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
  */
 
 package be.raft.pelican.application.entities;
 
 import be.raft.pelican.EnvironmentValue;
-import be.raft.pelican.RequestAction;
 import be.raft.pelican.application.managers.ServerController;
 import be.raft.pelican.client.entities.ClientServer;
 import be.raft.pelican.client.managers.ClientServerManager;
@@ -31,13 +40,6 @@ import java.util.Optional;
  * This should contain all information provided from the Pterodactyl instance about an ApplicationEgg.
  */
 public interface ApplicationEgg extends Egg, ISnowflake {
-
-	/**
-	 * The Nest the ApplicationEgg is associated with
-	 *
-	 * @return {@link RequestAction PteroAction} - Type {@link be.raft.pelican.application.entities.Nest Nest}
-	 */
-	RequestAction<Nest> retrieveNest();
 
 	/**
 	 * The egg variables assigned to the ApplicationEgg
