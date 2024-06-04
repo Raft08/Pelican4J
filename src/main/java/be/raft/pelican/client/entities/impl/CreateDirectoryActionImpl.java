@@ -40,7 +40,7 @@ public class CreateDirectoryActionImpl extends RequestActionImpl<Void> implement
 	private String name;
 	private Directory rootDirectory;
 
-	public CreateDirectoryActionImpl(ClientServer server, PteroClientImpl impl) {
+	public CreateDirectoryActionImpl(ClientServer server, ClientImpl impl) {
 		super(impl.getP4J(), Route.Files.CREATE_FOLDER.compile(server.getIdentifier()));
 	}
 

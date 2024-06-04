@@ -299,7 +299,7 @@ public interface Application {
 	 */
 	default RequestAction<List<ApplicationServer>> retrieveServersByNode(Node node) {
 		return retrieveServers().map(List::stream).map(stream -> stream.filter(
-						s -> s.retrieveNode().map(ISnowflake::getIdLong).execute() == node.getIdLong())
+						s -> s.retrieveNode().map(IdentifiedEntity::getIdLong).execute() == node.getIdLong())
 				.collect(StreamUtils.toUnmodifiableList()));
 	}
 

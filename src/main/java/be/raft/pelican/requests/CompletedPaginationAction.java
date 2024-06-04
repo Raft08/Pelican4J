@@ -27,7 +27,7 @@
 package be.raft.pelican.requests;
 
 import be.raft.pelican.RequestAction;
-import be.raft.pelican.entities.P4J;
+import be.raft.pelican.entities.PelicanApi;
 import be.raft.pelican.exceptions.RateLimitedException;
 import be.raft.pelican.requests.action.impl.PaginationActionImpl;
 import java.util.Collections;
@@ -38,21 +38,21 @@ public class CompletedPaginationAction<T> extends PaginationActionImpl<T> {
 
 	protected final List<T> value;
 	protected final Throwable error;
-	private final P4J api;
+	private final PelicanApi api;
 
-	public CompletedPaginationAction(P4J api, List<T> value, Throwable error) {
+	public CompletedPaginationAction(PelicanApi api, List<T> value, Throwable error) {
 		super(api);
 		this.api = api;
 		this.value = value;
 		this.error = error;
 	}
 
-	public CompletedPaginationAction(P4J api, List<T> value) {
+	public CompletedPaginationAction(PelicanApi api, List<T> value) {
 		this(api, value, null);
 	}
 
 	@Override
-	public P4J getP4J() {
+	public PelicanApi getP4J() {
 		return api;
 	}
 

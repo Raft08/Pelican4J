@@ -27,7 +27,7 @@
 package be.raft.pelican.requests.action.operator;
 
 import be.raft.pelican.RequestAction;
-import be.raft.pelican.entities.P4J;
+import be.raft.pelican.entities.PelicanApi;
 import java.util.function.Consumer;
 
 // big thanks to JDA for this tremendous code
@@ -59,7 +59,7 @@ public abstract class RequestActionOperator<I, O> implements RequestAction<O> {
 	}
 
 	@Override
-	public P4J getP4J() {
+	public PelicanApi getP4J() {
 		return action.getP4J();
 	}
 }

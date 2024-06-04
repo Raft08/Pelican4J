@@ -41,9 +41,9 @@ import org.json.JSONObject;
 public class AccountImpl implements Account {
 
 	private final JSONObject json;
-	private final PteroClientImpl impl;
+	private final ClientImpl impl;
 
-	public AccountImpl(JSONObject json, PteroClientImpl impl) {
+	public AccountImpl(JSONObject json, ClientImpl impl) {
 		this.json = json.getJSONObject("attributes");
 		this.impl = impl;
 	}

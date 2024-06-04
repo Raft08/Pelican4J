@@ -27,12 +27,12 @@
 package be.raft.pelican.client.ws.events;
 
 import be.raft.pelican.client.entities.ClientServer;
-import be.raft.pelican.client.entities.impl.PteroClientImpl;
+import be.raft.pelican.client.entities.impl.ClientImpl;
 import be.raft.pelican.client.managers.WebSocketManager;
 
 public class AuthSuccessEvent extends Event {
 
-	public AuthSuccessEvent(PteroClientImpl api, ClientServer server, WebSocketManager manager) {
+	public AuthSuccessEvent(ClientImpl api, ClientServer server, WebSocketManager manager) {
 		super(api, server, manager);
 	}
 }

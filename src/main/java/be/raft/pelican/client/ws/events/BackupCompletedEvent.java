@@ -28,7 +28,7 @@ package be.raft.pelican.client.ws.events;
 
 import be.raft.pelican.DataType;
 import be.raft.pelican.client.entities.ClientServer;
-import be.raft.pelican.client.entities.impl.PteroClientImpl;
+import be.raft.pelican.client.entities.impl.ClientImpl;
 import be.raft.pelican.client.managers.WebSocketManager;
 import org.json.JSONObject;
 
@@ -36,7 +36,7 @@ public class BackupCompletedEvent extends Event {
 
 	private final JSONObject json;
 
-	public BackupCompletedEvent(PteroClientImpl api, ClientServer server, WebSocketManager manager, JSONObject json) {
+	public BackupCompletedEvent(ClientImpl api, ClientServer server, WebSocketManager manager, JSONObject json) {
 		super(api, server, manager);
 		this.json = json;
 	}

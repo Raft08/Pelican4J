@@ -41,9 +41,9 @@ import org.json.JSONObject;
 public class FileManagerImpl implements FileManager {
 
 	private final ClientServer server;
-	private final PteroClientImpl impl;
+	private final ClientImpl impl;
 
-	public FileManagerImpl(ClientServer server, PteroClientImpl impl) {
+	public FileManagerImpl(ClientServer server, ClientImpl impl) {
 		this.server = server;
 		this.impl = impl;
 	}

@@ -37,9 +37,9 @@ import be.raft.pelican.requests.Route;
 public class BackupManagerImpl implements BackupManager {
 
 	private final ClientServer server;
-	private final PteroClientImpl impl;
+	private final ClientImpl impl;
 
-	public BackupManagerImpl(ClientServer server, PteroClientImpl impl) {
+	public BackupManagerImpl(ClientServer server, ClientImpl impl) {
 		this.server = server;
 		this.impl = impl;
 	}

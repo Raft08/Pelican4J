@@ -27,14 +27,14 @@
 package be.raft.pelican.client.ws.handle;
 
 import be.raft.pelican.client.entities.ClientServer;
-import be.raft.pelican.client.entities.impl.PteroClientImpl;
+import be.raft.pelican.client.entities.impl.ClientImpl;
 import be.raft.pelican.client.managers.WebSocketManager;
 import be.raft.pelican.client.ws.events.BackupCompletedEvent;
 import org.json.JSONObject;
 
 public class BackupCompletedHandler extends ClientSocketHandler {
 
-	public BackupCompletedHandler(PteroClientImpl client, ClientServer server, WebSocketManager manager) {
+	public BackupCompletedHandler(ClientImpl client, ClientServer server, WebSocketManager manager) {
 		super(client, server, manager);
 	}
 

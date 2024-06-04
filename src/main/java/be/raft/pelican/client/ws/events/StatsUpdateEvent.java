@@ -29,7 +29,7 @@ package be.raft.pelican.client.ws.events;
 import be.raft.pelican.DataType;
 import be.raft.pelican.UtilizationState;
 import be.raft.pelican.client.entities.ClientServer;
-import be.raft.pelican.client.entities.impl.PteroClientImpl;
+import be.raft.pelican.client.entities.impl.ClientImpl;
 import be.raft.pelican.client.managers.WebSocketManager;
 import org.json.JSONObject;
 
@@ -37,7 +37,7 @@ public class StatsUpdateEvent extends Event {
 
 	private final JSONObject stats;
 
-	public StatsUpdateEvent(PteroClientImpl api, ClientServer server, WebSocketManager manager, JSONObject stats) {
+	public StatsUpdateEvent(ClientImpl api, ClientServer server, WebSocketManager manager, JSONObject stats) {
 		super(api, server, manager);
 		this.stats = stats;
 	}

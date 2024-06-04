@@ -27,7 +27,7 @@
 package be.raft.pelican.requests;
 
 import be.raft.pelican.RequestAction;
-import be.raft.pelican.entities.P4J;
+import be.raft.pelican.entities.PelicanApi;
 import be.raft.pelican.exceptions.RateLimitedException;
 import java.util.function.Consumer;
 
@@ -35,24 +35,24 @@ public class CompletedRequestAction<T> implements RequestAction<T> {
 
 	protected final T value;
 	protected final Throwable error;
-	private final P4J api;
+	private final PelicanApi api;
 
-	public CompletedRequestAction(P4J api, T value, Throwable error) {
+	public CompletedRequestAction(PelicanApi api, T value, Throwable error) {
 		this.api = api;
 		this.value = value;
 		this.error = error;
 	}
 
-	public CompletedRequestAction(P4J api, T value) {
+	public CompletedRequestAction(PelicanApi api, T value) {
 		this(api, value, null);
 	}
 
-	public CompletedRequestAction(P4J api, Throwable error) {
+	public CompletedRequestAction(PelicanApi api, Throwable error) {
 		this(api, null, error);
 	}
 
 	@Override
-	public P4J getP4J() {
+	public PelicanApi getP4J() {
 		return api;
 	}
 

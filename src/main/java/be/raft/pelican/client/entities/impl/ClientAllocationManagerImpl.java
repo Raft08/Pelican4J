@@ -40,9 +40,9 @@ import org.json.JSONObject;
 public class ClientAllocationManagerImpl implements ClientAllocationManager {
 
 	private final ClientServer server;
-	private final PteroClientImpl impl;
+	private final ClientImpl impl;
 
-	public ClientAllocationManagerImpl(ClientServer server, PteroClientImpl impl) {
+	public ClientAllocationManagerImpl(ClientServer server, ClientImpl impl) {
 		this.server = server;
 		this.impl = impl;
 	}

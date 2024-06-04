@@ -37,9 +37,9 @@ import be.raft.pelican.requests.Route;
 public class ScheduleManagerImpl implements ScheduleManager {
 
 	private final ClientServer server;
-	private final PteroClientImpl impl;
+	private final ClientImpl impl;
 
-	public ScheduleManagerImpl(ClientServer server, PteroClientImpl impl) {
+	public ScheduleManagerImpl(ClientServer server, ClientImpl impl) {
 		this.server = server;
 		this.impl = impl;
 	}

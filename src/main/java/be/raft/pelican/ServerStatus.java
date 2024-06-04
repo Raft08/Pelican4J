@@ -38,5 +38,13 @@ public enum ServerStatus {
 	INSTALL_FAILED,
 	SUSPENDED,
 	RESTORING_BACKUP,
-	UNKNOWN
+	UNKNOWN;
+
+	public static ServerStatus of(String s) {
+		try {
+			return valueOf(s.toUpperCase());
+		} catch (IllegalArgumentException e) {
+			return UNKNOWN;
+		}
+	}
 }

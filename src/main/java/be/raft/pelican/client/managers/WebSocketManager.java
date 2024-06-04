@@ -28,7 +28,7 @@ package be.raft.pelican.client.managers;
 
 import be.raft.pelican.PowerAction;
 import be.raft.pelican.client.entities.ClientServer;
-import be.raft.pelican.client.entities.impl.PteroClientImpl;
+import be.raft.pelican.client.entities.impl.ClientImpl;
 import be.raft.pelican.client.ws.WebSocketAction;
 import be.raft.pelican.client.ws.WebSocketClient;
 import be.raft.pelican.client.ws.events.connection.DisconnectedEvent;
@@ -37,12 +37,12 @@ import be.raft.pelican.utils.AwaitableClientListener;
 
 public class WebSocketManager {
 
-	private final PteroClientImpl api;
+	private final ClientImpl api;
 	private final WebSocketClient client;
 	private final IClientListenerManager eventManager;
 
 	public WebSocketManager(
-			PteroClientImpl api, ClientServer server, IClientListenerManager eventManager, boolean freshServer) {
+            ClientImpl api, ClientServer server, IClientListenerManager eventManager, boolean freshServer) {
 		this.api = api;
 		this.eventManager = eventManager;
 		this.client = new WebSocketClient(api, server, freshServer, this);
@@ -61,7 +61,7 @@ public class WebSocketManager {
 	public void reconnect() {
 		if (client.isConnected()) {
 			AwaitableClientListener listener = AwaitableClientListener.create(
-					DisconnectedEvent.class, api.getP4J().getSupplierPool());
+					DisconnectedEvent.class, api.getP4J().supplierPool());
 
 			eventManager.register(listener);
 

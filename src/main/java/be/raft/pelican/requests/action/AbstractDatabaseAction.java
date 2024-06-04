@@ -26,7 +26,7 @@
 
 package be.raft.pelican.requests.action;
 
-import be.raft.pelican.entities.P4J;
+import be.raft.pelican.entities.PelicanApi;
 import be.raft.pelican.requests.Request;
 import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Response;
@@ -38,7 +38,7 @@ public abstract class AbstractDatabaseAction<T> extends RequestActionImpl<T> {
 	protected String name;
 	protected String remote;
 
-	public AbstractDatabaseAction(P4J api, Route.CompiledRoute route, BiFunction<Response, Request<T>, T> handler) {
+	public AbstractDatabaseAction(PelicanApi api, Route.CompiledRoute route, BiFunction<Response, Request<T>, T> handler) {
 		super(api, route, handler);
 	}
 }

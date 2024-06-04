@@ -37,7 +37,7 @@ import org.json.JSONObject;
 
 public class EditSubuserImpl extends AbstractSubuserAction {
 
-	public EditSubuserImpl(ClientServer server, ClientSubuser subuser, PteroClientImpl impl) {
+	public EditSubuserImpl(ClientServer server, ClientSubuser subuser, ClientImpl impl) {
 		super(
 				impl,
 				Route.Subusers.UPDATE_SUBUSER.compile(

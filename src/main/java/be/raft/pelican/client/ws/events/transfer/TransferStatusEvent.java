@@ -27,7 +27,7 @@
 package be.raft.pelican.client.ws.events.transfer;
 
 import be.raft.pelican.client.entities.ClientServer;
-import be.raft.pelican.client.entities.impl.PteroClientImpl;
+import be.raft.pelican.client.entities.impl.ClientImpl;
 import be.raft.pelican.client.managers.WebSocketManager;
 import be.raft.pelican.client.ws.events.Event;
 
@@ -35,7 +35,7 @@ public class TransferStatusEvent extends Event {
 
 	private final String status;
 
-	public TransferStatusEvent(PteroClientImpl api, ClientServer server, WebSocketManager manager, String status) {
+	public TransferStatusEvent(ClientImpl api, ClientServer server, WebSocketManager manager, String status) {
 		super(api, server, manager);
 		this.status = status;
 	}

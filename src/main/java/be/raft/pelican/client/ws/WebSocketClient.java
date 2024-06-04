@@ -27,7 +27,7 @@
 package be.raft.pelican.client.ws;
 
 import be.raft.pelican.client.entities.ClientServer;
-import be.raft.pelican.client.entities.impl.PteroClientImpl;
+import be.raft.pelican.client.entities.impl.ClientImpl;
 import be.raft.pelican.client.managers.WebSocketManager;
 import be.raft.pelican.client.ws.events.connection.ConnectedEvent;
 import be.raft.pelican.client.ws.events.connection.DisconnectedEvent;
@@ -46,10 +46,10 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 
 public class WebSocketClient extends WebSocketListener implements Runnable {
-
 	public static final Logger WEBSOCKET_LOG = P4JLogger.getLogger(WebSocketClient.class);
+
 	private final OkHttpClient webSocketClient;
-	private final PteroClientImpl client;
+	private final ClientImpl client;
 	private final ClientServer server;
 	private final WebSocketManager manager;
 	private final boolean freshServer;
@@ -57,12 +57,12 @@ public class WebSocketClient extends WebSocketListener implements Runnable {
 	private WebSocket webSocket;
 	private boolean connected = false;
 
-	public WebSocketClient(PteroClientImpl client, ClientServer server, boolean freshServer, WebSocketManager manager) {
+	public WebSocketClient(ClientImpl client, ClientServer server, boolean freshServer, WebSocketManager manager) {
 		this.client = client;
 		this.server = server;
 		this.freshServer = freshServer;
 		this.manager = manager;
-		this.webSocketClient = client.getP4J().getWebSocketClient();
+		this.webSocketClient = client.getP4J().socketClient();
 		setupHandlers();
 	}
 
@@ -100,8 +100,8 @@ public class WebSocketClient extends WebSocketListener implements Runnable {
 
 		Request req = new Request.Builder()
 				.url(url)
-				.header("User-Agent", client.getP4J().getUserAgent())
-				.header("Origin", client.getP4J().getApplicationUrl())
+				.header("User-Agent", client.getP4J().userAgent())
+				.header("Origin", client.getP4J().url())
 				.build();
 
 		webSocketClient.newWebSocket(req, this);

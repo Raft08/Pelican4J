@@ -27,7 +27,7 @@
 package be.raft.pelican.requests;
 
 import be.raft.pelican.RequestAction;
-import be.raft.pelican.entities.P4J;
+import be.raft.pelican.entities.PelicanApi;
 import be.raft.pelican.exceptions.RateLimitedException;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
@@ -35,16 +35,16 @@ import java.util.function.Supplier;
 
 public class DeferredRequestAction<T> implements RequestAction<T> {
 
-	private final P4J api;
+	private final PelicanApi api;
 	private final Supplier<? extends T> value;
 
-	public DeferredRequestAction(P4J api, Supplier<? extends T> value) {
+	public DeferredRequestAction(PelicanApi api, Supplier<? extends T> value) {
 		this.api = api;
 		this.value = value;
 	}
 
 	@Override
-	public P4J getP4J() {
+	public PelicanApi getP4J() {
 		return api;
 	}
 
@@ -55,7 +55,7 @@ public class DeferredRequestAction<T> implements RequestAction<T> {
 
 	@Override
 	public void executeAsync(Consumer<? super T> success, Consumer<? super Throwable> failure) {
-		CompletableFuture.supplyAsync(value, api.getSupplierPool())
+		CompletableFuture.supplyAsync(value, api.supplierPool())
 				.thenAcceptAsync(success == null ? RequestAction.getDefaultSuccess() : success);
 	}
 

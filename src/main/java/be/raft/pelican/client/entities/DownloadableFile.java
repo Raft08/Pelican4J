@@ -26,7 +26,7 @@
 
 package be.raft.pelican.client.entities;
 
-import be.raft.pelican.entities.P4J;
+import be.raft.pelican.entities.PelicanApi;
 import be.raft.pelican.exceptions.HttpException;
 import be.raft.pelican.utils.Checks;
 import java.io.FileOutputStream;
@@ -39,12 +39,12 @@ import org.jetbrains.annotations.NotNull;
 
 public class DownloadableFile {
 
-	private final P4J p4j;
+	private final PelicanApi pelicanAPI;
 	private final File file;
 	private final String url;
 
-	public DownloadableFile(P4J p4j, File file, String url) {
-		this.p4j = p4j;
+	public DownloadableFile(PelicanApi pelicanAPI, File file, String url) {
+		this.pelicanAPI = pelicanAPI;
 		this.file = file;
 		this.url = url;
 	}
@@ -53,10 +53,10 @@ public class DownloadableFile {
 		CompletableFuture<InputStream> future = new CompletableFuture<>();
 		Request req = new Request.Builder()
 				.url(url)
-				.addHeader("User-Agent", p4j.getUserAgent())
+				.addHeader("User-Agent", pelicanAPI.userAgent())
 				.build();
 
-		OkHttpClient requester = p4j.getHttpClient();
+		OkHttpClient requester = pelicanAPI.httpClient();
 		requester.newCall(req).enqueue(new Callback() {
 			@Override
 			public void onFailure(@NotNull Call call, @NotNull IOException e) {
@@ -119,6 +119,6 @@ public class DownloadableFile {
 								}
 							}
 						},
-						p4j.getCallbackPool());
+						pelicanAPI.callbackPool());
 	}
 }

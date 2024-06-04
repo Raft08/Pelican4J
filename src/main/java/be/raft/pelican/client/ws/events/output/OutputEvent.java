@@ -27,7 +27,7 @@
 package be.raft.pelican.client.ws.events.output;
 
 import be.raft.pelican.client.entities.ClientServer;
-import be.raft.pelican.client.entities.impl.PteroClientImpl;
+import be.raft.pelican.client.entities.impl.ClientImpl;
 import be.raft.pelican.client.managers.WebSocketManager;
 import be.raft.pelican.client.ws.events.Event;
 
@@ -35,7 +35,7 @@ public abstract class OutputEvent extends Event {
 
 	private final String line;
 
-	public OutputEvent(PteroClientImpl api, ClientServer server, WebSocketManager manager, String line) {
+	public OutputEvent(ClientImpl api, ClientServer server, WebSocketManager manager, String line) {
 		super(api, server, manager);
 		this.line = line;
 	}

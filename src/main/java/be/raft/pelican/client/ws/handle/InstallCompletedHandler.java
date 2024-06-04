@@ -27,13 +27,13 @@
 package be.raft.pelican.client.ws.handle;
 
 import be.raft.pelican.client.entities.ClientServer;
-import be.raft.pelican.client.entities.impl.PteroClientImpl;
+import be.raft.pelican.client.entities.impl.ClientImpl;
 import be.raft.pelican.client.managers.WebSocketManager;
 import be.raft.pelican.client.ws.events.install.InstallCompletedEvent;
 
 public class InstallCompletedHandler extends ClientSocketHandler {
 
-	public InstallCompletedHandler(PteroClientImpl client, ClientServer server, WebSocketManager manager) {
+	public InstallCompletedHandler(ClientImpl client, ClientServer server, WebSocketManager manager) {
 		super(client, server, manager);
 	}
 

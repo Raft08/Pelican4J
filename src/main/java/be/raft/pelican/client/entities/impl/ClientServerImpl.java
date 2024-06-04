@@ -47,9 +47,9 @@ public class ClientServerImpl implements ClientServer {
 
 	private final JSONObject json;
 	private final JSONObject relationships;
-	private final PteroClientImpl impl;
+	private final ClientImpl impl;
 
-	public ClientServerImpl(JSONObject json, PteroClientImpl impl) {
+	public ClientServerImpl(JSONObject json, ClientImpl impl) {
 		this.json = json.getJSONObject("attributes");
 		this.relationships = json.getJSONObject("attributes").getJSONObject("relationships");
 		this.impl = impl;

@@ -39,10 +39,10 @@ public class ClientDatabaseImpl implements ClientDatabase {
 	private final JSONObject json;
 	private final JSONObject relationships;
 
-	private final PteroClientImpl impl;
+	private final ClientImpl impl;
 	private final ClientServer server;
 
-	public ClientDatabaseImpl(JSONObject json, PteroClientImpl impl, ClientServer server) {
+	public ClientDatabaseImpl(JSONObject json, ClientImpl impl, ClientServer server) {
 		this.json = json.getJSONObject("attributes");
 		this.relationships = json.getJSONObject("attributes").optJSONObject("relationships");
 		this.impl = impl;

@@ -27,13 +27,13 @@
 package be.raft.pelican.client.ws.events.install;
 
 import be.raft.pelican.client.entities.ClientServer;
-import be.raft.pelican.client.entities.impl.PteroClientImpl;
+import be.raft.pelican.client.entities.impl.ClientImpl;
 import be.raft.pelican.client.managers.WebSocketManager;
 
 // this event is only called if skip egg scripts is disabled
 public class InstallStartedEvent extends InstallEvent {
 
-	public InstallStartedEvent(PteroClientImpl api, ClientServer server, WebSocketManager manager, boolean installed) {
+	public InstallStartedEvent(ClientImpl api, ClientServer server, WebSocketManager manager, boolean installed) {
 		super(api, server, manager, installed);
 	}
 }

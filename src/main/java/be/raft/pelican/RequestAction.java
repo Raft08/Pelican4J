@@ -26,7 +26,7 @@
 
 package be.raft.pelican;
 
-import be.raft.pelican.entities.P4J;
+import be.raft.pelican.entities.PelicanApi;
 import be.raft.pelican.exceptions.RateLimitedException;
 import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.action.operator.*;
@@ -90,7 +90,7 @@ public interface RequestAction<T> {
 	 *
 	 * @return The corresponding API instance
 	 */
-	P4J getP4J();
+	PelicanApi getP4J();
 
 	/**
 	 * Blocks the current Thread and awaits the completion of a Request.
@@ -428,7 +428,7 @@ public interface RequestAction<T> {
 	 * }</pre>
 	 *
 	 * @param duration  The delay
-	 * @param scheduler The scheduler to use, null to use {@link P4J#getRateLimitPool()}
+	 * @param scheduler The scheduler to use, null to use {@link PelicanApi#rateLimitµPool()}
 	 * @return PteroAction with delay
 	 */
 	default RequestAction<T> delay(Duration duration, ScheduledExecutorService scheduler) {
@@ -474,7 +474,7 @@ public interface RequestAction<T> {
 	 *
 	 * @param delay     The delay value
 	 * @param unit      The time unit for the delay value
-	 * @param scheduler The scheduler to use, null to use {@link P4J#getRateLimitPool()}
+	 * @param scheduler The scheduler to use, null to use {@link PelicanApi#rateLimitµPool()}
 	 * @return PteroAction with delay
 	 */
 	default RequestAction<T> delay(long delay, TimeUnit unit, ScheduledExecutorService scheduler) {

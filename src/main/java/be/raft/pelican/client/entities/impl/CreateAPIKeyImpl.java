@@ -42,7 +42,7 @@ public class CreateAPIKeyImpl extends RequestActionImpl<APIKey> implements APIKe
 	private final Set<String> allowedIps;
 	private String description;
 
-	public CreateAPIKeyImpl(PteroClientImpl impl) {
+	public CreateAPIKeyImpl(ClientImpl impl) {
 		super(
 				impl.getP4J(),
 				Route.Accounts.CREATE_API_KEY.compile(),

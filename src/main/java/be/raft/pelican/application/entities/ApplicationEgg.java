@@ -39,7 +39,7 @@ import java.util.Optional;
  * Represents a Pterodactyl {@link be.raft.pelican.application.entities.ApplicationEgg ApplicationEgg}.
  * This should contain all information provided from the Pterodactyl instance about an ApplicationEgg.
  */
-public interface ApplicationEgg extends Egg, ISnowflake {
+public interface ApplicationEgg extends Egg, IdentifiedEntity {
 
 	/**
 	 * The egg variables assigned to the ApplicationEgg
@@ -108,7 +108,7 @@ public interface ApplicationEgg extends Egg, ISnowflake {
 	/**
 	 * Represents an {@link EggVariable EggVariable} associated with an {@link ApplicationEgg}.
 	 */
-	interface EggVariable extends Egg.EggVariable, ISnowflake {
+	interface EggVariable extends Egg.EggVariable, IdentifiedEntity {
 
 		/**
 		 * Returns whether the {@link EggVariable EggVariable} is viewable by the end-user.

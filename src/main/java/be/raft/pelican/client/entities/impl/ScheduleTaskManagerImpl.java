@@ -38,9 +38,9 @@ public class ScheduleTaskManagerImpl implements ScheduleTaskManager {
 
 	private final ClientServer server;
 	private final Schedule schedule;
-	private final PteroClientImpl impl;
+	private final ClientImpl impl;
 
-	public ScheduleTaskManagerImpl(ClientServer server, Schedule schedule, PteroClientImpl impl) {
+	public ScheduleTaskManagerImpl(ClientServer server, Schedule schedule, ClientImpl impl) {
 		this.server = server;
 		this.schedule = schedule;
 		this.impl = impl;

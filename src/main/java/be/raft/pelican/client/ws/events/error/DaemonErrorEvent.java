@@ -27,7 +27,7 @@
 package be.raft.pelican.client.ws.events.error;
 
 import be.raft.pelican.client.entities.ClientServer;
-import be.raft.pelican.client.entities.impl.PteroClientImpl;
+import be.raft.pelican.client.entities.impl.ClientImpl;
 import be.raft.pelican.client.managers.WebSocketManager;
 import be.raft.pelican.client.ws.events.Event;
 
@@ -35,7 +35,7 @@ public class DaemonErrorEvent extends Event {
 
 	private final String message;
 
-	public DaemonErrorEvent(PteroClientImpl api, ClientServer server, WebSocketManager manager, String message) {
+	public DaemonErrorEvent(ClientImpl api, ClientServer server, WebSocketManager manager, String message) {
 		super(api, server, manager);
 		this.message = message;
 	}

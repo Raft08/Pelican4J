@@ -27,7 +27,7 @@
 package be.raft.pelican.client.ws.events.connection;
 
 import be.raft.pelican.client.entities.ClientServer;
-import be.raft.pelican.client.entities.impl.PteroClientImpl;
+import be.raft.pelican.client.entities.impl.ClientImpl;
 import be.raft.pelican.client.managers.WebSocketManager;
 
 public abstract class DisconnectionEvent extends ConnectionEvent {
@@ -35,7 +35,7 @@ public abstract class DisconnectionEvent extends ConnectionEvent {
 	protected final int closeCode;
 
 	public DisconnectionEvent(
-			PteroClientImpl api, ClientServer server, WebSocketManager manager, boolean connected, int closeCode) {
+            ClientImpl api, ClientServer server, WebSocketManager manager, boolean connected, int closeCode) {
 		super(api, server, manager, connected);
 		this.closeCode = closeCode;
 	}

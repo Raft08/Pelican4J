@@ -28,7 +28,7 @@ package be.raft.pelican.requests.action;
 
 import be.raft.pelican.PowerAction;
 import be.raft.pelican.client.entities.Schedule;
-import be.raft.pelican.client.entities.impl.PteroClientImpl;
+import be.raft.pelican.client.entities.impl.ClientImpl;
 import be.raft.pelican.client.entities.impl.ScheduleTaskImpl;
 import be.raft.pelican.client.managers.ScheduleTaskAction;
 import be.raft.pelican.requests.RequestActionImpl;
@@ -44,7 +44,7 @@ public abstract class AbstractScheduleTaskAction extends RequestActionImpl<Sched
 	protected String timeOffset;
 	protected boolean continueOnFailure;
 
-	public AbstractScheduleTaskAction(PteroClientImpl impl, Schedule schedule, Route.CompiledRoute route) {
+	public AbstractScheduleTaskAction(ClientImpl impl, Schedule schedule, Route.CompiledRoute route) {
 		super(impl.getP4J(), route, (response, request) -> new ScheduleTaskImpl(response.getObject(), schedule));
 	}
 

@@ -28,7 +28,7 @@ package be.raft.pelican.client.managers;
 
 import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.entities.ClientServer;
-import be.raft.pelican.client.entities.impl.PteroClientImpl;
+import be.raft.pelican.client.entities.impl.ClientImpl;
 import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
 import org.json.JSONObject;
@@ -36,9 +36,9 @@ import org.json.JSONObject;
 public class ClientServerManager {
 
 	private final ClientServer server;
-	private final PteroClientImpl impl;
+	private final ClientImpl impl;
 
-	public ClientServerManager(ClientServer server, PteroClientImpl impl) {
+	public ClientServerManager(ClientServer server, ClientImpl impl) {
 		this.server = server;
 		this.impl = impl;
 	}

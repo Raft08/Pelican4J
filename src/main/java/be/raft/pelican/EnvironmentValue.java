@@ -53,30 +53,6 @@ public class EnvironmentValue<T> {
 	}
 
 	/**
-	 * Loads a {@link java.lang.String} into an EnvironmentValue
-	 *
-	 * @param value The value to load
-	 * @return An EnvironmentValue instance for the provided String
-	 * @deprecated This will be removed in the next major release (non-beta). Use {@link EnvironmentValue#of(Object)} instead
-	 */
-	@Deprecated
-	public static EnvironmentValue<String> ofString(String value) {
-		return of(value);
-	}
-
-	/**
-	 * Loads an {@link java.lang.Integer} into an EnvironmentValue
-	 *
-	 * @param value The value to load
-	 * @return An EnvironmentValue instance for the provided Integer
-	 * @deprecated This will be removed in the next major release (non-beta). Use {@link EnvironmentValue#of(Object)} instead
-	 */
-	@Deprecated
-	public static EnvironmentValue<Integer> ofInteger(int value) {
-		return of(value);
-	}
-
-	/**
 	 * Returns a Collector used to convert the EnvironmentValue from the environment variables map to a String
 	 *
 	 * <p>This is helpful when we need to pass an environment variable map of String values instead of

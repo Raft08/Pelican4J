@@ -32,7 +32,7 @@ import be.raft.pelican.RequestAction;
 import be.raft.pelican.requests.PaginationAction;
 import java.util.List;
 
-public interface PteroClient {
+public interface Client {
 
 	/**
 	 * Retrieves the Pterodactyl user account belonging to the API key

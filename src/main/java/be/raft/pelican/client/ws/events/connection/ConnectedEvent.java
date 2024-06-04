@@ -27,12 +27,12 @@
 package be.raft.pelican.client.ws.events.connection;
 
 import be.raft.pelican.client.entities.ClientServer;
-import be.raft.pelican.client.entities.impl.PteroClientImpl;
+import be.raft.pelican.client.entities.impl.ClientImpl;
 import be.raft.pelican.client.managers.WebSocketManager;
 
 public class ConnectedEvent extends ConnectionEvent {
 
-	public ConnectedEvent(PteroClientImpl api, ClientServer server, WebSocketManager manager, boolean connected) {
+	public ConnectedEvent(ClientImpl api, ClientServer server, WebSocketManager manager, boolean connected) {
 		super(api, server, manager, connected);
 	}
 }

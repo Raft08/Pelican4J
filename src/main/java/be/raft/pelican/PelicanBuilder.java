@@ -27,9 +27,9 @@
 package be.raft.pelican;
 
 import be.raft.pelican.application.entities.Application;
-import be.raft.pelican.client.entities.PteroClient;
-import be.raft.pelican.entities.P4J;
-import be.raft.pelican.entities.impl.P4JImpl;
+import be.raft.pelican.client.entities.Client;
+import be.raft.pelican.entities.PelicanApi;
+import be.raft.pelican.entities.impl.PelicanApiImpl;
 import be.raft.pelican.utils.config.EndpointConfig;
 import be.raft.pelican.utils.config.SessionConfig;
 import be.raft.pelican.utils.config.ThreadingConfig;
@@ -42,7 +42,7 @@ import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * Used to create new {@link Application} or {@link be.raft.pelican.client.entities.PteroClient} instances.
+ * Used to create new {@link Application} or {@link Client} instances.
  */
 public class PelicanBuilder {
 
@@ -62,60 +62,6 @@ public class PelicanBuilder {
 	private PelicanBuilder(String applicationUrl, String token) {
 		this.applicationUrl = applicationUrl;
 		this.token = token;
-	}
-
-	/**
-	 * Creates a {@link Application} instance with the recommended default settings.
-	 *
-	 * @param url   the URL for your panel.
-	 * @param token the Application API key.
-	 * @return A new {@link Application} instance.
-	 */
-	public static Application createApplication(@NotNull String url, @NotNull String token) {
-		Preconditions.checkNotNull(url);
-		Preconditions.checkNotNull(token);
-
-		Preconditions.checkArgument(!url.isEmpty(), "Url may not be empty!");
-		Preconditions.checkArgument(!token.isEmpty(), "Token cannot be empty!");
-
-		Preconditions.checkArgument(
-				!token.startsWith("ptlc"),
-				"Provided token was created for a Pterodactyl Panel! Pterodactyl Panels are not supported!");
-
-		try {
-			URI.create(url).toURL();
-		} catch (MalformedURLException e) {
-			throw new IllegalArgumentException("Invalid/Incorrect url!");
-		}
-
-		return new PelicanBuilder(url, token).buildApplication();
-	}
-
-	/**
-	 * Creates a {@link be.raft.pelican.client.entities.PteroClient} instance with the recommended default settings.
-	 *
-	 * @param url   the URL for your panel.
-	 * @param token the Client API key.
-	 * @return A new {@link be.raft.pelican.client.entities.PteroClient} instance.
-	 */
-	public static PteroClient createClient(@NotNull String url, @NotNull String token) {
-		Preconditions.checkNotNull(url);
-		Preconditions.checkNotNull(token);
-
-		Preconditions.checkArgument(!url.isEmpty(), "Url may not be empty!");
-		Preconditions.checkArgument(!token.isEmpty(), "Token cannot be empty!");
-
-		Preconditions.checkArgument(
-				!token.startsWith("ptlc"),
-				"Provided token was created for a Pterodactyl Panel! Pterodactyl Panels are not supported!");
-
-		try {
-			URI.create(url).toURL();
-		} catch (MalformedURLException e) {
-			throw new IllegalArgumentException("Invalid/Incorrect url!");
-		}
-
-		return new PelicanBuilder(url, token).buildClient();
 	}
 
 	/**
@@ -300,44 +246,23 @@ public class PelicanBuilder {
 		return this;
 	}
 
-	private P4J build() {
+	/**
+	 * Create the api wrapper with the provided settings of the builder.
+	 *
+	 * @return newly created api instance with the settings of the builder.
+	 */
+	private PelicanApi create() {
 		EndpointConfig endpointConfig = new EndpointConfig(applicationUrl, token);
+
 		ThreadingConfig threadingConfig = new ThreadingConfig();
 		threadingConfig.setCallbackPool(callbackPool);
 		threadingConfig.setActionPool(actionPool);
 		threadingConfig.setRateLimitPool(rateLimitPool);
 		threadingConfig.setSupplierPool(supplierPool);
+
 		SessionConfig sessionConfig = new SessionConfig(httpClient, webSocketClient);
 		sessionConfig.setUserAgent(userAgent);
-		return new P4JImpl(endpointConfig, threadingConfig, sessionConfig);
-	}
 
-	/**
-	 * Builds a new {@link Application} instance
-	 * and uses the provided panel URL and application API key to make requests.
-	 * <p>
-	 * This provides access to the <b>Application API</b>. Use a {@link PteroClient PteroClient} if you need access
-	 * to the <b>Client API</b>.
-	 *
-	 * @return A PteroApplication instance that is ready to execute requests.
-	 * @see PelicanBuilder#buildClient()
-	 */
-	public Application buildApplication() {
-		return build().asApplication();
-	}
-
-	/**
-	 * Builds a new {@link be.raft.pelican.client.entities.PteroClient PteroClient} instance
-	 * and uses the provided panel URL and client API key to make requests and offer websocket access.
-	 * <p>
-	 * This provides access to the <b>Client API</b>. Use a
-	 * {@link Application PteroApplication} if you need access
-	 * to the <b>Application API</b>.
-	 *
-	 * @return A new {@link PteroClient} instance that is ready to execute requests.
-	 * @see PelicanBuilder#buildApplication()
-	 */
-	public PteroClient buildClient() {
-		return build().asClient();
+		return new PelicanApiImpl(endpointConfig, threadingConfig, sessionConfig);
 	}
 }

@@ -27,22 +27,22 @@
 package be.raft.pelican.client.ws.handle;
 
 import be.raft.pelican.client.entities.ClientServer;
-import be.raft.pelican.client.entities.impl.PteroClientImpl;
+import be.raft.pelican.client.entities.impl.ClientImpl;
 import be.raft.pelican.client.managers.WebSocketManager;
 
 public abstract class ClientSocketHandler {
 
-	private final PteroClientImpl client;
+	private final ClientImpl client;
 	private final WebSocketManager manager;
 	private ClientServer server;
 
-	public ClientSocketHandler(PteroClientImpl client, ClientServer server, WebSocketManager manager) {
+	public ClientSocketHandler(ClientImpl client, ClientServer server, WebSocketManager manager) {
 		this.client = client;
 		this.server = server;
 		this.manager = manager;
 	}
 
-	protected PteroClientImpl getClient() {
+	protected ClientImpl getClient() {
 		return client;
 	}
 

@@ -39,7 +39,7 @@ public class CreateSubuserImpl extends AbstractSubuserAction implements SubuserC
 
 	private String email;
 
-	public CreateSubuserImpl(ClientServer server, PteroClientImpl impl) {
+	public CreateSubuserImpl(ClientServer server, ClientImpl impl) {
 		super(impl, Route.Subusers.CREATE_SUBUSER.compile(server.getUUID().toString()));
 	}
 

@@ -27,7 +27,7 @@
 package be.raft.pelican.client.ws.handle;
 
 import be.raft.pelican.client.entities.ClientServer;
-import be.raft.pelican.client.entities.impl.PteroClientImpl;
+import be.raft.pelican.client.entities.impl.ClientImpl;
 import be.raft.pelican.client.managers.WebSocketManager;
 import be.raft.pelican.client.ws.WebSocketClient;
 
@@ -36,7 +36,7 @@ public class TokenExpiringHandler extends ClientSocketHandler {
 	private final WebSocketClient webSocketClient;
 
 	public TokenExpiringHandler(
-			PteroClientImpl client, ClientServer server, WebSocketManager manager, WebSocketClient webSocketClient) {
+            ClientImpl client, ClientServer server, WebSocketManager manager, WebSocketClient webSocketClient) {
 		super(client, server, manager);
 		this.webSocketClient = webSocketClient;
 	}

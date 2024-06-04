@@ -29,7 +29,7 @@ package be.raft.pelican.client.entities.impl;
 import be.raft.pelican.client.entities.ClientServer;
 import be.raft.pelican.client.entities.Directory;
 import be.raft.pelican.client.managers.UploadFileAction;
-import be.raft.pelican.entities.P4J;
+import be.raft.pelican.entities.PelicanApi;
 import be.raft.pelican.exceptions.FileUploadException;
 import be.raft.pelican.requests.*;
 import be.raft.pelican.requests.Request;
@@ -50,13 +50,13 @@ import org.json.JSONObject;
 public class UploadFileActionImpl extends RequestActionImpl<Void> implements UploadFileAction {
 
 	protected final Set<InputStream> ownedResources;
-	private final P4J p4j;
+	private final PelicanApi pelicanAPI;
 	private final Directory directory;
 	private final Map<String, InputStream> files;
 
-	public UploadFileActionImpl(ClientServer server, Directory directory, PteroClientImpl impl) {
+	public UploadFileActionImpl(ClientServer server, Directory directory, ClientImpl impl) {
 		super(impl.getP4J(), Route.Files.UPLOAD_FILE.compile(server.getIdentifier()));
-		this.p4j = impl.getP4J();
+		this.pelicanAPI = impl.getP4J();
 		this.directory = directory;
 		this.files = new HashMap<>();
 		this.ownedResources = new HashSet<>();
@@ -110,11 +110,11 @@ public class UploadFileActionImpl extends RequestActionImpl<Void> implements Upl
 
 		okhttp3.Request req = new okhttp3.Request.Builder()
 				.url(String.format("%s&directory=%s", url, directory.getPath()))
-				.addHeader("User-Agent", p4j.getUserAgent())
+				.addHeader("User-Agent", pelicanAPI.userAgent())
 				.post(fileMultipart())
 				.build();
 
-		OkHttpClient requester = p4j.getHttpClient();
+		OkHttpClient requester = pelicanAPI.httpClient();
 		requester.newCall(req).enqueue(new Callback() {
 			@Override
 			public void onFailure(@NotNull Call call, @NotNull IOException e) {

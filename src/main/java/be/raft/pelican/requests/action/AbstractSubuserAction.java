@@ -29,7 +29,7 @@ package be.raft.pelican.requests.action;
 import be.raft.pelican.Permission;
 import be.raft.pelican.client.entities.ClientSubuser;
 import be.raft.pelican.client.entities.impl.ClientSubuserImpl;
-import be.raft.pelican.client.entities.impl.PteroClientImpl;
+import be.raft.pelican.client.entities.impl.ClientImpl;
 import be.raft.pelican.client.managers.SubuserAction;
 import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
@@ -40,7 +40,7 @@ public abstract class AbstractSubuserAction extends RequestActionImpl<ClientSubu
 
 	protected EnumSet<Permission> permissions;
 
-	public AbstractSubuserAction(PteroClientImpl impl, Route.CompiledRoute route) {
+	public AbstractSubuserAction(ClientImpl impl, Route.CompiledRoute route) {
 		super(impl.getP4J(), route, (response, request) -> new ClientSubuserImpl(response.getObject()));
 		this.permissions = EnumSet.noneOf(Permission.class);
 	}

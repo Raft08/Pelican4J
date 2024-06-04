@@ -27,13 +27,13 @@
 package be.raft.pelican.client.ws.handle;
 
 import be.raft.pelican.client.entities.ClientServer;
-import be.raft.pelican.client.entities.impl.PteroClientImpl;
+import be.raft.pelican.client.entities.impl.ClientImpl;
 import be.raft.pelican.client.managers.WebSocketManager;
 import be.raft.pelican.client.ws.events.error.DaemonErrorEvent;
 
 public class DaemonErrorHandler extends ClientSocketHandler {
 
-	public DaemonErrorHandler(PteroClientImpl client, ClientServer server, WebSocketManager manager) {
+	public DaemonErrorHandler(ClientImpl client, ClientServer server, WebSocketManager manager) {
 		super(client, server, manager);
 	}
 

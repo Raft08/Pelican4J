@@ -41,9 +41,9 @@ public class APIKeyImpl implements APIKey {
 
 	private final JSONObject json;
 	private final JSONObject attributes;
-	private final PteroClientImpl impl;
+	private final ClientImpl impl;
 
-	public APIKeyImpl(JSONObject json, PteroClientImpl impl) {
+	public APIKeyImpl(JSONObject json, ClientImpl impl) {
 		this.json = json;
 		this.attributes = json.getJSONObject("attributes");
 		this.impl = impl;

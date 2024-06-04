@@ -65,7 +65,7 @@ public class Request<T> {
 	public void onSuccess(T success) {
 		if (done) return;
 		done = true;
-		action.getP4J().getCallbackPool().execute(() -> {
+		action.getP4J().callbackPool().execute(() -> {
 			try {
 				onSuccess.accept(success);
 			} catch (Throwable t) {
@@ -104,7 +104,7 @@ public class Request<T> {
 	public void onFailure(Throwable failException) {
 		if (done) return;
 		done = true;
-		action.getP4J().getCallbackPool().execute(() -> {
+		action.getP4J().callbackPool().execute(() -> {
 			try {
 				onFailure.accept(failException);
 			} catch (Throwable t) {

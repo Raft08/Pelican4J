@@ -31,7 +31,7 @@ import be.raft.pelican.application.entities.*;
 import be.raft.pelican.application.managers.NodeManager;
 import be.raft.pelican.application.managers.ServerCreationAction;
 import be.raft.pelican.application.managers.UserManager;
-import be.raft.pelican.entities.P4J;
+import be.raft.pelican.entities.PelicanApi;
 import be.raft.pelican.requests.PaginationAction;
 import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
@@ -46,13 +46,13 @@ import org.json.JSONObject;
 
 public class ApplicationImpl implements Application {
 
-	private final P4J api;
+	private final PelicanApi api;
 
-	public ApplicationImpl(P4J api) {
+	public ApplicationImpl(PelicanApi api) {
 		this.api = api;
 	}
 
-	public P4J getP4J() {
+	public PelicanApi getP4J() {
 		return api;
 	}
 
@@ -241,7 +241,7 @@ public class ApplicationImpl implements Application {
 	@Override
 	public RequestAction<List<ApplicationServer>> retrieveServersByOwner(ApplicationUser user) {
 		return retrieveServers().all().map(List::stream).map(stream -> stream.filter(
-						s -> s.retrieveOwner().map(ISnowflake::getIdLong).execute() == user.getIdLong())
+						s -> s.retrieveOwner().map(IdentifiedEntity::getIdLong).execute() == user.getIdLong())
 				.collect(StreamUtils.toUnmodifiableList()));
 	}
 

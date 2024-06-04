@@ -26,7 +26,7 @@
 
 package be.raft.pelican.requests.action.impl;
 
-import be.raft.pelican.entities.P4J;
+import be.raft.pelican.entities.PelicanApi;
 import be.raft.pelican.requests.Request;
 import be.raft.pelican.requests.Response;
 import be.raft.pelican.requests.Route;
@@ -40,13 +40,13 @@ public class PaginationResponseImpl<T> extends PaginationActionImpl<T> {
 
 	protected final Function<JSONObject, T> handler;
 
-	private PaginationResponseImpl(P4J api, Route.CompiledRoute route, Function<JSONObject, T> handler) {
+	private PaginationResponseImpl(PelicanApi api, Route.CompiledRoute route, Function<JSONObject, T> handler) {
 		super(api, route);
 		this.handler = handler;
 	}
 
 	public static <T> PaginationResponseImpl<T> onPagination(
-			P4J api, Route.CompiledRoute route, Function<JSONObject, T> handler) {
+			PelicanApi api, Route.CompiledRoute route, Function<JSONObject, T> handler) {
 		return new PaginationResponseImpl<>(api, route, handler);
 	}
 

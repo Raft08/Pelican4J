@@ -43,7 +43,7 @@ public class DelayRequestAction<T> extends RequestActionOperator<T, T> {
 		super(action);
 		this.unit = unit;
 		this.delay = delay;
-		this.scheduler = scheduler == null ? action.getP4J().getRateLimitPool() : scheduler;
+		this.scheduler = scheduler == null ? action.getP4J().rateLimitµPool() : scheduler;
 	}
 
 	@Override

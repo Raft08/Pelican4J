@@ -29,7 +29,7 @@ package be.raft.pelican.requests.action;
 import be.raft.pelican.client.entities.ClientServer;
 import be.raft.pelican.client.entities.Cron;
 import be.raft.pelican.client.entities.Schedule;
-import be.raft.pelican.client.entities.impl.PteroClientImpl;
+import be.raft.pelican.client.entities.impl.ClientImpl;
 import be.raft.pelican.client.entities.impl.ScheduleImpl;
 import be.raft.pelican.client.managers.ScheduleAction;
 import be.raft.pelican.requests.RequestActionImpl;
@@ -48,7 +48,7 @@ public abstract class AbstractScheduleAction extends RequestActionImpl<Schedule>
 	protected String dayOfMonth;
 	protected String month;
 
-	public AbstractScheduleAction(PteroClientImpl impl, ClientServer server, Route.CompiledRoute route) {
+	public AbstractScheduleAction(ClientImpl impl, ClientServer server, Route.CompiledRoute route) {
 		super(impl.getP4J(), route, (response, request) -> new ScheduleImpl(response.getObject(), server, impl));
 	}
 

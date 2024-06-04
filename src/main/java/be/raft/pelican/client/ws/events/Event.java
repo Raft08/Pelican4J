@@ -28,8 +28,8 @@ package be.raft.pelican.client.ws.events;
 
 import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.entities.ClientServer;
-import be.raft.pelican.client.entities.PteroClient;
-import be.raft.pelican.client.entities.impl.PteroClientImpl;
+import be.raft.pelican.client.entities.Client;
+import be.raft.pelican.client.entities.impl.ClientImpl;
 import be.raft.pelican.client.managers.WebSocketManager;
 
 /**
@@ -40,22 +40,22 @@ import be.raft.pelican.client.managers.WebSocketManager;
  */
 public abstract class Event {
 
-	private final PteroClientImpl api;
+	private final ClientImpl api;
 	private final ClientServer server;
 	private final WebSocketManager manager;
 
-	public Event(PteroClientImpl api, ClientServer server, WebSocketManager manager) {
+	public Event(ClientImpl api, ClientServer server, WebSocketManager manager) {
 		this.api = api;
 		this.server = server;
 		this.manager = manager;
 	}
 
 	/**
-	 * The current {@link be.raft.pelican.client.entities.PteroClient} instance corresponding to this Event
+	 * The current {@link Client} instance corresponding to this Event
 	 *
-	 * @return The corresponding {@link be.raft.pelican.client.entities.PteroClient} instance
+	 * @return The corresponding {@link Client} instance
 	 */
-	public PteroClient getClient() {
+	public Client getClient() {
 		return api;
 	}
 

@@ -40,7 +40,7 @@ public class CreateBackupImpl extends RequestActionImpl<Backup> implements Backu
 	private String name;
 	private List<String> files;
 
-	public CreateBackupImpl(ClientServer server, PteroClientImpl impl) {
+	public CreateBackupImpl(ClientServer server, ClientImpl impl) {
 		super(
 				impl.getP4J(),
 				Route.Backups.CREATE_BACKUP.compile(server.getIdentifier()),

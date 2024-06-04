@@ -27,12 +27,12 @@
 package be.raft.pelican.client.ws.events.output;
 
 import be.raft.pelican.client.entities.ClientServer;
-import be.raft.pelican.client.entities.impl.PteroClientImpl;
+import be.raft.pelican.client.entities.impl.ClientImpl;
 import be.raft.pelican.client.managers.WebSocketManager;
 
 public class DaemonMessageEvent extends OutputEvent {
 
-	public DaemonMessageEvent(PteroClientImpl api, ClientServer server, WebSocketManager manager, String line) {
+	public DaemonMessageEvent(ClientImpl api, ClientServer server, WebSocketManager manager, String line) {
 		super(api, server, manager, line);
 	}
 }

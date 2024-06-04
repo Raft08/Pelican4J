@@ -35,7 +35,7 @@ import org.json.JSONObject;
 
 public class CreateScheduleImpl extends AbstractScheduleAction {
 
-	public CreateScheduleImpl(ClientServer server, PteroClientImpl impl) {
+	public CreateScheduleImpl(ClientServer server, ClientImpl impl) {
 		super(
 				impl,
 				server,

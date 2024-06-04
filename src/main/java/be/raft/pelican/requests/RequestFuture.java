@@ -41,7 +41,7 @@ public class RequestFuture<T> extends CompletableFuture<T> {
 			long deadline) {
 		this.request = new Request<>(
 				action, this::complete, this::completeExceptionally, route, requestBody, shouldQueue, deadline);
-		action.getP4J().getRequester().request(this.request);
+		action.getP4J().requester().request(this.request);
 	}
 
 	@Override

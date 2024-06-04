@@ -27,7 +27,7 @@
 package be.raft.pelican.client.managers;
 
 import be.raft.pelican.RequestAction;
-import be.raft.pelican.client.entities.impl.PteroClientImpl;
+import be.raft.pelican.client.entities.impl.ClientImpl;
 import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
 import java.util.Collections;
@@ -37,9 +37,9 @@ import org.json.JSONObject;
 
 public class AccountManager {
 
-	private final PteroClientImpl impl;
+	private final ClientImpl impl;
 
-	public AccountManager(PteroClientImpl impl) {
+	public AccountManager(ClientImpl impl) {
 		this.impl = impl;
 	}
 

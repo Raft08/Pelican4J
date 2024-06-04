@@ -24,38 +24,44 @@
  *        http://www.apache.org/licenses/LICENSE-2.0
  */
 
-package be.raft.pelican.entities;
+package be.raft.pelican.application.entities;
 
-import be.raft.pelican.application.entities.Application;
-import be.raft.pelican.client.entities.PteroClient;
-import be.raft.pelican.requests.Requester;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.ScheduledExecutorService;
-import okhttp3.OkHttpClient;
+import java.time.OffsetDateTime;
 
-public interface P4J {
+/**
+ * Marks an identified entity. Identified entities are ones that have an id that uniquely identifies them.
+ */
+public interface IdentifiedEntity {
 
-	String getToken();
+	/**
+	 * The Snowflake id of this entity. This is unique to every entity and will never change.
+	 *
+	 * @return Never-null String containing the id.
+	 */
+	default String getId() {
+		return Long.toUnsignedString(getIdLong());
+	}
 
-	Requester getRequester();
+	/**
+	 * The Snowflake id of this entity. This is unique to every entity and will never change.
+	 *
+	 * @return Long containing the id.
+	 */
+	long getIdLong();
 
-	String getApplicationUrl();
+	/**
+	 * The time this entity was created.
+	 *
+	 * @return OffsetDateTime - Time this entity was created at.
+	 * @see #getUpdatedDate()
+	 */
+	OffsetDateTime getCreationDate();
 
-	OkHttpClient getHttpClient();
-
-	ExecutorService getCallbackPool();
-
-	ExecutorService getActionPool();
-
-	ScheduledExecutorService getRateLimitPool();
-
-	ExecutorService getSupplierPool();
-
-	OkHttpClient getWebSocketClient();
-
-	String getUserAgent();
-
-	PteroClient asClient();
-
-	Application asApplication();
+	/**
+	 * The time this entity was updated.
+	 *
+	 * @return OffsetDateTime - Time this entity was last updated at.
+	 * @see #getCreationDate()
+	 */
+	OffsetDateTime getUpdatedDate();
 }

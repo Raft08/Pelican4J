@@ -33,7 +33,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Represents a {@link Database} for an {@link ApplicationServer}.
  */
-public interface ApplicationDatabase extends Database, ISnowflake {
+public interface ApplicationDatabase extends Database, IdentifiedEntity {
 
 	/**
 	 * Retrieve the {@link ApplicationServer} this is from.
@@ -93,7 +93,7 @@ public interface ApplicationDatabase extends Database, ISnowflake {
 	/**
 	 * Represents a {@link DatabaseHost} for a {@link ApplicationServer}.
 	 */
-	interface DatabaseHost extends Database.DatabaseHost, ISnowflake {
+	interface DatabaseHost extends Database.DatabaseHost, IdentifiedEntity {
 
 		/**
 		 * Retrieve the name associated with this {@link DatabaseHost}.

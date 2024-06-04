@@ -43,7 +43,7 @@ public class CompressActionImpl extends RequestActionImpl<File> implements Compr
 
 	private final List<GenericFile> files;
 
-	public CompressActionImpl(ClientServer server, PteroClientImpl impl) {
+	public CompressActionImpl(ClientServer server, ClientImpl impl) {
 		super(
 				impl.getP4J(),
 				Route.Files.COMPRESS_FILES.compile(server.getIdentifier()),

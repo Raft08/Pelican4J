@@ -36,11 +36,10 @@ public enum UtilizationState {
 	STOPPING;
 
 	public static UtilizationState of(String s) {
-		for (UtilizationState state : values()) {
-			if (state.name().equalsIgnoreCase(s)) {
-				return state;
-			}
+		try {
+			return valueOf(s.toUpperCase());
+		} catch (IllegalArgumentException e) {
+			return OFFLINE;
 		}
-		return UtilizationState.OFFLINE;
 	}
 }

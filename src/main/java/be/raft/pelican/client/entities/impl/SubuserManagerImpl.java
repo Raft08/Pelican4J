@@ -38,9 +38,9 @@ import be.raft.pelican.requests.Route;
 public class SubuserManagerImpl implements SubuserManager {
 
 	private final ClientServer server;
-	private final PteroClientImpl impl;
+	private final ClientImpl impl;
 
-	public SubuserManagerImpl(ClientServer server, PteroClientImpl impl) {
+	public SubuserManagerImpl(ClientServer server, ClientImpl impl) {
 		this.server = server;
 		this.impl = impl;
 	}

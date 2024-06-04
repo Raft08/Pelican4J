@@ -38,7 +38,7 @@ import org.json.JSONObject;
 public class ClientDatabaseCreationActionImpl extends AbstractDatabaseAction<ClientDatabase>
 		implements ClientDatabaseCreationAction {
 
-	public ClientDatabaseCreationActionImpl(ClientServer server, PteroClientImpl impl) {
+	public ClientDatabaseCreationActionImpl(ClientServer server, ClientImpl impl) {
 		super(
 				impl.getP4J(),
 				Route.ClientDatabases.CREATE_DATABASE.compile(server.getIdentifier()),

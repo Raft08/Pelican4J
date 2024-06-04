@@ -33,6 +33,7 @@ import okio.BufferedSink;
 import okio.BufferedSource;
 import okio.Okio;
 import okio.Source;
+import org.jetbrains.annotations.NotNull;
 
 // thank you jda
 public final class BufferedRequestBody extends RequestBody {
@@ -51,7 +52,7 @@ public final class BufferedRequestBody extends RequestBody {
 	}
 
 	@Override
-	public void writeTo(BufferedSink sink) throws IOException {
+	public void writeTo(@NotNull BufferedSink sink) throws IOException {
 		if (data != null) {
 			sink.write(data);
 			return;

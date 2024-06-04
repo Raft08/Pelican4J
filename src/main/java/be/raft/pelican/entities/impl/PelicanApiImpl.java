@@ -28,9 +28,9 @@ package be.raft.pelican.entities.impl;
 
 import be.raft.pelican.application.entities.Application;
 import be.raft.pelican.application.entities.impl.ApplicationImpl;
-import be.raft.pelican.client.entities.PteroClient;
-import be.raft.pelican.client.entities.impl.PteroClientImpl;
-import be.raft.pelican.entities.P4J;
+import be.raft.pelican.client.entities.Client;
+import be.raft.pelican.client.entities.impl.ClientImpl;
+import be.raft.pelican.entities.PelicanApi;
 import be.raft.pelican.requests.Requester;
 import be.raft.pelican.utils.config.EndpointConfig;
 import be.raft.pelican.utils.config.SessionConfig;
@@ -39,7 +39,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ScheduledExecutorService;
 import okhttp3.OkHttpClient;
 
-public class P4JImpl implements P4J {
+public class PelicanApiImpl implements PelicanApi {
 
 	private final Requester requester;
 
@@ -47,70 +47,77 @@ public class P4JImpl implements P4J {
 	private final ThreadingConfig threadingConfig;
 	private final SessionConfig sessionConfig;
 
-	public P4JImpl(EndpointConfig endpointConfig, ThreadingConfig threadingConfig, SessionConfig sessionConfig) {
+	private final ClientImpl client;
+	private final ApplicationImpl application;
+
+	public PelicanApiImpl(EndpointConfig endpointConfig, ThreadingConfig threadingConfig, SessionConfig sessionConfig) {
 		this.endpointConfig = endpointConfig;
 		this.threadingConfig = threadingConfig;
 		this.sessionConfig = sessionConfig;
+
 		this.requester = new Requester(this);
+
+		this.client = new ClientImpl(this);
+		this.application = new ApplicationImpl(this);
 	}
 
 	@Override
-	public String getToken() {
+	public String token() {
 		return endpointConfig.getToken();
 	}
 
 	@Override
-	public Requester getRequester() {
+	public Requester requester() {
 		return requester;
 	}
 
 	@Override
-	public String getApplicationUrl() {
+	public String url() {
 		return endpointConfig.getUrl();
 	}
 
 	@Override
-	public OkHttpClient getHttpClient() {
+	public OkHttpClient httpClient() {
 		return sessionConfig.getHttpClient();
 	}
 
 	@Override
-	public ExecutorService getCallbackPool() {
+	public ExecutorService callbackPool() {
 		return threadingConfig.getCallbackPool();
 	}
 
 	@Override
-	public ExecutorService getActionPool() {
+	public ExecutorService actionPool() {
 		return threadingConfig.getActionPool();
 	}
 
 	@Override
-	public ScheduledExecutorService getRateLimitPool() {
+	public ScheduledExecutorService rateLimitPool() {
 		return threadingConfig.getRateLimitPool();
 	}
 
 	@Override
-	public ExecutorService getSupplierPool() {
+	public ExecutorService supplierPool() {
 		return threadingConfig.getSupplierPool();
 	}
 
 	@Override
-	public OkHttpClient getWebSocketClient() {
+	public OkHttpClient socketClient() {
 		return sessionConfig.getWebSocketClient();
 	}
 
 	@Override
-	public String getUserAgent() {
+	public String userAgent() {
 		return sessionConfig.getUserAgent();
 	}
 
 	@Override
-	public Application asApplication() {
-		return new ApplicationImpl(this);
+	public Application application() {
+		return this.application;
 	}
 
 	@Override
-	public PteroClient asClient() {
-		return new PteroClientImpl(this);
+	public Client client() {
+		return this.client;
 	}
 }

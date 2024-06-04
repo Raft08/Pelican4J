@@ -27,7 +27,7 @@
 package be.raft.pelican.client.ws.events.install;
 
 import be.raft.pelican.client.entities.ClientServer;
-import be.raft.pelican.client.entities.impl.PteroClientImpl;
+import be.raft.pelican.client.entities.impl.ClientImpl;
 import be.raft.pelican.client.managers.WebSocketManager;
 import be.raft.pelican.client.ws.events.Event;
 
@@ -35,7 +35,7 @@ public abstract class InstallEvent extends Event {
 
 	private final boolean installed;
 
-	public InstallEvent(PteroClientImpl api, ClientServer server, WebSocketManager manager, boolean installed) {
+	public InstallEvent(ClientImpl api, ClientServer server, WebSocketManager manager, boolean installed) {
 		super(api, server, manager);
 		this.installed = installed;
 	}

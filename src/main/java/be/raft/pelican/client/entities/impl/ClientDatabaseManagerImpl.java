@@ -37,9 +37,9 @@ import be.raft.pelican.requests.Route;
 public class ClientDatabaseManagerImpl implements ClientDatabaseManager {
 
 	private final ClientServer server;
-	private final PteroClientImpl impl;
+	private final ClientImpl impl;
 
-	public ClientDatabaseManagerImpl(ClientServer server, PteroClientImpl impl) {
+	public ClientDatabaseManagerImpl(ClientServer server, ClientImpl impl) {
 		this.server = server;
 		this.impl = impl;
 	}

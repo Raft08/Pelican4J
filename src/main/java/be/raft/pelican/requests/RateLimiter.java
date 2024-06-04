@@ -26,7 +26,7 @@
 
 package be.raft.pelican.requests;
 
-import be.raft.pelican.entities.P4J;
+import be.raft.pelican.entities.PelicanApi;
 import be.raft.pelican.utils.LockUtils;
 import be.raft.pelican.utils.P4JLogger;
 import java.util.Iterator;
@@ -57,9 +57,9 @@ public class RateLimiter implements Runnable {
 	private long retryAfter = 0;
 	private int remaining = 1;
 
-	public RateLimiter(Requester requester, P4J api) {
+	public RateLimiter(Requester requester, PelicanApi api) {
 		this.requester = requester;
-		this.scheduler = api.getRateLimitPool();
+		this.scheduler = api.rateLimitµPool();
 	}
 
 	public void queueRequest(Request<?> request) {

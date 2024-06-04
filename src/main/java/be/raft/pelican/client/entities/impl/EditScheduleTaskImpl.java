@@ -34,7 +34,7 @@ import be.raft.pelican.requests.action.AbstractScheduleTaskAction;
 public class EditScheduleTaskImpl extends AbstractScheduleTaskAction {
 
 	public EditScheduleTaskImpl(
-			ClientServer server, Schedule schedule, Schedule.ScheduleTask task, PteroClientImpl impl) {
+			ClientServer server, Schedule schedule, Schedule.ScheduleTask task, ClientImpl impl) {
 		super(
 				impl,
 				schedule,

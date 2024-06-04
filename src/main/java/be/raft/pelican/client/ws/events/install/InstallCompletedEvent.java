@@ -27,13 +27,13 @@
 package be.raft.pelican.client.ws.events.install;
 
 import be.raft.pelican.client.entities.ClientServer;
-import be.raft.pelican.client.entities.impl.PteroClientImpl;
+import be.raft.pelican.client.entities.impl.ClientImpl;
 import be.raft.pelican.client.managers.WebSocketManager;
 
 public class InstallCompletedEvent extends InstallEvent {
 
 	public InstallCompletedEvent(
-			PteroClientImpl api, ClientServer server, WebSocketManager manager, boolean installed) {
+            ClientImpl api, ClientServer server, WebSocketManager manager, boolean installed) {
 		super(api, server, manager, installed);
 	}
 }

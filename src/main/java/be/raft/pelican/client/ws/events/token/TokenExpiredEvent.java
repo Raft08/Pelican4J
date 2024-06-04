@@ -27,12 +27,12 @@
 package be.raft.pelican.client.ws.events.token;
 
 import be.raft.pelican.client.entities.ClientServer;
-import be.raft.pelican.client.entities.impl.PteroClientImpl;
+import be.raft.pelican.client.entities.impl.ClientImpl;
 import be.raft.pelican.client.managers.WebSocketManager;
 
 public class TokenExpiredEvent extends TokenEvent {
 
-	public TokenExpiredEvent(PteroClientImpl api, ClientServer server, WebSocketManager manager, boolean expired) {
+	public TokenExpiredEvent(ClientImpl api, ClientServer server, WebSocketManager manager, boolean expired) {
 		super(api, server, manager, expired);
 	}
 

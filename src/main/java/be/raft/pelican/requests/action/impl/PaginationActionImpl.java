@@ -26,7 +26,7 @@
 
 package be.raft.pelican.requests.action.impl;
 
-import be.raft.pelican.entities.P4J;
+import be.raft.pelican.entities.PelicanApi;
 import be.raft.pelican.requests.PaginationAction;
 import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
@@ -63,13 +63,13 @@ public abstract class PaginationActionImpl<T> extends RequestActionImpl<List<T>>
 	 *
 	 * @param api The current P4J instance
 	 */
-	public PaginationActionImpl(P4J api, Route.CompiledRoute route) {
+	public PaginationActionImpl(PelicanApi api, Route.CompiledRoute route) {
 		super(api, route);
 		this.minLimit = 0;
 		this.limit = new AtomicInteger(0);
 	}
 
-	public PaginationActionImpl(P4J api) {
+	public PaginationActionImpl(PelicanApi api) {
 		this(api, null);
 	}
 

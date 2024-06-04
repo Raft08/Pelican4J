@@ -37,7 +37,7 @@ public class EditScheduleImpl extends AbstractScheduleAction {
 
 	private final Schedule schedule;
 
-	public EditScheduleImpl(ClientServer server, Schedule schedule, PteroClientImpl impl) {
+	public EditScheduleImpl(ClientServer server, Schedule schedule, ClientImpl impl) {
 		super(
 				impl,
 				server,

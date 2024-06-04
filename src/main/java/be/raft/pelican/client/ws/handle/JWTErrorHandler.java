@@ -27,7 +27,7 @@
 package be.raft.pelican.client.ws.handle;
 
 import be.raft.pelican.client.entities.ClientServer;
-import be.raft.pelican.client.entities.impl.PteroClientImpl;
+import be.raft.pelican.client.entities.impl.ClientImpl;
 import be.raft.pelican.client.managers.WebSocketManager;
 import be.raft.pelican.client.ws.WebSocketClient;
 import be.raft.pelican.client.ws.events.error.JWTErrorEvent;
@@ -37,7 +37,7 @@ public class JWTErrorHandler extends ClientSocketHandler {
 	private final WebSocketClient webSocket;
 
 	public JWTErrorHandler(
-			PteroClientImpl client, ClientServer server, WebSocketManager manager, WebSocketClient webSocket) {
+            ClientImpl client, ClientServer server, WebSocketManager manager, WebSocketClient webSocket) {
 		super(client, server, manager);
 		this.webSocket = webSocket;
 	}

@@ -38,7 +38,7 @@ public class DecompressActionImpl extends RequestActionImpl<Void> {
 
 	private final File compressedFile;
 
-	public DecompressActionImpl(ClientServer server, File compressedFile, PteroClientImpl impl) {
+	public DecompressActionImpl(ClientServer server, File compressedFile, ClientImpl impl) {
 		super(impl.getP4J(), Route.Files.DECOMPRESS_FILE.compile(server.getIdentifier()));
 		this.compressedFile = compressedFile;
 	}

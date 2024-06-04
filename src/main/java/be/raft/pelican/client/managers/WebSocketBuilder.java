@@ -27,7 +27,7 @@
 package be.raft.pelican.client.managers;
 
 import be.raft.pelican.client.entities.ClientServer;
-import be.raft.pelican.client.entities.impl.PteroClientImpl;
+import be.raft.pelican.client.entities.impl.ClientImpl;
 import be.raft.pelican.client.ws.events.Event;
 import be.raft.pelican.client.ws.hooks.IClientListenerManager;
 import be.raft.pelican.client.ws.hooks.InterfacedClientListenerManager;
@@ -35,12 +35,12 @@ import be.raft.pelican.client.ws.hooks.InterfacedClientListenerManager;
 public class WebSocketBuilder {
 
 	private final IClientListenerManager eventManager;
-	private final PteroClientImpl api;
+	private final ClientImpl api;
 	private final ClientServer server;
 
 	private boolean freshServer;
 
-	public WebSocketBuilder(PteroClientImpl api, ClientServer server) {
+	public WebSocketBuilder(ClientImpl api, ClientServer server) {
 		this.api = api;
 		this.server = server;
 		this.eventManager = new InterfacedClientListenerManager();

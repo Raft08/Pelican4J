@@ -26,7 +26,7 @@
 
 package be.raft.pelican.requests;
 
-import be.raft.pelican.entities.P4J;
+import be.raft.pelican.entities.PelicanApi;
 import be.raft.pelican.exceptions.HttpException;
 import be.raft.pelican.exceptions.LoginException;
 import be.raft.pelican.utils.P4JLogger;
@@ -47,17 +47,17 @@ public class Requester {
 	public static final MediaType MEDIA_TYPE_PLAIN = MediaType.parse("text/plain; charset=utf8");
 	public static final MediaType MEDIA_TYPE_OCTET = MediaType.parse("application/octet-stream; charset=utf-8");
 	private static final String PTERODACTYL_API_PREFIX = "%s/api/";
-	private final P4J api;
+	private final PelicanApi api;
 	private final Logger REQUESTER_LOG = P4JLogger.getLogger(Requester.class);
 	private final RateLimiter rateLimiter;
 	private final OkHttpClient client;
 	private final String userAgent;
 
-	public Requester(P4J api) {
+	public Requester(PelicanApi api) {
 		this.api = api;
 		this.rateLimiter = new RateLimiter(this, api);
-		this.client = api.getHttpClient();
-		this.userAgent = api.getUserAgent();
+		this.client = api.httpClient();
+		this.userAgent = api.userAgent();
 	}
 
 	private static boolean isRetry(Throwable e) {
@@ -91,9 +91,9 @@ public class Requester {
 
 		okhttp3.Request.Builder builder = new okhttp3.Request.Builder();
 
-		if (api.getApplicationUrl() == null || api.getApplicationUrl().isEmpty())
+		if (api.url() == null || api.url().isEmpty())
 			throw new HttpException("No Pterodactyl URL was defined.");
-		String applicationUrl = api.getApplicationUrl();
+		String applicationUrl = api.url();
 		if (applicationUrl.endsWith("/")) applicationUrl = applicationUrl.substring(0, applicationUrl.length() - 1);
 		String url = String.format(PTERODACTYL_API_PREFIX, applicationUrl)
 				+ apiRequest.getRoute().getCompiledRoute();
@@ -106,9 +106,9 @@ public class Requester {
 
 		builder.header("Accept", "application/vnd.pterodactyl.v1+json").header("User-Agent", userAgent);
 
-		if (api.getToken() == null || api.getToken().isEmpty())
+		if (api.token() == null || api.token().isEmpty())
 			throw new LoginException("No authorization token was defined.");
-		builder.header("Authorization", "Bearer " + api.getToken());
+		builder.header("Authorization", "Bearer " + api.token());
 
 		okhttp3.Request request = builder.build();
 

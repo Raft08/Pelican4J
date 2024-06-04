@@ -42,7 +42,7 @@ public class DeleteActionImpl extends RequestActionImpl<Void> implements DeleteA
 
 	private final List<GenericFile> files;
 
-	public DeleteActionImpl(ClientServer server, PteroClientImpl impl) {
+	public DeleteActionImpl(ClientServer server, ClientImpl impl) {
 		super(impl.getP4J(), Route.Files.DELETE_FILES.compile(server.getIdentifier()));
 		this.files = new ArrayList<>();
 	}

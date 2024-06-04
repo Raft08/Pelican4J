@@ -27,7 +27,7 @@
 package be.raft.pelican.requests;
 
 import be.raft.pelican.RequestAction;
-import be.raft.pelican.entities.P4J;
+import be.raft.pelican.entities.PelicanApi;
 import be.raft.pelican.exceptions.PteroException;
 import be.raft.pelican.utils.P4JLogger;
 import java.util.concurrent.CompletionException;
@@ -45,55 +45,55 @@ public class RequestActionImpl<T> implements RequestAction<T> {
 	public static final Consumer<Object> DEFAULT_SUCCESS = o -> {};
 	public static final Consumer<? super Throwable> DEFAULT_FAILURE =
 			t -> System.err.printf("Action execute returned failure: %s%n", t.getMessage());
-	private final P4J api;
+	private final PelicanApi api;
 	private final Route.CompiledRoute route;
 	private final RequestBody data;
 	private final BiFunction<Response, Request<T>, T> handler;
 	private long deadline = 0;
 
-	public RequestActionImpl(P4J api) {
+	public RequestActionImpl(PelicanApi api) {
 		this(api, null);
 	}
 
-	public RequestActionImpl(P4J api, Route.CompiledRoute route) {
+	public RequestActionImpl(PelicanApi api, Route.CompiledRoute route) {
 		this(api, route, null, null);
 	}
 
-	public RequestActionImpl(P4J api, Route.CompiledRoute route, RequestBody data) {
+	public RequestActionImpl(PelicanApi api, Route.CompiledRoute route, RequestBody data) {
 		this(api, route, data, null);
 	}
 
-	public RequestActionImpl(P4J api, Route.CompiledRoute route, BiFunction<Response, Request<T>, T> handler) {
+	public RequestActionImpl(PelicanApi api, Route.CompiledRoute route, BiFunction<Response, Request<T>, T> handler) {
 		this(api, route, null, handler);
 	}
 
 	public RequestActionImpl(
-			P4J api, Route.CompiledRoute route, RequestBody data, BiFunction<Response, Request<T>, T> handler) {
+			PelicanApi api, Route.CompiledRoute route, RequestBody data, BiFunction<Response, Request<T>, T> handler) {
 		this.api = api;
 		this.route = route;
 		this.data = data;
 		this.handler = handler;
 	}
 
-	public static <T> DeferredRequestAction<T> onExecute(P4J api, Supplier<? extends T> supplier) {
+	public static <T> DeferredRequestAction<T> onExecute(PelicanApi api, Supplier<? extends T> supplier) {
 		return new DeferredRequestAction<>(api, supplier);
 	}
 
-	public static <T> RequestActionImpl<T> onRequestExecute(P4J api, Route.CompiledRoute route) {
+	public static <T> RequestActionImpl<T> onRequestExecute(PelicanApi api, Route.CompiledRoute route) {
 		return new RequestActionImpl<>(api, route);
 	}
 
-	public static <T> RequestActionImpl<T> onRequestExecute(P4J api, Route.CompiledRoute route, RequestBody data) {
+	public static <T> RequestActionImpl<T> onRequestExecute(PelicanApi api, Route.CompiledRoute route, RequestBody data) {
 		return new RequestActionImpl<>(api, route, data);
 	}
 
 	public static <T> RequestActionImpl<T> onRequestExecute(
-			P4J api, Route.CompiledRoute route, BiFunction<Response, Request<T>, T> handler) {
+			PelicanApi api, Route.CompiledRoute route, BiFunction<Response, Request<T>, T> handler) {
 		return new RequestActionImpl<>(api, route, handler);
 	}
 
 	public static <T> RequestActionImpl<T> onRequestExecute(
-			P4J api, Route.CompiledRoute route, RequestBody data, BiFunction<Response, Request<T>, T> handler) {
+			PelicanApi api, Route.CompiledRoute route, RequestBody data, BiFunction<Response, Request<T>, T> handler) {
 		return new RequestActionImpl<>(api, route, data, handler);
 	}
 
@@ -129,9 +129,9 @@ public class RequestActionImpl<T> implements RequestAction<T> {
 		Consumer<? super T> finalizedSuccess = success;
 		Consumer<? super Throwable> finalizedFailure = failure;
 
-		api.getActionPool().submit(() -> {
+		api.actionPool().submit(() -> {
 			RequestBody data = finalizeData();
-			api.getRequester()
+			api.requester()
 					.request(new Request<>(this, finalizedSuccess, finalizedFailure, route, data, true, deadline));
 		});
 	}
@@ -143,7 +143,7 @@ public class RequestActionImpl<T> implements RequestAction<T> {
 	}
 
 	@Override
-	public P4J getP4J() {
+	public PelicanApi getP4J() {
 		return api;
 	}
 

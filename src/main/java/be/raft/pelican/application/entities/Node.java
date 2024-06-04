@@ -34,7 +34,7 @@ import be.raft.pelican.utils.StreamUtils;
 import java.util.List;
 import java.util.UUID;
 
-public interface Node extends ISnowflake {
+public interface Node extends IdentifiedEntity {
 
 	boolean isPublic();
 

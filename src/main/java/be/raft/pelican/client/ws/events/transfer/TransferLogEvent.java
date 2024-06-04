@@ -27,7 +27,7 @@
 package be.raft.pelican.client.ws.events.transfer;
 
 import be.raft.pelican.client.entities.ClientServer;
-import be.raft.pelican.client.entities.impl.PteroClientImpl;
+import be.raft.pelican.client.entities.impl.ClientImpl;
 import be.raft.pelican.client.managers.WebSocketManager;
 import be.raft.pelican.client.ws.events.Event;
 
@@ -35,7 +35,7 @@ public class TransferLogEvent extends Event {
 
 	private final String line;
 
-	public TransferLogEvent(PteroClientImpl api, ClientServer server, WebSocketManager manager, String line) {
+	public TransferLogEvent(ClientImpl api, ClientServer server, WebSocketManager manager, String line) {
 		super(api, server, manager);
 		this.line = line;
 	}

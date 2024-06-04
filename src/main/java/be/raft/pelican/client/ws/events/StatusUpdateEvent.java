@@ -28,7 +28,7 @@ package be.raft.pelican.client.ws.events;
 
 import be.raft.pelican.UtilizationState;
 import be.raft.pelican.client.entities.ClientServer;
-import be.raft.pelican.client.entities.impl.PteroClientImpl;
+import be.raft.pelican.client.entities.impl.ClientImpl;
 import be.raft.pelican.client.managers.WebSocketManager;
 
 public class StatusUpdateEvent extends Event {
@@ -36,7 +36,7 @@ public class StatusUpdateEvent extends Event {
 	private final UtilizationState state;
 
 	public StatusUpdateEvent(
-			PteroClientImpl api, ClientServer server, WebSocketManager manager, UtilizationState state) {
+            ClientImpl api, ClientServer server, WebSocketManager manager, UtilizationState state) {
 		super(api, server, manager);
 		this.state = state;
 	}

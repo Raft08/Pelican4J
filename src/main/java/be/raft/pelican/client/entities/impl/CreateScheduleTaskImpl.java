@@ -33,7 +33,7 @@ import be.raft.pelican.requests.action.AbstractScheduleTaskAction;
 
 public class CreateScheduleTaskImpl extends AbstractScheduleTaskAction {
 
-	public CreateScheduleTaskImpl(ClientServer server, Schedule schedule, PteroClientImpl impl) {
+	public CreateScheduleTaskImpl(ClientServer server, Schedule schedule, ClientImpl impl) {
 		super(
 				impl,
 				schedule,

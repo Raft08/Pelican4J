@@ -28,13 +28,13 @@ package be.raft.pelican.client.ws.handle;
 
 import be.raft.pelican.UtilizationState;
 import be.raft.pelican.client.entities.ClientServer;
-import be.raft.pelican.client.entities.impl.PteroClientImpl;
+import be.raft.pelican.client.entities.impl.ClientImpl;
 import be.raft.pelican.client.managers.WebSocketManager;
 import be.raft.pelican.client.ws.events.StatusUpdateEvent;
 
 public class StatusHandler extends ClientSocketHandler {
 
-	public StatusHandler(PteroClientImpl client, ClientServer server, WebSocketManager manager) {
+	public StatusHandler(ClientImpl client, ClientServer server, WebSocketManager manager) {
 		super(client, server, manager);
 	}
 

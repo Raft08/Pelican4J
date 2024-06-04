@@ -31,9 +31,9 @@ import be.raft.pelican.PowerAction;
 import be.raft.pelican.RequestAction;
 import be.raft.pelican.client.entities.Account;
 import be.raft.pelican.client.entities.ClientServer;
-import be.raft.pelican.client.entities.PteroClient;
+import be.raft.pelican.client.entities.Client;
 import be.raft.pelican.client.entities.Utilization;
-import be.raft.pelican.entities.P4J;
+import be.raft.pelican.entities.PelicanApi;
 import be.raft.pelican.requests.PaginationAction;
 import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
@@ -43,15 +43,15 @@ import java.util.List;
 import java.util.stream.Stream;
 import org.json.JSONObject;
 
-public class PteroClientImpl implements PteroClient {
+public class ClientImpl implements Client {
 
-	private final P4J api;
+	private final PelicanApi api;
 
-	public PteroClientImpl(P4J api) {
+	public ClientImpl(PelicanApi api) {
 		this.api = api;
 	}
 
-	public P4J getP4J() {
+	public PelicanApi getP4J() {
 		return api;
 	}
 

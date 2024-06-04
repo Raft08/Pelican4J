@@ -28,13 +28,13 @@ package be.raft.pelican.client.entities;
 
 import be.raft.pelican.PowerAction;
 import be.raft.pelican.RequestAction;
-import be.raft.pelican.application.entities.ISnowflake;
+import be.raft.pelican.application.entities.IdentifiedEntity;
 import be.raft.pelican.client.managers.ScheduleTaskManager;
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
 
-public interface Schedule extends ISnowflake {
+public interface Schedule extends IdentifiedEntity {
 
 	String getName();
 
@@ -56,7 +56,7 @@ public interface Schedule extends ISnowflake {
 
 	RequestAction<Void> delete();
 
-	interface ScheduleTask extends ISnowflake {
+	interface ScheduleTask extends IdentifiedEntity {
 		int getSequenceId();
 
 		ScheduleAction getAction();

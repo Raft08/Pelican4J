@@ -44,9 +44,9 @@ public class ScheduleImpl implements Schedule {
 	private final JSONObject tasks;
 
 	private final ClientServer server;
-	private final PteroClientImpl impl;
+	private final ClientImpl impl;
 
-	public ScheduleImpl(JSONObject json, ClientServer server, PteroClientImpl impl) {
+	public ScheduleImpl(JSONObject json, ClientServer server, ClientImpl impl) {
 		this.json = json.getJSONObject("attributes");
 		this.tasks = this.json.getJSONObject("relationships").getJSONObject("tasks");
 		this.server = server;

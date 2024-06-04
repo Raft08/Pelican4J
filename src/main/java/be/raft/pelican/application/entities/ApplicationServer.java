@@ -43,7 +43,7 @@ import java.util.Optional;
  * @see Application#retrieveServersByOwner(ApplicationUser)
  * @see Application#retrieveServersByNode(Node)
  */
-public interface ApplicationServer extends Server, ISnowflake {
+public interface ApplicationServer extends Server, IdentifiedEntity {
 
 	/**
 	 * Returns whether or not this ApplicationServer is currently in a suspended state

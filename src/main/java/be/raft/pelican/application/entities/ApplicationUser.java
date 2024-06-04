@@ -33,7 +33,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
-public interface ApplicationUser extends User, ISnowflake {
+public interface ApplicationUser extends User, IdentifiedEntity {
 
 	String getFirstName();
 

@@ -42,7 +42,7 @@ public class RenameActionImpl extends RequestActionImpl<Void> implements RenameA
 
 	private final Map<GenericFile, String> files;
 
-	public RenameActionImpl(ClientServer server, PteroClientImpl impl) {
+	public RenameActionImpl(ClientServer server, ClientImpl impl) {
 		super(impl.getP4J(), Route.Files.RENAME_FILES.compile(server.getIdentifier()));
 		this.files = new HashMap<>();
 	}
