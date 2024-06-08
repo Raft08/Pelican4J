@@ -203,7 +203,7 @@ public class ApplicationImpl implements Application {
 	public RequestAction<ApplicationEgg> retrieveEggById(@NotNull String id) {
 		return RequestActionImpl.onRequestExecute(
 				api,
-				Route.Nests.GET_NEST.compile(id),
+				Route.Eggs.GET_EGG.compile(id),
 				(response, request) -> new ApplicationEggImpl(response.getObject()));
 	}
 
