@@ -251,7 +251,7 @@ public class PelicanBuilder {
 	 *
 	 * @return newly created api instance with the settings of the builder.
 	 */
-	private PelicanApi create() {
+	public PelicanApi create() {
 		EndpointConfig endpointConfig = new EndpointConfig(applicationUrl, token);
 
 		ThreadingConfig threadingConfig = new ThreadingConfig();
