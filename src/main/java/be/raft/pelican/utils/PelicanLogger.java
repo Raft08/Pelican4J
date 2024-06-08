@@ -37,7 +37,7 @@ import org.slf4j.LoggerFactory;
  * <br>It will either return a Logger from a SLF4J implementation via {@link org.slf4j.LoggerFactory} if present,
  * or an instance of a custom {@link SimpleLogger} (From slf4j-simple).
  */
-public class P4JLogger {
+public class PelicanLogger {
 	// thanks jda
 
 	/**
@@ -67,7 +67,7 @@ public class P4JLogger {
 			} catch (ClassNotFoundException eService) {
 				// there was no service provider interface (SLF4J 1.8.x+)
 				// let's print a warning of missing implementation
-				LoggerFactory.getLogger(P4JLogger.class);
+				LoggerFactory.getLogger(PelicanLogger.class);
 			}
 		}
 
@@ -86,6 +86,7 @@ public class P4JLogger {
 	public static Logger getLogger(Class<?> clazz) {
 		synchronized (LOGS) {
 			if (SLF4J_ENABLED) return LoggerFactory.getLogger(clazz);
+
 			return LOGS.computeIfAbsent(clazz.getName(), (n) -> new SimpleLogger(clazz.getSimpleName()));
 		}
 	}

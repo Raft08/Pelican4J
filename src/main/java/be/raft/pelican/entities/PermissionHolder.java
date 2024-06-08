@@ -29,7 +29,7 @@ package be.raft.pelican.entities;
 import be.raft.pelican.Permission;
 import java.util.EnumSet;
 
-public interface IPermissionHolder {
+public interface PermissionHolder {
 
 	EnumSet<Permission> getPermissions();
 

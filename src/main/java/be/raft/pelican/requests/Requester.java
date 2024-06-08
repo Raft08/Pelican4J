@@ -29,7 +29,7 @@ package be.raft.pelican.requests;
 import be.raft.pelican.entities.PelicanApi;
 import be.raft.pelican.exceptions.HttpException;
 import be.raft.pelican.exceptions.LoginException;
-import be.raft.pelican.utils.P4JLogger;
+import be.raft.pelican.utils.PelicanLogger;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
 import javax.net.ssl.SSLPeerUnverifiedException;
@@ -48,7 +48,7 @@ public class Requester {
 	public static final MediaType MEDIA_TYPE_OCTET = MediaType.parse("application/octet-stream; charset=utf-8");
 	private static final String PTERODACTYL_API_PREFIX = "%s/api/";
 	private final PelicanApi api;
-	private final Logger REQUESTER_LOG = P4JLogger.getLogger(Requester.class);
+	private final Logger REQUESTER_LOG = PelicanLogger.getLogger(Requester.class);
 	private final RateLimiter rateLimiter;
 	private final OkHttpClient client;
 	private final String userAgent;
@@ -91,8 +91,7 @@ public class Requester {
 
 		okhttp3.Request.Builder builder = new okhttp3.Request.Builder();
 
-		if (api.url() == null || api.url().isEmpty())
-			throw new HttpException("No Pterodactyl URL was defined.");
+		if (api.url() == null || api.url().isEmpty()) throw new HttpException("No Pterodactyl URL was defined.");
 		String applicationUrl = api.url();
 		if (applicationUrl.endsWith("/")) applicationUrl = applicationUrl.substring(0, applicationUrl.length() - 1);
 		String url = String.format(PTERODACTYL_API_PREFIX, applicationUrl)

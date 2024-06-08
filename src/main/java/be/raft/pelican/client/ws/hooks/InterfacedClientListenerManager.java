@@ -27,7 +27,7 @@
 package be.raft.pelican.client.ws.hooks;
 
 import be.raft.pelican.client.ws.events.Event;
-import be.raft.pelican.utils.P4JLogger;
+import be.raft.pelican.utils.PelicanLogger;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -36,7 +36,7 @@ import org.slf4j.Logger;
 
 public class InterfacedClientListenerManager implements IClientListenerManager {
 
-	private static final Logger LISTENER_LOG = P4JLogger.getLogger(ClientSocketListener.class);
+	private static final Logger LISTENER_LOG = PelicanLogger.getLogger(ClientSocketListener.class);
 
 	private final List<ClientSocketListener> listeners = new CopyOnWriteArrayList<>();
 

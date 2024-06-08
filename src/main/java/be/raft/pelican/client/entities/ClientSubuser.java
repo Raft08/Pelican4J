@@ -26,12 +26,12 @@
 
 package be.raft.pelican.client.entities;
 
-import be.raft.pelican.entities.IPermissionHolder;
+import be.raft.pelican.entities.PermissionHolder;
 import be.raft.pelican.entities.User;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
-public interface ClientSubuser extends User, IPermissionHolder {
+public interface ClientSubuser extends User, PermissionHolder {
 
 	String getImage();
 

@@ -59,8 +59,6 @@ public interface ServerCreationAction extends RequestAction<ApplicationServer> {
 
 	ServerCreationAction setCPU(long amount);
 
-	ServerCreationAction setThreads(String cores);
-
 	ServerCreationAction setDatabases(long amount);
 
 	ServerCreationAction setAllocations(long amount);

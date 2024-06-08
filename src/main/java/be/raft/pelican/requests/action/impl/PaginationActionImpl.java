@@ -31,7 +31,7 @@ import be.raft.pelican.requests.PaginationAction;
 import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
 import be.raft.pelican.utils.Checks;
-import be.raft.pelican.utils.P4JLogger;
+import be.raft.pelican.utils.PelicanLogger;
 import be.raft.pelican.utils.Procedure;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -44,7 +44,7 @@ import org.slf4j.Logger;
 
 public abstract class PaginationActionImpl<T> extends RequestActionImpl<List<T>> implements PaginationAction<T> {
 
-	protected static final Logger PAGINATION_LOG = P4JLogger.getLogger(PaginationAction.class);
+	protected static final Logger PAGINATION_LOG = PelicanLogger.getLogger(PaginationAction.class);
 
 	protected final List<T> cached = new CopyOnWriteArrayList<>();
 	protected final int minLimit;

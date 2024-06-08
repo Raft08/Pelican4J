@@ -28,7 +28,7 @@ package be.raft.pelican.requests;
 
 import be.raft.pelican.entities.PelicanApi;
 import be.raft.pelican.utils.LockUtils;
-import be.raft.pelican.utils.P4JLogger;
+import be.raft.pelican.utils.PelicanLogger;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Queue;
@@ -39,7 +39,7 @@ import org.slf4j.Logger;
 
 public class RateLimiter implements Runnable {
 
-	public static final Logger RATELIMIT_LOG = P4JLogger.getLogger(RateLimiter.class);
+	public static final Logger RATELIMIT_LOG = PelicanLogger.getLogger(RateLimiter.class);
 
 	private static final String RESET_HEADER = "X-RateLimit-Reset";
 	private static final String LIMIT_HEADER = "X-RateLimit-Limit";
@@ -59,7 +59,7 @@ public class RateLimiter implements Runnable {
 
 	public RateLimiter(Requester requester, PelicanApi api) {
 		this.requester = requester;
-		this.scheduler = api.rateLimitµPool();
+		this.scheduler = api.rateLimitPool();
 	}
 
 	public void queueRequest(Request<?> request) {

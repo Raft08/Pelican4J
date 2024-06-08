@@ -55,7 +55,6 @@ public class CreateServerImpl extends RequestActionImpl<ApplicationServer> imple
 	private long disk;
 	private long cpu = 0L;
 	private long io = 500L;
-	private String threads;
 	private long databases = 0L;
 	private long allocations = 0L;
 	private long backups = 0L;
@@ -133,12 +132,6 @@ public class CreateServerImpl extends RequestActionImpl<ApplicationServer> imple
 	@Override
 	public ServerCreationAction setIO(long amount) {
 		this.io = amount;
-		return this;
-	}
-
-	@Override
-	public ServerCreationAction setThreads(String cores) {
-		this.threads = cores;
 		return this;
 	}
 
@@ -236,8 +229,7 @@ public class CreateServerImpl extends RequestActionImpl<ApplicationServer> imple
 				.put("swap", swap)
 				.put("disk", disk)
 				.put("io", io)
-				.put("cpu", cpu)
-				.put("threads", threads);
+				.put("cpu", cpu);
 		JSONObject allocation = new JSONObject()
 				.put("default", defaultAllocation != null ? defaultAllocation.getIdLong() : null)
 				.put(

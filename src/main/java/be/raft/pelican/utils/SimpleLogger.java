@@ -27,6 +27,7 @@
 package be.raft.pelican.utils;
 
 import java.io.PrintStream;
+import java.io.Serial;
 import java.text.DateFormat;
 import java.util.Date;
 import org.slf4j.helpers.FormattingTuple;
@@ -36,7 +37,9 @@ import org.slf4j.spi.LocationAwareLogger;
 
 class SimpleLogger extends MarkerIgnoringBase {
 
+	@Serial
 	private static final long serialVersionUID = -4634988394764007409L;
+
 	private static final int LOG_LEVEL_TRACE = LocationAwareLogger.TRACE_INT;
 	private static final int LOG_LEVEL_DEBUG = LocationAwareLogger.DEBUG_INT;
 	private static final int LOG_LEVEL_INFO = LocationAwareLogger.INFO_INT;

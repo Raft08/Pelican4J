@@ -36,7 +36,7 @@ import be.raft.pelican.client.ws.events.connection.FailureEvent;
 import be.raft.pelican.client.ws.handle.*;
 import be.raft.pelican.requests.RequestActionImpl;
 import be.raft.pelican.requests.Route;
-import be.raft.pelican.utils.P4JLogger;
+import be.raft.pelican.utils.PelicanLogger;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -46,7 +46,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 
 public class WebSocketClient extends WebSocketListener implements Runnable {
-	public static final Logger WEBSOCKET_LOG = P4JLogger.getLogger(WebSocketClient.class);
+	public static final Logger WEBSOCKET_LOG = PelicanLogger.getLogger(WebSocketClient.class);
 
 	private final OkHttpClient webSocketClient;
 	private final ClientImpl client;

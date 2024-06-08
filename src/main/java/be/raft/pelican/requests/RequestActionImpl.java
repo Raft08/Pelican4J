@@ -29,7 +29,7 @@ package be.raft.pelican.requests;
 import be.raft.pelican.RequestAction;
 import be.raft.pelican.entities.PelicanApi;
 import be.raft.pelican.exceptions.PteroException;
-import be.raft.pelican.utils.P4JLogger;
+import be.raft.pelican.utils.PelicanLogger;
 import java.util.concurrent.CompletionException;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
@@ -41,7 +41,7 @@ import org.slf4j.Logger;
 
 public class RequestActionImpl<T> implements RequestAction<T> {
 
-	public static final Logger LOGGER = P4JLogger.getLogger(RequestAction.class);
+	public static final Logger LOGGER = PelicanLogger.getLogger(RequestAction.class);
 	public static final Consumer<Object> DEFAULT_SUCCESS = o -> {};
 	public static final Consumer<? super Throwable> DEFAULT_FAILURE =
 			t -> System.err.printf("Action execute returned failure: %s%n", t.getMessage());
@@ -83,7 +83,8 @@ public class RequestActionImpl<T> implements RequestAction<T> {
 		return new RequestActionImpl<>(api, route);
 	}
 
-	public static <T> RequestActionImpl<T> onRequestExecute(PelicanApi api, Route.CompiledRoute route, RequestBody data) {
+	public static <T> RequestActionImpl<T> onRequestExecute(
+			PelicanApi api, Route.CompiledRoute route, RequestBody data) {
 		return new RequestActionImpl<>(api, route, data);
 	}
 
