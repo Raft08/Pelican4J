@@ -36,6 +36,7 @@ import be.raft.pelican.requests.Route;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 import org.json.JSONObject;
 
 public class AccountImpl implements Account {
@@ -74,13 +75,13 @@ public class AccountImpl implements Account {
 	}
 
 	@Override
-	public String getLanguage() {
-		return json.getString("language");
+	public UUID getUUID() {
+		return UUID.fromString(json.getString("uuid"));
 	}
 
 	@Override
-	public long getId() {
-		return json.getLong("id");
+	public String getLanguage() {
+		return json.getString("language");
 	}
 
 	@Override

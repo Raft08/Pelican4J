@@ -33,6 +33,7 @@ import be.raft.pelican.entities.User;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Stream;
 
 public interface Account extends User {
@@ -45,7 +46,7 @@ public interface Account extends User {
 		return String.format("%s %s", getFirstName(), getLastName());
 	}
 
-	long getId();
+	UUID getUUID();
 
 	boolean isRootAdmin();
 
